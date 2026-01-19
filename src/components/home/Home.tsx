@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import ProfileCard from "./ProfileCard";
 
 function Home() {
   return (
@@ -11,6 +12,7 @@ function Home() {
         <p className="mt-6 text-lg text-muted-foreground font-mono">
           Start building something amazing with Next.js and TypeScript
         </p>
+        <ProfileCard />
       </div>
     </div>
   );
