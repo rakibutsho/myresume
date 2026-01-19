@@ -4,13 +4,22 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
-import { Crown, InfoIcon, Mail, Settings } from "lucide-react";
+import {
+  BrickWallShield,
+  Crown,
+  LucideWrench,
+  Package,
+  Send,
+  SquareCode,
+} from "lucide-react";
 
 const navigationLinks = [
   { name: "Home", href: "/", icon: Crown },
-  { name: "About", href: "/about", icon: InfoIcon },
-  { name: "Services", href: "/services", icon: Settings },
-  { name: "Contact", href: "/contact", icon: Mail },
+  { name: "Projects", href: "/projects", icon: SquareCode },
+  { name: "Experience", href: "/experience", icon: Package },
+  { name: "Tools", href: "/tools", icon: LucideWrench },
+  { name: "Activity", href: "/activity", icon: BrickWallShield },
+  { name: "Contact", href: "/contact", icon: Send},
 ];
 
 export const Navbar = () => {
@@ -104,7 +113,7 @@ export const Navbar = () => {
         <div
           ref={borderRef}
           className="
-            absolute -inset-px rounded-2xl blur-md opacity-50
+            absolute -inset-px rounded-full blur-md opacity-50
             bg-size-[200%_200%]
             bg-linear-to-r from-cyan-400 via-purple-500 to-pink-500
           "
@@ -115,7 +124,7 @@ export const Navbar = () => {
         <div className="relative rounded-2xl p-px bg-linear-to-r from-cyan-400 via-purple-500 to-pink-500">
           {/* Inner surface */}
           <div className="rounded-2xl bg-black/80 px-4 py-3 backdrop-blur">
-            <nav className="flex items-center gap-3">
+            <nav className="flex justify-between items-center gap-2">
               {navigationLinks.map((link, index) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.href;
@@ -131,7 +140,7 @@ export const Navbar = () => {
                     title={link.name}
                     className={`
                       relative grid place-items-center
-                      h-10 w-10 rounded-xl
+                      h-10 w-10 rounded-full
                       transition-colors
                       ${
                         isActive
