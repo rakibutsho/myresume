@@ -5,13 +5,15 @@ import profile from "@/assets/profille.png";
 
 function ProfileCard() {
   return (
-    <Card className="w-fit">
-      <Image src={profile} alt="profile" />
+    <div className="w-fit bg-white">
+      <div className="p-4">
+        <Image src={profile} alt="profile" className="w-full" />
+      </div>
 
-	  <div>
-		<h2 className="text-4xl font-serif">Md. Rakibul Islam</h2>
-	  </div>
-    </Card>
+      <div>
+        <h2 className="text-4xl font-serif text-black">Md. Rakibul Islam</h2>
+      </div>
+    </div>
   );
 }
 
