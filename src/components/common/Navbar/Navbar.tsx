@@ -107,7 +107,7 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full">
+    <header className="sticky top-6 z-50 w-full">
       <div ref={navRef} className="mx-auto mt-6 w-fit relative">
         {/* Animated border glow */}
         <div
