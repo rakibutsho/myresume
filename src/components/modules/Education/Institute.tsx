@@ -36,7 +36,7 @@ const Institute = () => {
       {education.map((insti) => (
         <div
           key={insti.id}
-          className="edu-card p-5 rounded-2xl border border-gray-200 hover:border-black transition"
+          className="edu-card p-5 rounded-2xl border border-gray-200 bg-white/10 hover:border-black transition"
         >
           <div className="flex items-start gap-4">
             {/* Logo */}

@@ -40,14 +40,14 @@ const WorkTools = () => {
         </span>
       </h2>
 
-      <div ref={listRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div ref={listRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
         {tools.map((tool) => (
           <div
             key={tool.id}
-            className="tool-card flex items-center gap-4 p-4 rounded-2xl border border-gray-200 hover:border-black transition"
+            className="tool-card flex items-center gap-4 p-4 rounded-2xl border bg-white/10 border-gray-200 hover:border-black transition"
           >
             {/* Image */}
-            <div className="relative w-12 h-12 shrink-0">
+            <div className="relative w-12 h-12 shrink-0 ">
               <Image
                 src={tool.image}
                 alt={tool.name}
