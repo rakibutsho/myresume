@@ -24,11 +24,6 @@ function Tools() {
                 priority={false}
               />
             </div>
-
-            {/* optional small caption */}
-            {/* <p className="text-sm text-gray-500 mt-3">
-              Building with the right tools makes everything smoother.
-            </p> */}
           </div>
 
           {/* Right: Tools */}
