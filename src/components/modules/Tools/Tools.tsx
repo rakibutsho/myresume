@@ -12,7 +12,7 @@ function Tools() {
         {/* Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* Left: GIF */}
-          <div className="lg:col-span-4">
+          <div className="hidden md:block lg:col-span-4">
             <div className="relative w-full h-65 sm:h-80 lg:h-105 ">
               <Image
                 src={workGif} // <-- change this path

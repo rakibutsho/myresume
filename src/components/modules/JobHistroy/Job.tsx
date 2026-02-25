@@ -13,7 +13,7 @@ const JobHistory = () => {
             <JobInstitute />
           </div>
 
-          <div className="lg:col-span-4">
+          <div className="hidden md:block lg:col-span-4">
             <div className="relative w-full h-65 sm:h-80 lg:h-105 ">
               <Image
                 src={jobImag} // <-- change this path

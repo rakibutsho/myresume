@@ -63,7 +63,7 @@ function JobInstitute() {
       <h2 className="text-4xl sm:text-6xl font-bold mb-8">
         Professional
         <br />
-        <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        <span className="pl-40 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           Journey
         </span>
       </h2>
