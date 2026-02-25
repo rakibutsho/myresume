@@ -51,7 +51,7 @@ export const projects: Project[] = [
       "Consumed and managed data from RESTful APIs to display dynamic content.",
       "Collaborated with backend developers using Git and version control workflow.",
     ],
-    // image: "/projects/anesthelink.png",
+    image: "/projects/anesthelink.png",
   },
   {
     id: "expense-manager",
@@ -76,7 +76,7 @@ export const projects: Project[] = [
       "Built category-based expense statistics with interactive charts.",
       "Enabled update and delete functionality for expenses.",
     ],
-    // image: "/projects/expense-manager.png",
+    image: "/projects/expense-manager.png",
   },
   {
     id: "urban-nest",
