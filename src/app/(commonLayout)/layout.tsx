@@ -1,4 +1,4 @@
-// import { Footer } from "@/components/common/Footer/Footer";
+import { Footer } from "@/components/common/Footer/Footer";
 import { Navbar } from "@/components/common/Navbar/Navbar";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function CommonLayout({
     <div>
       <Navbar />
       {children}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

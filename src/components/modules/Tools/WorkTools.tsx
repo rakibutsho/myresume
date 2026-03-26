@@ -44,7 +44,7 @@ const WorkTools = () => {
         {tools.map((tool) => (
           <div
             key={tool.id}
-            className="tool-card flex items-center gap-4 p-4 rounded-2xl border bg-white/10 border-gray-200 hover:border-black transition"
+            className="tool-card flex items-center gap-4 p-4 rounded-2xl border border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10 transition"
           >
             {/* Image */}
             <div className="relative w-12 h-12 shrink-0 ">
@@ -62,7 +62,7 @@ const WorkTools = () => {
               <h3 className="text-base font-semibold leading-tight">
                 {tool.name}
               </h3>
-              <p className="text-sm text-gray-600">{tool.category}</p>
+              <p className="text-sm text-white/50">{tool.category}</p>
             </div>
           </div>
         ))}

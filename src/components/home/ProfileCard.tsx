@@ -12,10 +12,10 @@ import {
 } from "lucide-react";
 
 const social = [
-  { name: "Facebook", href: "https://facebook.com", icon: Facebook },
+  { name: "Facebook", href: "https://www.facebook.com/rakib.utsho.1", icon: Facebook },
   { name: "WhatsApp", href: "tel:+8801707934655", icon: Phone },
-  { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedinIcon },
-  { name: "GitHub", href: "https://github.com", icon: GithubIcon },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/rakib-utsho/", icon: LinkedinIcon },
+  { name: "GitHub", href: "https://github.com/rakib-utsho", icon: GithubIcon },
 ];
 
 function ProfileCard() {
