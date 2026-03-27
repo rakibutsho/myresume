@@ -1,4 +1,3 @@
-export default HomePage;
 import Home from "@/components/home/Home";
 import AboutMe from "@/components/modules/AboutMe/AboutMe";
 import Skills from "@/components/modules/Skills/Skills";
