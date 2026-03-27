@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import {
   Crown,
-  LucideWrench,
   Send,
   SquareCode,
   Briefcase,
@@ -19,7 +18,7 @@ const navigationLinks = [
   { name: "About", href: "#about", icon: User },
   { name: "Skills", href: "#skills", icon: Cpu },
   { name: "Experience", href: "#experience", icon: Briefcase },
-  { name: "Tools", href: "#tools", icon: LucideWrench },
+  // { name: "Tools", href: "#tools", icon: LucideWrench },
   { name: "Projects", href: "#projects", icon: SquareCode },
   { name: "Education", href: "#education", icon: GraduationCap },
   { name: "Testimonials", href: "#testimonials", icon: MessageSquareQuote },
@@ -192,7 +191,7 @@ export const Navbar = () => {
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30
                     `}
                   >
-                    <Icon className="h-[18px] w-[18px]" />
+                    <Icon className="h-4.5 w-4.5" />
                   </a>
                 );
               })}

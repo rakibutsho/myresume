@@ -45,7 +45,6 @@ function JobInstitute() {
       el.addEventListener("mouseenter", onEnter);
       el.addEventListener("mouseleave", onLeave);
 
-      // store for cleanup
       (el as any).__onEnter = onEnter;
       (el as any).__onLeave = onLeave;
     });
@@ -60,13 +59,23 @@ function JobInstitute() {
 
   return (
     <div>
-      <h2 className="text-4xl sm:text-6xl font-bold mb-8">
-        Professional
-        <br />
-        <span className="pl-40 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+      {/* Title */}
+      <h2 className="text-4xl sm:text-6xl font-bold mb-4">
+        Professional{" "}
+        <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
           Journey
         </span>
       </h2>
+
+      {/* Section Description */}
+      <p className="text-white/70 max-w-2xl mb-8 text-sm sm:text-base leading-relaxed">
+        Here is an overview of my professional journey, highlighting the key
+        roles and experiences I have gained while working with different
+        organizations. Each step has contributed to building my skills,
+        improving my problem-solving abilities, and shaping my career growth.
+      </p>
+
+      {/* Cards */}
       <div
         ref={wrapRef}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
@@ -76,15 +85,15 @@ function JobInstitute() {
             <Card
               data-job-card
               className="
-              h-full text-white overflow-hidden
-              bg-white/10 backdrop-blur-md
-              border border-white/10
-              rounded-2xl
-              px-5 py-5
-              shadow-[0_10px_30px_-15px_rgba(0,0,0,0.6)]
-              transition-colors duration-300
-              hover:bg-white/15
-            "
+                h-full text-white overflow-hidden
+                bg-white/10 backdrop-blur-md
+                border border-white/10
+                rounded-2xl
+                px-5 py-5
+                shadow-[0_10px_30px_-15px_rgba(0,0,0,0.6)]
+                transition-colors duration-300
+                hover:bg-white/15
+              "
             >
               {/* Top */}
               <div className="flex items-center gap-4">
@@ -102,7 +111,7 @@ function JobInstitute() {
                   <h4 className="flex items-center gap-2 text-xl font-semibold leading-tight truncate text-wrap">
                     {job.companyName}
 
-                    <span className="inline-flex items-center justify-center rounded-full bg-blue-800 ">
+                    <span className="inline-flex items-center justify-center rounded-full bg-blue-800">
                       <VerifiedBadge className="h-4 w-4 text-white" />
                     </span>
                   </h4>
@@ -119,16 +128,17 @@ function JobInstitute() {
 
                 <span
                   className="
-                  text-xs text-white/85
-                  px-3 py-1 rounded-full
-                  bg-white/10 border border-white/10
-                "
+                    text-xs text-white/85
+                    px-3 py-1 rounded-full
+                    bg-white/10 border border-white/10
+                  "
                 >
                   {job.type}
                 </span>
               </div>
+
               {/* Description */}
-              <p className="text-sm leading-relaxed text-white/80 text-justify">
+              <p className="mt-4 text-sm leading-relaxed text-white/80 text-justify">
                 {job.description}
               </p>
             </Card>

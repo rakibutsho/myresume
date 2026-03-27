@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import profile from "@/assets/IMG_E1532.png";
+import profile from "@/assets/portfolio.png";
 import {
   Facebook,
   GithubIcon,
@@ -12,9 +12,17 @@ import {
 } from "lucide-react";
 
 const social = [
-  { name: "Facebook", href: "https://www.facebook.com/rakib.utsho.1", icon: Facebook },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/rakibulislam.utsho/",
+    icon: Facebook,
+  },
   { name: "WhatsApp", href: "tel:+8801707934655", icon: Phone },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/rakib-utsho/", icon: LinkedinIcon },
+  {
+    name: "LinkedIn",
+    href: "https://wa.me/8801707934655?text=Hello%20I%20want%20to%20know%20more",
+    icon: LinkedinIcon,
+  },
   { name: "GitHub", href: "https://github.com/rakib-utsho", icon: GithubIcon },
 ];
 

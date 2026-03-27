@@ -15,7 +15,7 @@ export default function ProjectsPage() {
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
         <div className="mb-10">
           <h2 className="text-4xl sm:text-6xl font-bold">
-            My <br />
+            My {}
             <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               Projects
             </span>

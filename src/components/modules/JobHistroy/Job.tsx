@@ -1,14 +1,15 @@
 import React from "react";
 
-import Image from "next/image";
-import jobImag from "@/assets/1691048235170.gif";
+// import Image from "next/image";
+// import jobImag from "@/assets/1691048235170.gif";
 import JobInstitute from "./JobInstitue";
 
 const JobHistory = () => {
   return (
     <section className="w-full mt-20">
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <JobInstitute />
+        {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-8">
             <JobInstitute />
           </div>
@@ -26,7 +27,7 @@ const JobHistory = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
