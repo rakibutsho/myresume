@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, MapPin, Phone, Send, Github, Linkedin } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 
@@ -13,8 +13,8 @@ const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "rakibutsho@gmail.com",
-    href: "mailto:rakibutsho@gmail.com",
+    value: "rakibutsho1920@gmail.com",
+    href: "mailto:rakibutsho1920@gmail.com",
   },
   {
     icon: Phone,
@@ -30,18 +30,18 @@ const contactInfo = [
   },
 ];
 
-const contactSocials = [
-  {
-    icon: Github,
-    href: "https://github.com/rakib-utsho",
-    label: "GitHub",
-  },
-  {
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/rakib-utsho/",
-    label: "LinkedIn",
-  },
-];
+// const contactSocials = [
+//   {
+//     icon: Github,
+//     href: "https://github.com/rakib-utsho",
+//     label: "GitHub",
+//   },
+//   {
+//     icon: Linkedin,
+//     href: "https://www.linkedin.com/in/rakib-utsho/",
+//     label: "LinkedIn",
+//   },
+// ];
 
 function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -289,7 +289,7 @@ function Contact() {
             })}
 
             {/* Social links */}
-            <div className="flex gap-3 pt-2">
+            {/* <div className="flex gap-3 pt-2">
               {contactSocials.map((social) => {
                 const Icon = social.icon;
                 return (
@@ -309,7 +309,7 @@ function Contact() {
                   </Link>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

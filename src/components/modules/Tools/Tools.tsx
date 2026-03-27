@@ -7,7 +7,7 @@ import WorkTools from "./WorkTools";
 
 function Tools() {
   return (
-    <section id="tools" className="w-full">
+    <section id="tools" className="w-full mt-10">
       <div className="w-full  mx-auto px-4">
         {/* Layout */}
         {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

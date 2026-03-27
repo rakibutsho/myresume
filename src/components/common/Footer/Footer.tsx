@@ -12,17 +12,17 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    href: "https://www.linkedin.com/in/rakib-utsho/",
+    href: "https://www.linkedin.com/in/md-rakibutsho-cse",
     icon: Linkedin,
   },
   {
     name: "Facebook",
-    href: "https://www.facebook.com/rakib.utsho.1",
+    href: "https://www.facebook.com/rakibulislam.utsho",
     icon: Facebook,
   },
   {
     name: "Email",
-    href: "mailto:rakibutsho@gmail.com",
+    href: "mailto:rakibutsho1920@gmail.com",
     icon: Mail,
   },
 ];
@@ -58,7 +58,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-1">
             <h3 className="text-2xl font-bold text-white">
-              Rakibul Islam
+              Md. Rakibul Islam
               <span className="bg-linear-to-r from-fuchsia-400 to-violet-400 bg-clip-text text-transparent">
                 .
               </span>
@@ -115,15 +115,13 @@ export const Footer = () => {
               Get In Touch
             </h4>
             <ul className="space-y-3">
-              <li className="text-sm text-white/50">
-                📍 Dhaka, Bangladesh
-              </li>
+              <li className="text-sm text-white/50">📍 Dhaka, Bangladesh</li>
               <li>
                 <Link
-                  href="mailto:rakibutsho@gmail.com"
+                  href="mailto:rakibutsho1920@gmail.com"
                   className="text-sm text-white/50 hover:text-white transition-colors"
                 >
-                  ✉️ rakibutsho@gmail.com
+                  ✉️ rakibutsho1920@gmail.com
                 </Link>
               </li>
               <li>

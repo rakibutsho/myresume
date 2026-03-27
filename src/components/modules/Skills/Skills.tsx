@@ -103,7 +103,7 @@ function Skills() {
   };
 
   return (
-    <section id="skills" ref={sectionRef} className="w-full mt-20">
+    <section id="skills" ref={sectionRef} className="w-full mt-10">
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
         {/* Heading */}
         <div ref={headingRef} className="mb-12">

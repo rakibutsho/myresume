@@ -85,7 +85,7 @@ export const projects: Project[] = [
     type: "Full Stack",
     tech: ["EJS", "Bootstrap CSS", "Node.js", "Express.js", "MongoDB"],
     isPrivate: false,
-    liveUrl: "https://urbannest-rental-webapp.onrender.com/listings", // replace with real
+    liveUrl: "https://urbannest-rental-webapp-tbgr.onrender.com", // replace with real
     githubUrl: "https://github.com/rakib-utsho/UrbanNest-Rental-WebApp", // replace with real
     highlights: [
       "Developed a full-stack hotel and house rental web application inspired by Airbnb.",

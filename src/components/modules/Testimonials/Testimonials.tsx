@@ -67,7 +67,7 @@ function Testimonials() {
   ];
 
   return (
-    <section id="testimonials" ref={sectionRef} className="w-full mt-20">
+    <section id="testimonials" ref={sectionRef} className="w-full mt-10">
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
         {/* Heading */}
         <div ref={headingRef} className="mb-12">
@@ -84,10 +84,7 @@ function Testimonials() {
         </div>
 
         {/* Testimonial Cards Grid */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
-        >
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {testimonials.map((t, i) => (
             <div
               key={t.id}
@@ -101,7 +98,7 @@ function Testimonials() {
             >
               {/* Quote icon */}
               <div className="absolute top-5 right-5">
-                <Quote className="h-8 w-8 text-white/[0.06]" />
+                <Quote className="h-8 w-8 text-white/6" />
               </div>
 
               {/* Message */}
@@ -125,9 +122,7 @@ function Testimonials() {
                 </div>
 
                 <div>
-                  <p className="text-sm font-semibold text-white">
-                    {t.name}
-                  </p>
+                  <p className="text-sm font-semibold text-white">{t.name}</p>
                   <p className="text-xs text-white/50">
                     {t.role} • {t.company}
                   </p>

@@ -26,11 +26,12 @@ export default function ProjectCard({ project }: Props) {
       >
         {/* ✅ Image (same size for all) */}
         {project.image && (
-          <div className="relative w-full h-[250px] overflow-hidden">
+          <div className="relative w-full h-62.5 overflow-hidden">
             <Image
               src={project.image}
               alt={project.title || "project"}
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-fill transition duration-300 hover:scale-105"
             />
           </div>

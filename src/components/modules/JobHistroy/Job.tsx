@@ -6,7 +6,7 @@ import JobInstitute from "./JobInstitue";
 
 const JobHistory = () => {
   return (
-    <section className="w-full mt-20">
+    <section className="w-full mt-10">
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
         <JobInstitute />
         {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

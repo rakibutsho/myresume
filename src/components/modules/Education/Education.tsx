@@ -18,26 +18,26 @@ const Education = () => {
   }, []);
 
   return (
-    <section id="education" className="w-full">
+    <section id="education" className="w-full mt-10">
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="">
           {/* Left: Heading */}
-          <div ref={headingRef} className="lg:col-span-4">
+          <div ref={headingRef} className=" mb-12">
             <h2 className="text-4xl sm:text-6xl font-bold leading-tight">
-              Educational <br />
+              Educational {""}
               <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 Journey
               </span>
             </h2>
 
-            <p className="text-gray-500 mt-3 max-w-sm">
+            <p className="mt-4 text-white/70 max-w-2xl">
               A snapshot of my academic background and the path that shaped my
               skills.
             </p>
           </div>
 
           {/* Right: Institutes */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 mt-3 md:mt-0">
             <Institute />
           </div>
         </div>

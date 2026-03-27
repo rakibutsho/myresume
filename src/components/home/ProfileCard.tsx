@@ -17,10 +17,14 @@ const social = [
     href: "https://www.facebook.com/rakibulislam.utsho/",
     icon: Facebook,
   },
-  { name: "WhatsApp", href: "tel:+8801707934655", icon: Phone },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/8801707934655?text=Hello%20I%20want%20to%20know%20more",
+    icon: Phone,
+  },
   {
     name: "LinkedIn",
-    href: "https://wa.me/8801707934655?text=Hello%20I%20want%20to%20know%20more",
+    href: "https://www.linkedin.com/in/md-rakibutsho-cse/",
     icon: LinkedinIcon,
   },
   { name: "GitHub", href: "https://github.com/rakib-utsho", icon: GithubIcon },
