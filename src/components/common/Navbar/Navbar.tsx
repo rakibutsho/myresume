@@ -1,32 +1,72 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
-import { usePathname } from "next/navigation";
 import {
-  BrickWallShield,
   Crown,
-  LucideWrench,
-  Package,
   Send,
   SquareCode,
+  Briefcase,
+  User,
+  GraduationCap,
+  MessageSquareQuote,
+  Cpu,
 } from "lucide-react";
 
 const navigationLinks = [
-  { name: "Home", href: "/", icon: Crown },
-  { name: "Projects", href: "/projects", icon: SquareCode },
-  { name: "Experience", href: "/experience", icon: Package },
-  { name: "Tools", href: "/tools", icon: LucideWrench },
-  { name: "Activity", href: "/activity", icon: BrickWallShield },
-  { name: "Contact", href: "/contact", icon: Send},
+  { name: "Home", href: "#home", icon: Crown },
+  { name: "About", href: "#about", icon: User },
+  { name: "Skills", href: "#skills", icon: Cpu },
+  { name: "Experience", href: "#experience", icon: Briefcase },
+  // { name: "Tools", href: "#tools", icon: LucideWrench },
+  { name: "Projects", href: "#projects", icon: SquareCode },
+  { name: "Education", href: "#education", icon: GraduationCap },
+  { name: "Testimonials", href: "#testimonials", icon: MessageSquareQuote },
+  { name: "Contact", href: "#contact", icon: Send },
 ];
 
 export const Navbar = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState("#home");
+
+  // Smooth scroll handler
+  const handleClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      const id = href.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else if (href === "#home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      setActiveSection(href);
+    },
+    [],
+  );
+
+  // Track active section on scroll
+  useEffect(() => {
+    const sectionIds = navigationLinks.map((l) => l.href.replace("#", ""));
+
+    const onScroll = () => {
+      const scrollY = window.scrollY + 200;
+
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el && el.offsetTop <= scrollY) {
+          setActiveSection(`#${sectionIds[i]}`);
+          return;
+        }
+      }
+      setActiveSection("#home");
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -107,8 +147,8 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <header className="sticky top-6 z-50 w-full">
-      <div ref={navRef} className="mx-auto mt-6 w-fit relative">
+    <header className="sticky top-4 z-50 w-full">
+      <div ref={navRef} className="mx-auto mt-4 w-fit relative">
         {/* Animated border glow */}
         <div
           ref={borderRef}
@@ -123,16 +163,17 @@ export const Navbar = () => {
         {/* Border */}
         <div className="relative rounded-2xl p-px bg-linear-to-r from-cyan-400 via-purple-500 to-pink-500">
           {/* Inner surface */}
-          <div className="rounded-2xl bg-black/80 px-4 py-3 backdrop-blur">
-            <nav className="flex justify-between items-center gap-2">
+          <div className="rounded-2xl bg-black/80 px-3 py-2.5 backdrop-blur-xl">
+            <nav className="flex justify-between items-center gap-1.5">
               {navigationLinks.map((link, index) => {
                 const Icon = link.icon;
-                const isActive = pathname === link.href;
+                const isActive = activeSection === link.href;
 
                 return (
-                  <Link
+                  <a
                     key={link.name}
                     href={link.href}
+                    onClick={(e) => handleClick(e, link.href)}
                     ref={(el) => {
                       itemRefs.current[index] = el;
                     }}
@@ -140,18 +181,18 @@ export const Navbar = () => {
                     title={link.name}
                     className={`
                       relative grid place-items-center
-                      h-10 w-10 rounded-full
-                      transition-colors
+                      h-9 w-9 rounded-full
+                      transition-colors duration-200
                       ${
                         isActive
                           ? "bg-white/15 text-white shadow-inner"
-                          : "text-white/70 hover:text-white"
+                          : "text-white/60 hover:text-white"
                       }
                       focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30
                     `}
                   >
-                    <Icon className="h-5 w-5" />
-                  </Link>
+                    <Icon className="h-4.5 w-4.5" />
+                  </a>
                 );
               })}
             </nav>

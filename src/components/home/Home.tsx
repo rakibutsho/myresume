@@ -5,7 +5,7 @@ import gsap from "gsap";
 import ProfileCard from "./ProfileCard";
 
 const STATS = [
-  { label: "Years Experience", value: "2+" },
+  { label: "Years Experience", value: "1.5+" },
   { label: "Projects Built", value: "15+" },
   { label: "Focus", value: "JS • Next • Go" },
 ];
