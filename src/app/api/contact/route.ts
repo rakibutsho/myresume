@@ -1,0 +1,46 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { contactEmailTemplate } from "@/lib/emailTemplate";
+import nodemailer from "nodemailer";
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { name, email, message } = body;
+    console.log("Received contact form submission:", { name, email, message });
+
+    if (!name || !email || !message) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        { status: 400 },
+      );
+    }
+
+    //transform the data as needed, e.g. send email, store in database, etc.
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: email,
+      to: process.env.EMAIL_USER,
+      replyTo: email,
+      subject: `New Message from ${name} (${email})`,
+      html: contactEmailTemplate({ name, email, message }),
+    };
+
+    await transporter.sendMail(mailOptions);
+    return Response.json({
+      success: true,
+      message: "Message sent successfully",
+    });
+  } catch (error: any) {
+    return Response.json(
+      { success: false, error: `Failed to send message: ${error.message}` },
+      { status: 500 },
+    );
+  }
+}

@@ -61,9 +61,9 @@ function ProfileCard() {
             </h2>
 
             <p className="mt-2 text-sm text-white/70">
-              Software Engineer •{" "}
+              <span className="font-medium text-lg">Software Engineer</span><br />
               <span className="bg-linear-to-r from-fuchsia-400 via-purple-400 to-violet-300 bg-clip-text text-transparent font-medium">
-                JavaScript • MERN • Next.js • Golang
+                JavaScript | MERN | Next.js | Golang
               </span>
             </p>
 

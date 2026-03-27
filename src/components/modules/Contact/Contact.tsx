@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -114,7 +115,7 @@ function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
@@ -122,25 +123,36 @@ function Contact() {
       return;
     }
 
-    setSending(true);
+    if (!formData.email.includes("@")) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
 
-    // Construct mailto link
-    const subject = encodeURIComponent(
-      `Portfolio Contact from ${formData.name}`,
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-    );
-    window.open(
-      `mailto:rakibutsho@gmail.com?subject=${subject}&body=${body}`,
-      "_self",
-    );
-
-    setTimeout(() => {
+    try {
+      setSending(true);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (data.success) {
+        toast.success("Message sent successfully! Thank you for reaching out.");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        toast.error(
+          data.error || "Something went wrong. Please try again later.",
+        );
+      }
+    } catch (error:any) {
+      toast.error(
+        error.message || "Failed to send message. Please try again later.",
+      );
+    } finally {
       setSending(false);
-      toast.success("Email client opened! Thank you for reaching out.");
-      setFormData({ name: "", email: "", message: "" });
-    }, 1000);
+    }
   };
 
   return (
@@ -239,7 +251,7 @@ function Contact() {
                 px-6 py-3 rounded-xl text-sm font-semibold text-white
                 bg-linear-to-r from-fuchsia-500 via-purple-500 to-violet-500
                 hover:brightness-110 transition
-                disabled:opacity-50 disabled:cursor-not-allowed
+                disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
               "
             >
               <Send className="h-4 w-4" />
