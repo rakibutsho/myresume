@@ -5,7 +5,7 @@ import JobInstitute from "./JobInstitue";
 const highlights = [
   { label: "Roles", value: "3" },
   { label: "Years in Product Work", value: "1.5+" },
-  { label: "Focus", value: "Frontend Delivery" },
+  { label: "Focus", value: "Full-Stack Delivery" },
 ];
 
 const JobHistory = () => {

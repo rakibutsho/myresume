@@ -132,10 +132,24 @@ function JobInstitute() {
                 </span>
               </div>
 
-              {/* Description */}
-              <p className="mt-5 text-sm leading-relaxed text-white/80 text-justify">
-                {job.description}
-              </p>
+              {/* Stack Tags */}
+              <div className="mt-4 flex flex-wrap gap-2">
+                {job.stack?.map((item: string) => (
+                  <span
+                    key={item}
+                    className="text-[11px] px-2.5 py-1 rounded-full border border-cyan-300/25 bg-cyan-300/8 text-cyan-100"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              {/* Impact Highlights */}
+              <ul className="mt-5 list-disc pl-5 space-y-2 text-sm leading-relaxed text-white/80">
+                {job.highlights?.map((point: string) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
             </Card>
           </div>
         ))}

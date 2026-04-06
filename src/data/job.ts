@@ -1,6 +1,6 @@
+import bcc from "@/assets/job/bcc.png";
 import sm from "@/assets/job/sm.png";
 import trodev from "@/assets/job/trodev.png";
-import bcc from "@/assets/job/bcc.png";
 
 export const jobs = [
   {
@@ -10,8 +10,14 @@ export const jobs = [
     position: "Frontend Engineer",
     timeline: "Apr 2025 - Present",
     type: "Full-Time Onsite",
-    description:
-      "Developed and maintained responsive web applications using Next.js, React.js, and TypeScript. Built reusable and scalable UI components based on UI/UX design specifications. Integrated RESTful APIs and optimized frontend performance to improve load times and overall user experience. Collaborated closely with backend developers and designers using Git and structured version control workflows.",
+    stack: ["Next.js", "React", "TypeScript", "Redux", "REST API"],
+    highlights: [
+      "Owned key dashboard modules from implementation to production release for active client-facing workflows.",
+      "Built reusable UI patterns and shared components that reduced repeated development effort across new features.",
+      "Improved page responsiveness and frontend performance through component optimization, lazy-loading, and cleanup of render-heavy sections.",
+      "Integrated REST APIs with stable loading/error states to improve reliability in real usage conditions.",
+      "Collaborated closely with backend engineers and designers, helping deliver features in smaller, review-friendly pull requests.",
+    ],
   },
   {
     id: 2,
@@ -20,8 +26,14 @@ export const jobs = [
     position: "Junior Developer",
     timeline: "Feb 2024 - May 2024",
     type: "Remote",
-    description:
-      "Assisted in developing user interfaces using HTML, CSS, JavaScript, and React. Identified and resolved UI bugs to enhance usability, accessibility, and performance. Followed coding best practices and contributed to maintaining clean, readable, and maintainable codebases.",
+    stack: ["React", "JavaScript", "HTML", "CSS", "Git"],
+    highlights: [
+      "Implemented responsive UI sections from design references using React and modern CSS practices.",
+      "Resolved UI bugs and layout inconsistencies that improved usability across desktop and mobile breakpoints.",
+      "Contributed to code cleanup and reusable component structure under senior developer guidance.",
+      "Improved confidence in releases by validating edge cases before merging feature updates.",
+      "Strengthened team workflow habits through consistent Git usage, code reviews, and communication.",
+    ],
   },
   {
     id: 3,
@@ -30,7 +42,12 @@ export const jobs = [
     position: "Software Quality Testing",
     timeline: "Mar 2024 - Apr 2024",
     type: "Internship",
-    description:
-      "Completed a one-month internship at the Bangladesh Computer Council from March to April 2024. Assisted in identifying and analyzing issues related to software testing and quality assurance. Developed professional skills in problem-solving, punctuality, and teamwork while working with the SQTC team.",
+    stack: ["Manual QA", "Test Cases", "Bug Reporting", "Documentation"],
+    highlights: [
+      "Supported QA activities by executing manual test cases and validating expected behavior across common user flows.",
+      "Documented defects with clear repro steps, helping team members identify and fix issues faster.",
+      "Participated in issue triage discussions and learned practical quality assurance fundamentals.",
+      "Built discipline in release checks, communication, and structured reporting in a professional environment.",
+    ],
   },
 ];
