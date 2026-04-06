@@ -1,12 +1,12 @@
 // src/app/projects/page.tsx
 
-import React from "react";
-import ProjectsGrid from "./ProjectsGrid";
 import { projects } from "@/data/project";
+import ProjectsGrid from "./ProjectsGrid";
 
 export const metadata = {
   title: "Projects",
-  description: "A selection of projects built with Next.js and modern tools.",
+  description:
+    "Case studies focused on business outcomes, product UX, and performance.",
 };
 
 export default function ProjectsPage() {
@@ -15,15 +15,15 @@ export default function ProjectsPage() {
       <div className="w-full max-w-6xl mx-auto px-4 py-12">
         <div className="mb-10">
           <h2 className="text-4xl sm:text-6xl font-bold">
-            My {}
-            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Projects
+            Selected {}
+            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
+              Case Studies
             </span>
           </h2>
 
           <p className="mt-4 text-white/75 max-w-2xl">
-            A selection of projects I’ve built—focused on performance,
-            maintainability, and clean UI.
+            Each project highlights a real product problem, the solution I
+            built, and the business or user impact it delivered.
           </p>
         </div>
 

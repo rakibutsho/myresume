@@ -1,8 +1,3 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Toaster } from "sonner";
-import { Suspense } from "react";
-import ReduxProvider from "@/redux/Provider";
 import Loading from "@/components/Others/Loader/Loading";
 import {
   gravitas,
@@ -12,21 +7,41 @@ import {
   roboto,
   rowdies,
 } from "@/fonts/Fonts";
+import ReduxProvider from "@/redux/Provider";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { Toaster } from "sonner";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Md. Rakibul Islam — Software Engineer",
+  title: "Md. Rakibul Islam | Full-Stack Next.js Engineer",
   description:
-    "Portfolio of Md. Rakibul Islam — a passionate Software Engineer from Dhaka, Bangladesh. Specializing in JavaScript, React, Next.js, MERN Stack, and Go.",
+    "Portfolio of Md. Rakibul Islam, a full-stack engineer building conversion-ready SaaS interfaces with Next.js, React, TypeScript, and Node.js.",
   keywords: [
     "Rakibul Islam",
-    "Software Engineer",
+    "Full-Stack Engineer",
     "Frontend Developer",
     "React Developer",
     "Next.js",
-    "MERN Stack",
+    "TypeScript",
+    "SaaS Frontend",
+    "Node.js",
+    "Web Performance",
+    "Core Web Vitals",
     "Dhaka",
     "Bangladesh",
   ],
+  openGraph: {
+    title: "Md. Rakibul Islam | Full-Stack Next.js Engineer",
+    description:
+      "I build high-performance SaaS products and full-stack interfaces using Next.js, React, TypeScript, and Node.js.",
+    type: "website",
+    url: "https://rakib-utsho.vercel.app/",
+    siteName: "Md. Rakibul Islam Portfolio",
+  },
+  alternates: {
+    canonical: "https://rakib-utsho.vercel.app/",
+  },
 };
 
 export default function RootLayout({

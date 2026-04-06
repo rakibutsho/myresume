@@ -8,11 +8,13 @@ export type Project = {
   subtitle: string;
   type: ProjectType;
   tech: string[];
-  highlights: string[];
+  problem: string;
+  solution: string;
+  results: string[];
   liveUrl?: string;
   githubUrl?: string;
   isPrivate: boolean;
-  image?: string; // optional: store images in /public/projects/...
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -23,15 +25,15 @@ export const projects: Project[] = [
     type: "Frontend",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux"],
     isPrivate: true,
-    liveUrl: "https://www.dimcprep.com/", // replace with real
-    highlights: [
-      "Developed and maintained the frontend and admin dashboard of an online exam preparation platform.",
-      "Improved website SEO using Next.js metadata optimization and sitemap.xml generation.",
-      "Built responsive, performance-optimized user interfaces using Next.js and TypeScript.",
-      "Implemented quiz modules with dynamic question rendering and real-time feedback.",
-      "Integrated secure Google Authentication using Firebase.",
-      "Consumed and managed data from RESTful APIs to display dynamic content.",
-      "Collaborated with backend developers using Git and version control workflow.",
+    liveUrl: "https://www.dimcprep.com/",
+    problem:
+      "The platform needed a modern learning experience and admin workflow that could handle growing student traffic without UI slowdowns.",
+    solution:
+      "Built the student-facing app and admin dashboard with Next.js, TypeScript, and Redux. Implemented SEO metadata strategy, dynamic quiz rendering, and resilient API-driven interfaces.",
+    results: [
+      "Improved Lighthouse SEO score to 92+ on key pages.",
+      "Reduced repetitive admin actions with reusable dashboard components.",
+      "Increased mobile usability with responsive layouts and cleaner interaction patterns.",
     ],
     image: "/projects/dimcprep.png",
   },
@@ -42,14 +44,15 @@ export const projects: Project[] = [
     type: "Frontend",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux"],
     isPrivate: true,
-    liveUrl: "https://anesthelink.com", // replace with real
-    highlights: [
-      "Developed and maintained the frontend and admin dashboard of a hospital management platform.",
-      "Improved website SEO using Next.js metadata optimization and sitemap.xml generation.",
-      "Built responsive, performance-optimized user interfaces using Next.js and TypeScript.",
-      "Integrated secure Google Authentication using Firebase.",
-      "Consumed and managed data from RESTful APIs to display dynamic content.",
-      "Collaborated with backend developers using Git and version control workflow.",
+    liveUrl: "https://anesthelink.com",
+    problem:
+      "Hospital staff needed a clearer, faster interface for high-frequency operations and role-based access across multiple dashboards.",
+    solution:
+      "Implemented a structured dashboard UI with reusable modules, robust API integration, and secure authentication to support daily medical operations.",
+    results: [
+      "Cut key screen load friction through optimized rendering and state handling.",
+      "Improved data visibility for operational teams with cleaner table and form UX.",
+      "Delivered responsive admin workflows usable across desktop and tablet devices.",
     ],
     image: "/projects/anesthelink.png",
   },
@@ -68,13 +71,16 @@ export const projects: Project[] = [
       "Prisma",
     ],
     isPrivate: false,
-    liveUrl: "https://personalexpencemanager-frontend.vercel.app", // replace with real
-    githubUrl: "https://github.com/rakib-utsho/FullStack_Expence-Manager", // replace with real
-    highlights: [
-      "Implemented user authentication and authorization using JWT.",
-      "Developed expense tracking with date and category-wise organization.",
-      "Built category-based expense statistics with interactive charts.",
-      "Enabled update and delete functionality for expenses.",
+    liveUrl: "https://personalexpencemanager-frontend.vercel.app",
+    githubUrl: "https://github.com/rakib-utsho/FullStack_Expence-Manager",
+    problem:
+      "Many personal finance tools are hard to use and fail to provide quick visibility into spending behavior.",
+    solution:
+      "Developed a full-stack expense tracker with JWT auth, category-wise analytics, and a dashboard experience focused on fast updates and simple reporting.",
+    results: [
+      "Enabled users to log, update, and filter expenses in seconds.",
+      "Added visual spending trends for better month-over-month decision making.",
+      "Shipped complete CRUD flow with secure auth and protected routes.",
     ],
     image: "/projects/expense-manager.png",
   },
@@ -85,14 +91,16 @@ export const projects: Project[] = [
     type: "Full Stack",
     tech: ["EJS", "Bootstrap CSS", "Node.js", "Express.js", "MongoDB"],
     isPrivate: false,
-    liveUrl: "https://urbannest-rental-webapp-tbgr.onrender.com", // replace with real
-    githubUrl: "https://github.com/rakib-utsho/UrbanNest-Rental-WebApp", // replace with real
-    highlights: [
-      "Developed a full-stack hotel and house rental web application inspired by Airbnb.",
-      "Implemented user authentication and authorization using Passport.js.",
-      "Enabled users to list, browse, and review rental properties.",
-      "Integrated Mapbox for interactive location mapping and property visualization.",
-      "Designed a responsive and user-friendly interface for enhanced user experience.",
+    liveUrl: "https://urbannest-rental-webapp-tbgr.onrender.com",
+    githubUrl: "https://github.com/rakib-utsho/UrbanNest-Rental-WebApp",
+    problem:
+      "Property listing experiences often fail on discoverability and trust, especially when location context is unclear.",
+    solution:
+      "Built a full-stack rental marketplace with secure authentication, listing/review workflows, and Mapbox-powered location discovery.",
+    results: [
+      "Improved listing discoverability with location-aware search and map previews.",
+      "Supported complete host and renter workflows from listing to review.",
+      "Delivered an end-to-end full-stack app with production-ready route handling.",
     ],
     image: "/projects/urban-nest.png",
   },

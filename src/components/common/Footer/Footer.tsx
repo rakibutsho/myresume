@@ -1,6 +1,6 @@
 "use client";
 
-import { Github, Linkedin, Facebook, Mail, Heart } from "lucide-react";
+import { Facebook, Github, Heart, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import React, { useCallback } from "react";
 
@@ -30,6 +30,7 @@ const socialLinks = [
 const quickLinks = [
   { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
+  { name: "Services", href: "#services" },
   { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
   { name: "Projects", href: "#projects" },
@@ -59,13 +60,13 @@ export const Footer = () => {
           <div className="md:col-span-1">
             <h3 className="text-2xl font-bold text-white">
               Md. Rakibul Islam
-              <span className="bg-linear-to-r from-fuchsia-400 to-violet-400 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-300 to-amber-200 bg-clip-text text-transparent">
                 .
               </span>
             </h3>
             <p className="mt-3 text-sm text-white/55 leading-relaxed max-w-xs">
-              A passionate Software Engineer from Dhaka, Bangladesh — building
-              clean interfaces & scalable web applications.
+              Full-stack Software Engineer focused on high-performance Next.js
+              products that improve product clarity and conversion.
             </p>
 
             {/* Social icons */}
@@ -141,11 +142,11 @@ export const Footer = () => {
                 className="
                   inline-flex items-center gap-2 text-sm font-medium
                   px-5 py-2.5 rounded-xl
-                  bg-linear-to-r from-fuchsia-500 via-purple-500 to-violet-500
+                  bg-linear-to-r from-cyan-400 via-sky-400 to-emerald-300
                   text-white hover:brightness-110 transition cursor-pointer
                 "
               >
-                Let&apos;s Work Together <span>→</span>
+                Hire Me For Your Team <span>→</span>
               </a>
             </div>
           </div>

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import Institute from "./Institute";
 import gsap from "gsap";
+import { useEffect, useRef } from "react";
+import Institute from "./Institute";
 
 const Education = () => {
   const headingRef = useRef<HTMLDivElement | null>(null);
@@ -25,7 +25,7 @@ const Education = () => {
           <div ref={headingRef} className=" mb-12">
             <h2 className="text-4xl sm:text-6xl font-bold leading-tight">
               Educational {""}
-              <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
                 Journey
               </span>
             </h2>

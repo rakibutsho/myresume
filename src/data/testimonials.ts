@@ -14,7 +14,7 @@ export const testimonials: Testimonial[] = [
     role: "Project Manager",
     company: "SM Technology",
     message:
-      "Rakibul is an exceptional frontend developer. His attention to detail and ability to translate designs into pixel-perfect interfaces is impressive. He consistently delivers clean, maintainable code and is always eager to learn new technologies.",
+      "Rakibul consistently delivered production-ready frontend modules before deadlines. He improved handoff quality between design and engineering and reduced UI revision cycles across our releases.",
     avatar: "SH",
   },
   {
@@ -23,7 +23,7 @@ export const testimonials: Testimonial[] = [
     role: "Senior Developer",
     company: "Trodev",
     message:
-      "Working with Rakibul was a great experience. He quickly grasps complex requirements and delivers high-quality code. His proficiency in React and Next.js, combined with his problem-solving skills, makes him a valuable team member.",
+      "He quickly understood technical constraints and translated requirements into clean React components. His pull requests were easy to review and usually needed minimal rework.",
     avatar: "TR",
   },
   {
@@ -32,7 +32,7 @@ export const testimonials: Testimonial[] = [
     role: "UI/UX Designer",
     company: "SM Technology",
     message:
-      "Rakibul has an excellent eye for design implementation. He always ensures the final product matches the design mockups perfectly. His communication skills and collaborative spirit make the design-to-development handoff seamless.",
+      "Rakibul is one of the few developers I worked with who truly respects design detail. He matched spacing, hierarchy, and interaction intent with high accuracy while keeping the UI fast.",
     avatar: "NJ",
   },
   {
@@ -41,7 +41,7 @@ export const testimonials: Testimonial[] = [
     role: "Team Lead",
     company: "Bangladesh Computer Council",
     message:
-      "During his internship, Rakibul showed remarkable dedication and a strong willingness to learn. His analytical approach to software testing and quality assurance was beyond what we expected from an intern.",
+      "Even as an intern, he approached testing tasks with strong ownership and structure. He documented issues clearly and helped the team resolve defects faster.",
     avatar: "MR",
   },
 ];

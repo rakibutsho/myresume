@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { skillCategories } from "@/data/skills";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { skillCategories } from "@/data/skills";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,26 +79,26 @@ function Skills() {
   const getCategoryGradient = (id: string) => {
     switch (id) {
       case "frontend":
-        return "from-cyan-500 to-blue-500";
+        return "from-cyan-400 to-sky-400";
       case "backend":
-        return "from-emerald-500 to-teal-500";
+        return "from-sky-400 to-emerald-300";
       case "tools":
-        return "from-orange-500 to-amber-500";
+        return "from-cyan-300 to-amber-200";
       default:
-        return "from-purple-500 to-pink-500";
+        return "from-cyan-300 to-amber-200";
     }
   };
 
   const getCategoryGlow = (id: string) => {
     switch (id) {
       case "frontend":
-        return "from-cyan-500/20 to-blue-500/20";
+        return "from-cyan-400/20 to-sky-400/20";
       case "backend":
-        return "from-emerald-500/20 to-teal-500/20";
+        return "from-sky-400/20 to-emerald-300/20";
       case "tools":
-        return "from-orange-500/20 to-amber-500/20";
+        return "from-cyan-300/20 to-amber-200/20";
       default:
-        return "from-purple-500/20 to-pink-500/20";
+        return "from-cyan-300/20 to-amber-200/20";
     }
   };
 
@@ -109,7 +109,7 @@ function Skills() {
         <div ref={headingRef} className="mb-12">
           <h2 className="text-4xl sm:text-6xl font-bold">
             Technical{" "}
-            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
               Skills
             </span>
           </h2>

@@ -1,15 +1,15 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import profile from "@/assets/portfolio.png";
 import {
+  BadgeCheck,
   Facebook,
   GithubIcon,
   LinkedinIcon,
   Phone,
-  BadgeCheck,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const social = [
   {
@@ -61,13 +61,28 @@ function ProfileCard() {
             </h2>
 
             <p className="mt-2 text-sm text-white/70">
-              <span className="font-medium text-lg">Software Engineer</span><br />
-              <span className="bg-linear-to-r from-fuchsia-400 via-purple-400 to-violet-300 bg-clip-text text-transparent font-medium">
-                JavaScript | MERN | Next.js | Golang
+              <span className="font-medium text-lg">
+                Full-Stack Software Engineer
+              </span>
+              <br />
+              <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent font-medium">
+                Next.js | React | TypeScript | Node.js
               </span>
             </p>
 
-            <p className="mt-2 text-sm text-white/55">Dhaka, Bangladesh</p>
+            <p className="mt-2 text-sm text-white/55">
+              Dhaka, Bangladesh • Open to remote
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-cyan-300/20 bg-cyan-300/8 px-4 py-3">
+            <p className="text-xs uppercase tracking-wider text-cyan-200">
+              Current focus
+            </p>
+            <p className="mt-1 text-sm text-white/85 leading-relaxed">
+              Building conversion-focused SaaS dashboards, API-driven product
+              workflows, and maintainable design systems.
+            </p>
           </div>
 
           {/* Social */}
@@ -101,11 +116,11 @@ function ProfileCard() {
               className="
                 inline-flex items-center justify-center gap-2
                 rounded-full px-5 py-3 text-sm font-semibold text-white
-                bg-linear-to-r from-fuchsia-500 via-purple-500 to-violet-500
+                bg-linear-to-r from-cyan-400 via-sky-400 to-emerald-300
                 hover:brightness-110 transition
               "
             >
-              Let’s Connect <span className="translate-y-px">→</span>
+              Start A Project <span className="translate-y-px">→</span>
             </Link>
           </div>
         </div>

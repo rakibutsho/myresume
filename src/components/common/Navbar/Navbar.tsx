@@ -1,21 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import {
+  Briefcase,
+  Cpu,
   Crown,
+  GraduationCap,
+  Handshake,
+  MessageSquareQuote,
   Send,
   SquareCode,
-  Briefcase,
   User,
-  GraduationCap,
-  MessageSquareQuote,
-  Cpu,
 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const navigationLinks = [
   { name: "Home", href: "#home", icon: Crown },
   { name: "About", href: "#about", icon: User },
+  { name: "Services", href: "#services", icon: Handshake },
   { name: "Skills", href: "#skills", icon: Cpu },
   { name: "Experience", href: "#experience", icon: Briefcase },
   // { name: "Tools", href: "#tools", icon: LucideWrench },
@@ -155,13 +157,13 @@ export const Navbar = () => {
           className="
             absolute -inset-px rounded-full blur-md opacity-50
             bg-size-[200%_200%]
-            bg-linear-to-r from-cyan-400 via-purple-500 to-pink-500
+            bg-linear-to-r from-cyan-400 via-sky-400 to-emerald-300
           "
           style={{ backgroundPosition: "0% 50%" }}
         />
 
         {/* Border */}
-        <div className="relative rounded-2xl p-px bg-linear-to-r from-cyan-400 via-purple-500 to-pink-500">
+        <div className="relative rounded-2xl p-px bg-linear-to-r from-cyan-400 via-sky-400 to-emerald-300">
           {/* Inner surface */}
           <div className="rounded-2xl bg-black/80 px-3 py-2.5 backdrop-blur-xl">
             <nav className="flex justify-between items-center gap-1.5">

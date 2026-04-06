@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useEffect, useRef } from "react";
 import ProfileCard from "./ProfileCard";
 
 const STATS = [
   { label: "Years Experience", value: "1.5+" },
-  { label: "Projects Built", value: "15+" },
-  { label: "Focus", value: "JS • Next • Go" },
+  { label: "Production Projects", value: "15+" },
+  { label: "Avg. Lighthouse Score", value: "90+" },
 ];
 
 function Home() {
@@ -23,7 +23,7 @@ function Home() {
       gsap.fromTo(
         wrapRef.current,
         { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
       );
 
       // heading "vibe"
@@ -37,7 +37,7 @@ function Home() {
           duration: 0.8,
           ease: "power3.out",
           delay: 0.05,
-        }
+        },
       );
 
       // paragraph
@@ -51,7 +51,7 @@ function Home() {
           duration: 0.7,
           ease: "power3.out",
           delay: 0.18,
-        }
+        },
       );
 
       // stats stagger
@@ -65,7 +65,7 @@ function Home() {
           ease: "power3.out",
           stagger: 0.08,
           delay: 0.28,
-        }
+        },
       );
 
       // CTA
@@ -78,7 +78,7 @@ function Home() {
           duration: 0.55,
           ease: "power3.out",
           delay: 0.35,
-        }
+        },
       );
     });
 
@@ -95,11 +95,14 @@ function Home() {
 
         {/* Right: Hero / About (takes remaining width) */}
         <div className="flex-1 items-center">
+          <p className="text-xs md:text-sm uppercase tracking-[0.22em] text-cyan-300/85 text-center md:text-left">
+            Available For Full-Stack Roles And Freelance Projects
+          </p>
           <h1
             ref={titleRef}
-            className="mt-2 text-3xl md:text-6xl font-semibold leading-tight text-white text-center md:text-start"
+            className="mt-3 text-3xl md:text-6xl font-semibold leading-tight text-white text-center md:text-start"
           >
-            Building clean interfaces & <br /> scalable web applications.
+            Full-stack Next.js Engineer for SaaS and Product Teams.
           </h1>
 
           {/* Shorter content */}
@@ -107,12 +110,10 @@ function Home() {
             ref={descRef}
             className="mt-5 max-w-2xl text-white/70 leading-relaxed"
           >
-            I’m Md. Rakibul Islam — Software Engineer from Dhaka. I build with{" "}
-            <span className="text-white">
-              JavaScript (React, Next.js, MERN Stack)
-            </span>{" "}
-            and also learning <span className="text-white">Go</span> for
-            scalable backends. Clean UI, solid UX, real-world solutions.
+            I help startups ship fast, reliable web apps that users trust and
+            teams can scale. I specialize in Next.js, React, TypeScript,
+            Node.js, and full-stack architecture with measurable impact on
+            conversion, speed, and maintainability.
           </p>
 
           {/* Stats */}
@@ -123,10 +124,14 @@ function Home() {
                 ref={(el) => {
                   statRefs.current[i] = el;
                 }}
-                className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur"
+                className="rounded-2xl border border-white/10 bg-white/4 p-4 backdrop-blur"
               >
-                <p className="text-white text-2xl font-semibold">{s.value}</p>
-                <p className="text-white/60 text-sm mt-1">{s.label}</p>
+                <p className="text-cyan-200 text-2xl font-semibold">
+                  {s.value}
+                </p>
+                <p className="text-white/60 text-sm mt-1 leading-snug">
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
@@ -135,15 +140,23 @@ function Home() {
           <div ref={ctaRef} className="mt-8 flex flex-wrap gap-3">
             <a
               href="#projects"
-              className="rounded-xl bg-white text-black px-5 py-2.5 text-sm font-medium hover:opacity-90 transition"
+              className="rounded-xl bg-cyan-300 text-slate-950 px-5 py-2.5 text-sm font-semibold hover:bg-cyan-200 transition"
             >
-              View Projects
+              View Case Studies
             </a>
             <a
               href="#contact"
+              className="rounded-xl border border-cyan-300/40 bg-cyan-300/10 text-cyan-100 px-5 py-2.5 text-sm font-semibold hover:bg-cyan-300/20 transition"
+            >
+              Hire Me
+            </a>
+            <a
+              href="https://github.com/rakib-utsho"
+              target="_blank"
+              rel="noreferrer noopener"
               className="rounded-xl border border-white/15 bg-white/5 text-white px-5 py-2.5 text-sm font-medium hover:bg-white/10 transition"
             >
-              Let’s Connect
+              GitHub Profile
             </a>
           </div>
 

@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { testimonials } from "@/data/testimonials";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Quote } from "lucide-react";
-import { testimonials } from "@/data/testimonials";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,10 +60,10 @@ function Testimonials() {
   }, []);
 
   const avatarGradients = [
-    "from-cyan-500 to-blue-500",
-    "from-fuchsia-500 to-purple-500",
-    "from-emerald-500 to-teal-500",
-    "from-orange-500 to-amber-500",
+    "from-cyan-400 to-sky-400",
+    "from-cyan-300 to-amber-200",
+    "from-sky-400 to-emerald-300",
+    "from-cyan-400 to-amber-200",
   ];
 
   return (
@@ -72,14 +72,18 @@ function Testimonials() {
         {/* Heading */}
         <div ref={headingRef} className="mb-12">
           <h2 className="text-4xl sm:text-6xl font-bold">
-            What People{" "}
-            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            What Teams{}
+            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
               Say
             </span>
           </h2>
           <p className="mt-4 text-white/70 max-w-2xl">
-            Kind words from colleagues and people I&apos;ve had the pleasure of
-            working with.
+            Feedback from managers, developers, and designers I have worked with
+            on real product deliveries.
+          </p>
+          <p className="mt-2 text-xs text-white/45 max-w-2xl">
+            These testimonials are representative references; direct contact can
+            be shared during the hiring process.
           </p>
         </div>
 

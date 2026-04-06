@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Mail, MapPin, Phone, Send } from "lucide-react";
 import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -146,7 +146,7 @@ function Contact() {
           data.error || "Something went wrong. Please try again later.",
         );
       }
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error(
         error.message || "Failed to send message. Please try again later.",
       );
@@ -161,14 +161,14 @@ function Contact() {
         {/* Heading */}
         <div ref={headingRef} className="mb-12">
           <h2 className="text-4xl sm:text-6xl font-bold">
-            Get In{" "}
-            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              Touch
+            Let&apos;s Build{}
+            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
+              Together
             </span>
           </h2>
           <p className="mt-4 text-white/70 max-w-2xl">
-            Have a project idea or want to collaborate? I&apos;d love to hear
-            from you. Let&apos;s build something amazing together.
+            Hiring for a frontend role or planning a product build? Share your
+            goals and timeline. I usually respond within 24 hours.
           </p>
         </div>
 
@@ -195,7 +195,7 @@ function Contact() {
                     w-full px-4 py-3 rounded-xl
                     bg-white/5 border border-white/10
                     text-white placeholder:text-white/30
-                    focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/25
+                    focus:outline-none focus:border-cyan-300/50 focus:ring-1 focus:ring-cyan-300/25
                     transition-all duration-200
                   "
                 />
@@ -215,7 +215,7 @@ function Contact() {
                     w-full px-4 py-3 rounded-xl
                     bg-white/5 border border-white/10
                     text-white placeholder:text-white/30
-                    focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/25
+                    focus:outline-none focus:border-cyan-300/50 focus:ring-1 focus:ring-cyan-300/25
                     transition-all duration-200
                   "
                 />
@@ -237,7 +237,7 @@ function Contact() {
                   w-full px-4 py-3 rounded-xl resize-none
                   bg-white/5 border border-white/10
                   text-white placeholder:text-white/30
-                  focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/25
+                  focus:outline-none focus:border-cyan-300/50 focus:ring-1 focus:ring-cyan-300/25
                   transition-all duration-200
                 "
               />
@@ -249,14 +249,19 @@ function Contact() {
               className="
                 inline-flex items-center gap-2
                 px-6 py-3 rounded-xl text-sm font-semibold text-white
-                bg-linear-to-r from-fuchsia-500 via-purple-500 to-violet-500
+                bg-linear-to-r from-cyan-400 via-sky-400 to-emerald-300
                 hover:brightness-110 transition
                 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
               "
             >
               <Send className="h-4 w-4" />
-              {sending ? "Sending..." : "Send Message"}
+              {sending ? "Sending..." : "Send Project Brief"}
             </button>
+
+            <p className="text-xs text-white/45">
+              Open to full-time roles, contract work, and long-term product
+              collaboration.
+            </p>
           </form>
 
           {/* Contact Info */}
@@ -272,8 +277,8 @@ function Contact() {
                     transition-all duration-300
                   "
                 >
-                  <div className="h-12 w-12 rounded-xl bg-linear-to-br from-fuchsia-500/20 to-violet-500/20 border border-fuchsia-500/20 flex items-center justify-center shrink-0">
-                    <Icon className="h-5 w-5 text-fuchsia-400" />
+                  <div className="h-12 w-12 rounded-xl bg-linear-to-br from-cyan-400/20 to-amber-200/20 border border-cyan-300/25 flex items-center justify-center shrink-0">
+                    <Icon className="h-5 w-5 text-cyan-300" />
                   </div>
                   <div>
                     <p className="text-xs text-white/50 uppercase tracking-wider">

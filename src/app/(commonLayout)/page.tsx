@@ -1,12 +1,12 @@
 import Home from "@/components/home/Home";
 import AboutMe from "@/components/modules/AboutMe/AboutMe";
-import Skills from "@/components/modules/Skills/Skills";
+import Contact from "@/components/modules/Contact/Contact";
+import Education from "@/components/modules/Education/Education";
 import JobHistory from "@/components/modules/JobHistroy/Job";
 import ProjectsPage from "@/components/modules/Projects/ProjectsPage";
-import Education from "@/components/modules/Education/Education";
+import Services from "@/components/modules/Services/Services";
+import Skills from "@/components/modules/Skills/Skills";
 import Testimonials from "@/components/modules/Testimonials/Testimonials";
-import Contact from "@/components/modules/Contact/Contact";
-import React from "react";
 import Tools from "@/components/modules/Tools/Tools";
 
 const HomePage = () => {
@@ -17,6 +17,7 @@ const HomePage = () => {
         <Tools />
       </div>
       <AboutMe />
+      <Services />
       <Skills />
       <section id="experience">
         <JobHistory />
