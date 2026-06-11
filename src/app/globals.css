@@ -136,7 +136,7 @@ html {
 }
 
 .bg-textured {
-  background: #000;
+  background: #111827;
   min-height: 100vh;
   position: relative;
   isolation: isolate; /* creates a safe stacking context */

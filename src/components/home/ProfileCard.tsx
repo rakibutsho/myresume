@@ -1,6 +1,6 @@
 "use client";
 
-import profile from "@/assets/portfolio.png";
+import profile from "@/assets/profile-2.png";
 import {
   BadgeCheck,
   Facebook,
@@ -57,7 +57,7 @@ function ProfileCard() {
           <div className="mt-5 text-center">
             <h2 className="text-2xl font-semibold text-white flex items-center justify-center gap-2">
               Md. Rakibul Islam
-              <BadgeCheck className="h-5 w-5 text-sky-400" />
+              <BadgeCheck className="h-5 w-5 text-emerald-400" />
             </h2>
 
             <p className="mt-2 text-sm text-white/70">
@@ -65,7 +65,7 @@ function ProfileCard() {
                 Full-Stack Software Engineer
               </span>
               <br />
-              <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent font-medium">
+              <span className="bg-linear-to-r from-emerald-300 via-emerald-400 to-emerald-200 bg-clip-text text-transparent font-medium">
                 Next.js | React | TypeScript | Node.js
               </span>
             </p>
@@ -75,8 +75,8 @@ function ProfileCard() {
             </p>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-cyan-300/20 bg-cyan-300/8 px-4 py-3">
-            <p className="text-xs uppercase tracking-wider text-cyan-200">
+          <div className="mt-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3">
+            <p className="text-xs uppercase tracking-wider text-emerald-300">
               Current focus
             </p>
             <p className="mt-1 text-sm text-white/85 leading-relaxed">
@@ -116,7 +116,7 @@ function ProfileCard() {
               className="
                 inline-flex items-center justify-center gap-2
                 rounded-full px-5 py-3 text-sm font-semibold text-white
-                bg-linear-to-r from-cyan-400 via-sky-400 to-emerald-300
+                bg-linear-to-r from-emerald-500 to-[#10b981]
                 hover:brightness-110 transition
               "
             >

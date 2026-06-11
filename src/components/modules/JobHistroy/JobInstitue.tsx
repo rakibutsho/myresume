@@ -1,156 +1,128 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import VerifiedBadge from "@/components/common/VerifiedBadge";
-import { Card } from "@/components/ui/card";
 import { jobs } from "@/data/job";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+gsap.registerPlugin(ScrollTrigger);
+
 function JobInstitute() {
-  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!wrapRef.current) return;
+    const ctx = gsap.context(() => {
+      const items = containerRef.current?.querySelectorAll("[data-timeline-item]");
+      if (!items) return;
 
-    const cards =
-      wrapRef.current.querySelectorAll<HTMLElement>("[data-job-card]");
-    if (!cards.length) return;
-
-    // entrance animation
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 18, scale: 0.98 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.65,
-        ease: "power3.out",
-        stagger: 0.1,
-        clearProps: "transform",
-      },
-    );
-
-    // hover micro-interaction
-    const enter = (el: HTMLElement) =>
-      gsap.to(el, { y: -6, duration: 0.25, ease: "power2.out" });
-    const leave = (el: HTMLElement) =>
-      gsap.to(el, { y: 0, duration: 0.25, ease: "power2.out" });
-
-    cards.forEach((el) => {
-      const onEnter = () => enter(el);
-      const onLeave = () => leave(el);
-      el.addEventListener("mouseenter", onEnter);
-      el.addEventListener("mouseleave", onLeave);
-
-      (el as any).__onEnter = onEnter;
-      (el as any).__onLeave = onLeave;
-    });
-
-    return () => {
-      cards.forEach((el) => {
-        el.removeEventListener("mouseenter", (el as any).__onEnter);
-        el.removeEventListener("mouseleave", (el as any).__onLeave);
+      items.forEach((item, i) => {
+        gsap.fromTo(
+          item,
+          { opacity: 0, x: -30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
       });
-    };
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <div>
-      <div className="flex items-center justify-between gap-4 mb-6">
-        <p className="text-xs uppercase tracking-[0.22em] text-cyan-200/75">
-          Roles And Impact
-        </p>
-        <div className="hidden sm:flex items-center gap-2 text-xs text-white/50">
-          <span className="h-2 w-2 rounded-full bg-cyan-300" />
-          Scroll-friendly cards with consistent spacing
-        </div>
-      </div>
+    <div ref={containerRef} className="relative max-w-4xl mx-auto mt-12">
+      
+      {/* Central Glowing Timeline Line */}
+      <div className="absolute left-[28px] md:left-[39px] top-4 bottom-4 w-px bg-linear-to-b from-emerald-500/0 via-emerald-500/30 to-emerald-500/0" />
 
-      <div
-        ref={wrapRef}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
-      >
-        {jobs.map((job) => (
-          <div key={job.id} className="h-full">
-            <Card
-              data-job-card
-              className="
-                h-full text-white overflow-hidden
-                bg-white/7 backdrop-blur-md
-                border border-cyan-300/15
-                rounded-[1.75rem]
-                px-5 py-5
-                shadow-[0_18px_45px_-22px_rgba(0,0,0,0.7)]
+      <div className="space-y-12">
+        {jobs.map((job, index) => (
+          <div key={job.id} data-timeline-item className="relative flex items-start gap-6 md:gap-10 group">
+            
+            {/* Timeline Node & Logo Container */}
+            <div className="relative shrink-0 flex flex-col items-center">
+              {/* Outer Glow Ring */}
+              <div className="w-14 h-14 md:w-20 md:h-20 rounded-2xl bg-[#0f172a] shadow-[inset_0_2px_4px_rgba(255,255,255,0.1),0_8px_16px_rgba(0,0,0,0.6)] border border-[#1e293b] flex items-center justify-center z-10 overflow-hidden group-hover:border-emerald-500/50 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-500">
+                <Image
+                  src={job.logo}
+                  alt={`${job.companyName} logo`}
+                  className="w-10 h-10 md:w-14 md:h-14 object-contain"
+                />
+              </div>
+              {/* Connection Dot */}
+              <div className="absolute top-[70px] md:top-[90px] w-3 h-3 rounded-full bg-[#111827] border-2 border-emerald-500/50 z-10 group-hover:bg-emerald-400 group-hover:shadow-[0_0_10px_#10b981] transition-all duration-300" />
+            </div>
+
+            {/* Experience Card */}
+            <div className="flex-1 mt-2">
+              <div className="
+                p-6 md:p-8 rounded-[2rem] 
+                bg-[#131b2c] border border-[#1e293b] 
+                shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_10px_30px_rgba(0,0,0,0.3)] 
+                hover:border-emerald-500/30 hover:bg-[#152033] 
                 transition-all duration-300
-                hover:bg-white/10 hover:border-cyan-300/30 hover:-translate-y-1
-              "
-            >
-              <div className="mb-5 h-1.5 w-20 rounded-full bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200" />
-
-              {/* Top */}
-              <div className="flex items-center gap-4">
-                <div className="relative w-14 h-14 shrink-0 rounded-full overflow-hidden border border-cyan-300/20 bg-white/95 shadow-lg shadow-cyan-950/20">
-                  <Image
-                    src={job.logo}
-                    alt={`${job.companyName} logo`}
-                    fill
-                    className="object-contain p-1"
-                    sizes="56px"
-                  />
-                </div>
-
-                <div className="min-w-0">
-                  <h4 className="flex items-center gap-2 text-xl font-semibold leading-tight truncate text-wrap">
-                    {job.companyName}
-
-                    <span className="inline-flex items-center justify-center rounded-full bg-cyan-300/20 border border-cyan-300/30 p-0.5">
-                      <VerifiedBadge className="h-4 w-4 text-cyan-200" />
+              ">
+                
+                {/* Header (Role & Timeline) */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white flex items-center gap-2 mb-1">
+                      {job.position}
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-emerald-400 font-medium tracking-wide">
+                        {job.companyName}
+                      </span>
+                      <VerifiedBadge className="h-4 w-4 text-emerald-500/60" />
+                    </div>
+                  </div>
+                  
+                  {/* Timeline Badge */}
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0f172a] border border-white/5 shadow-inner">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
+                    <span className="text-xs font-mono font-medium text-white/70">
+                      {job.timeline}
                     </span>
-                  </h4>
-
-                  <p className="truncate text-sm text-white/80">
-                    {job.position}
-                  </p>
+                  </div>
                 </div>
-              </div>
 
-              {/* Meta */}
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
-                <span className="text-xs text-white/70">{job.timeline}</span>
-
-                <span
-                  className="
-                    text-xs text-cyan-100
-                    px-3 py-1 rounded-full
-                    bg-cyan-300/10 border border-cyan-300/30
-                  "
-                >
-                  {job.type}
-                </span>
-              </div>
-
-              {/* Stack Tags */}
-              <div className="mt-4 flex flex-wrap gap-2">
-                {job.stack?.map((item: string) => (
-                  <span
-                    key={item}
-                    className="text-[11px] px-2.5 py-1 rounded-full border border-cyan-300/25 bg-cyan-300/8 text-cyan-100"
-                  >
-                    {item}
+                {/* Badges (Type & Stack) */}
+                <div className="flex flex-wrap items-center gap-2 mb-6 pb-6 border-b border-white/5">
+                  <span className="text-xs px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-300">
+                    {job.type}
                   </span>
-                ))}
-              </div>
+                  {job.stack?.map((item: string) => (
+                    <span
+                      key={item}
+                      className="text-xs px-3 py-1 rounded-full border border-white/10 bg-white/5 text-white/60"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
 
-              {/* Impact Highlights */}
-              <ul className="mt-5 list-disc pl-5 space-y-2 text-sm leading-relaxed text-white/80">
-                {job.highlights?.map((point: string) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </Card>
+                {/* Highlights */}
+                <ul className="space-y-3">
+                  {job.highlights?.map((point: string, idx: number) => (
+                    <li key={idx} className="flex items-start gap-3 text-white/70 leading-relaxed text-sm">
+                      <span className="text-emerald-500 mt-1 shrink-0">✦</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
           </div>
         ))}
       </div>

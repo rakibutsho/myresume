@@ -1,35 +1,29 @@
 "use client";
 
 import React from "react";
-// import Image from "next/image";
 import WorkTools from "./WorkTools";
-// import workGif from "@/assets/gif/coding.gif";
 
 function Tools() {
   return (
-    <section id="tools" className="w-full mt-10">
-      <div className="w-full  mx-auto px-4">
-        {/* Layout */}
-        {/* <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-   
-          <div className="hidden md:block lg:col-span-4">
-            <div className="relative w-full h-65 sm:h-80 lg:h-105 ">
-              <Image
-                src={workGif} // <-- change this path
-                alt="Programmer animation"
-                fill
-                className="object-contain"
-                sizes="(max-width: 1024px) 100vw, 33vw"
-                unoptimized
-                priority={false}
-              />
-            </div>
-          </div>
+    <section id="ecosystem" className="w-full pt-10 pb-20 relative overflow-hidden">
+      {/* Subtle Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-emerald-500/5 rounded-[100%] blur-[120px] pointer-events-none -z-10" />
 
-          <div className="lg:col-span-8">
-            <WorkTools />
-          </div>
-        </div> */}
+      {/* Minimal Centered Heading */}
+      <div className="w-full max-w-7xl mx-auto px-4 flex flex-col items-center mb-12 text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.3em] text-emerald-400 mb-4">
+          Development Ecosystem
+        </p>
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          Trusted by the best modern teams
+        </h2>
+        <p className="text-white/50 text-sm max-w-xl mx-auto">
+          I leverage industry-standard technologies to ensure high performance, security, and developer experience.
+        </p>
+      </div>
+
+      {/* Unique Scrolling Ecosystem Wall (Edge to Edge) */}
+      <div className="w-full">
         <WorkTools />
       </div>
     </section>

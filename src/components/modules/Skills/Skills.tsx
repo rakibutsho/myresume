@@ -1,177 +1,158 @@
 "use client";
 
-import { skillCategories } from "@/data/skills";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
+import { FaProjectDiagram } from "react-icons/fa";
+import {
+  SiCss,
+  SiExpress,
+  SiFigma,
+  SiFirebase,
+  SiGithub,
+  SiGo,
+  SiHtml5,
+  SiJavascript,
+  SiLinux,
+  SiMongodb,
+  SiMysql,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPrisma,
+  SiReact,
+  SiRedux,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
+import { TbApi } from "react-icons/tb";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Grouped for display
+const allSkills = [
+  // Frontend
+  { name: "JavaScript", icon: SiJavascript, color: "group-hover:text-[#F7DF1E]" },
+  { name: "TypeScript", icon: SiTypescript, color: "group-hover:text-[#3178C6]" },
+  { name: "React.js", icon: SiReact, color: "group-hover:text-[#61DAFB]" },
+  { name: "Next.js", icon: SiNextdotjs, color: "group-hover:text-white" },
+  { name: "Tailwind", icon: SiTailwindcss, color: "group-hover:text-[#06B6D4]" },
+  { name: "Redux", icon: SiRedux, color: "group-hover:text-[#764ABC]" },
+  { name: "HTML5", icon: SiHtml5, color: "group-hover:text-[#E34F26]" },
+  { name: "CSS3", icon: SiCss, color: "group-hover:text-[#1572B6]" },
+  
+  // Backend
+  { name: "Node.js", icon: SiNodedotjs, color: "group-hover:text-[#339933]" },
+  { name: "Express.js", icon: SiExpress, color: "group-hover:text-white" },
+  { name: "MongoDB", icon: SiMongodb, color: "group-hover:text-[#47A248]" },
+  { name: "MySQL", icon: SiMysql, color: "group-hover:text-[#4479A1]" },
+  { name: "Go", icon: SiGo, color: "group-hover:text-[#00ADD8]" },
+  { name: "REST APIs", icon: TbApi, color: "group-hover:text-emerald-400" },
+  
+  // Tools
+  { name: "Git", icon: SiGithub, color: "group-hover:text-white" },
+  { name: "Firebase", icon: SiFirebase, color: "group-hover:text-[#FFCA28]" },
+  { name: "Prisma", icon: SiPrisma, color: "group-hover:text-white" },
+  { name: "Figma", icon: SiFigma, color: "group-hover:text-[#F24E1E]" },
+  { name: "Linux", icon: SiLinux, color: "group-hover:text-[#FCC624]" },
+  { name: "Agile", icon: FaProjectDiagram, color: "group-hover:text-emerald-400" },
+];
 
 function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const categoryRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading animation
+      // Heading
       gsap.fromTo(
         headingRef.current,
         { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
             trigger: headingRef.current,
-            start: "top 85%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         },
       );
 
-      // Each category card
-      categoryRefs.current.forEach((catEl) => {
-        if (!catEl) return;
-
+      // Icons Stagger
+      if (gridRef.current) {
+        const cards = gridRef.current.querySelectorAll("[data-skill-card]");
         gsap.fromTo(
-          catEl,
-          { opacity: 0, y: 20 },
+          cards,
+          { opacity: 0, scale: 0.8, y: 20 },
           {
             opacity: 1,
+            scale: 1,
             y: 0,
             duration: 0.6,
-            ease: "power3.out",
+            stagger: 0.05,
+            ease: "back.out(1.2)",
             scrollTrigger: {
-              trigger: catEl,
-              start: "top 88%",
+              trigger: gridRef.current,
+              start: "top 85%",
               toggleActions: "play none none none",
             },
           },
         );
-
-        // Animate skill bars inside this category
-        const bars = catEl.querySelectorAll<HTMLElement>("[data-skill-fill]");
-        bars.forEach((bar) => {
-          const width = bar.getAttribute("data-skill-fill") || "0";
-          gsap.fromTo(
-            bar,
-            { width: "0%" },
-            {
-              width: `${width}%`,
-              duration: 1.2,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: bar,
-                start: "top 92%",
-                toggleActions: "play none none none",
-              },
-            },
-          );
-        });
-      });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const getCategoryGradient = (id: string) => {
-    switch (id) {
-      case "frontend":
-        return "from-cyan-400 to-sky-400";
-      case "backend":
-        return "from-sky-400 to-emerald-300";
-      case "tools":
-        return "from-cyan-300 to-amber-200";
-      default:
-        return "from-cyan-300 to-amber-200";
-    }
-  };
-
-  const getCategoryGlow = (id: string) => {
-    switch (id) {
-      case "frontend":
-        return "from-cyan-400/20 to-sky-400/20";
-      case "backend":
-        return "from-sky-400/20 to-emerald-300/20";
-      case "tools":
-        return "from-cyan-300/20 to-amber-200/20";
-      default:
-        return "from-cyan-300/20 to-amber-200/20";
-    }
-  };
-
   return (
-    <section id="skills" ref={sectionRef} className="w-full mt-10">
-      <div className="w-full max-w-6xl mx-auto px-4 py-12">
+    <section id="skills" ref={sectionRef} className="w-full pt-32 pb-20 relative">
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none -z-10" />
+
+      <div className="w-full max-w-6xl mx-auto px-4">
         {/* Heading */}
-        <div ref={headingRef} className="mb-12">
-          <h2 className="text-4xl sm:text-6xl font-bold">
-            Technical{" "}
-            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
-              Skills
+        <div ref={headingRef} className="mb-16 text-center max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+              My Arsenal
+            </span>
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
+            Technologies I{" "}
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
+              Work With
             </span>
           </h2>
-          <p className="mt-4 text-white/70 max-w-2xl">
-            A breakdown of my technical expertise across different areas of
-            software development.
+          <p className="text-lg text-white/60 leading-relaxed">
+            A comprehensive list of the tools, languages, and frameworks I use to build scalable, high-performance applications.
           </p>
         </div>
 
-        {/* Skill Categories */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {skillCategories.map((cat, catIndex) => (
-            <div
-              key={cat.id}
-              ref={(el) => {
-                categoryRefs.current[catIndex] = el;
-              }}
-              className="
-                p-6 rounded-2xl
-                border border-white/10 bg-white/5 backdrop-blur-sm
-                hover:border-white/20 transition-colors duration-300
-              "
-            >
-              {/* Category header */}
-              <div className="flex items-center gap-3 mb-6">
-                <div
-                  className={`h-3 w-3 rounded-full bg-linear-to-r ${getCategoryGradient(cat.id)}`}
-                />
-                <h3 className="text-xl font-semibold text-white">
-                  {cat.title}
-                </h3>
+        {/* Dense Icon Grid */}
+        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+          {allSkills.map((skill) => {
+            const Icon = skill.icon;
+            return (
+              <div
+                key={skill.name}
+                data-skill-card
+                className="group flex flex-col items-center justify-center p-6 rounded-3xl bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all duration-300 backdrop-blur-md shadow-xl hover:-translate-y-2 cursor-pointer"
+              >
+                {/* 3D App Icon Container */}
+                <div className="w-16 h-16 rounded-2xl bg-[#0f172a] shadow-[inset_0_2px_4px_rgba(255,255,255,0.1),0_8px_16px_rgba(0,0,0,0.6)] border border-[#1e293b] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
+                  <Icon className={`text-3xl text-emerald-400/80 transition-colors duration-300 ${skill.color}`} />
+                </div>
+                
+                {/* Skill Name */}
+                <span className="text-sm font-medium text-white/70 group-hover:text-white transition-colors text-center">
+                  {skill.name}
+                </span>
               </div>
-
-              {/* Skills */}
-              <div className="space-y-5">
-                {cat.skills.map((skill) => (
-                  <div key={skill.name}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-sm text-white/80 font-medium">
-                        {skill.name}
-                      </span>
-                      <span className="text-xs text-white/50">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div
-                        data-skill-fill={skill.level}
-                        className={`h-full rounded-full bg-linear-to-r ${getCategoryGradient(cat.id)} shadow-[0_0_12px_rgba(255,255,255,0.15)]`}
-                        style={{ width: 0 }}
-                      />
-                    </div>
-                    {/* Subtle glow under bar */}
-                    <div
-                      className={`h-1 rounded-full bg-linear-to-r ${getCategoryGlow(cat.id)} blur-sm -mt-1`}
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

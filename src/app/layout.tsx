@@ -11,6 +11,7 @@ import ReduxProvider from "@/redux/Provider";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -58,6 +59,7 @@ export default function RootLayout({
           <ReduxProvider>
             {children}
             <Toaster richColors position="top-right" />
+            <Analytics />
           </ReduxProvider>
         </Suspense>
       </body>

@@ -10,94 +10,66 @@ gsap.registerPlugin(ScrollTrigger);
 const highlights = [
   {
     icon: Code2,
-    title: "Scalable Frontend Architecture",
-    desc: "I build component-driven systems and predictable state flows that help teams ship features faster without breaking the UI.",
+    title: "Frontend Architecture",
+    desc: "Building component-driven systems and state flows that help ship features faster.",
   },
   {
     icon: Rocket,
-    title: "Conversion + UX Performance",
-    desc: "I reduce friction with fast load times, clean visual hierarchy, and interface decisions that improve user completion rates.",
+    title: "UX Performance",
+    desc: "Reducing friction with fast load times and clean visual hierarchy.",
   },
   {
     icon: Users,
-    title: "Full-Stack Product Mindset",
-    desc: "I align frontend and backend decisions with business outcomes, balancing delivery speed, quality, and long-term maintainability.",
+    title: "Product Mindset",
+    desc: "Aligning frontend and backend engineering decisions directly with business outcomes.",
   },
   {
     icon: Gauge,
-    title: "Quality Under Deadlines",
-    desc: "I communicate clearly, estimate honestly, and deliver production-ready features even in fast-moving startup environments.",
+    title: "Quality Delivery",
+    desc: "Delivering production-ready features even in fast-moving startup environments.",
   },
-];
-
-const funFacts = [
-  "I started with pixel-perfect UI tasks and grew into full feature ownership.",
-  "I enjoy turning ambiguous product ideas into clear, buildable user flows.",
-  "Outside coding, football and long walks help me reset and think clearly.",
-  "My favorite projects are where speed, clarity, and business value meet.",
 ];
 
 function AboutMe() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const factsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading
+      // Left text animation
       gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30 },
+        textRef.current,
+        { opacity: 0, x: -30 },
         {
           opacity: 1,
-          y: 0,
-          duration: 0.7,
+          x: 0,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 85%",
+            trigger: sectionRef.current,
+            start: "top 75%",
             toggleActions: "play none none none",
           },
         },
       );
 
-      // Cards stagger
+      // Right cards stagger
       if (cardsRef.current) {
-        const cards =
-          cardsRef.current.querySelectorAll<HTMLElement>("[data-about-card]");
+        const cards = cardsRef.current.querySelectorAll<HTMLElement>("[data-about-card]");
         gsap.fromTo(
           cards,
-          { opacity: 0, y: 20, scale: 0.97 },
+          { opacity: 0, x: 30, scale: 0.95 },
           {
             opacity: 1,
-            y: 0,
+            x: 0,
             scale: 1,
-            duration: 0.6,
+            duration: 0.7,
             ease: "power3.out",
             stagger: 0.1,
             scrollTrigger: {
-              trigger: cardsRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      }
-
-      // Fun facts
-      if (factsRef.current) {
-        gsap.fromTo(
-          factsRef.current,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: factsRef.current,
-              start: "top 85%",
+              trigger: sectionRef.current,
+              start: "top 75%",
               toggleActions: "play none none none",
             },
           },
@@ -109,78 +81,65 @@ function AboutMe() {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="w-full mt-20">
-      <div className="w-full max-w-6xl mx-auto px-4 py-12">
-        {/* Heading */}
-        <div ref={headingRef} className="mb-12">
-          <h2 className="text-4xl sm:text-6xl font-bold">
-            About{" "}
-            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
-              Me
-            </span>
-          </h2>
-          <p className="mt-4 text-white/70 max-w-2xl leading-relaxed">
-            I am a full-stack engineer who enjoys solving messy product
-            problems. Over the past 1.5+ years, I have worked on education and
-            healthcare platforms where quality, reliability, and delivery speed
-            all mattered. I focus on Next.js products that need clear UX,
-            maintainable code, API integration, and strong performance on real
-            devices.
-          </p>
-          <p className="mt-3 text-white/65 max-w-2xl leading-relaxed">
-            If your team needs someone who can convert design into polished UI,
-            integrate APIs cleanly, and ship features that move business
-            metrics, that is the gap I solve.
-          </p>
-        </div>
-
-        {/* What I Do Cards */}
-        <div
-          ref={cardsRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-        >
-          {highlights.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                data-about-card
-                className="
-                  group p-6 rounded-2xl
-                  border border-white/10 bg-white/5 backdrop-blur-sm
-                  hover:bg-white/10 hover:border-white/20
-                  transition-all duration-300
-                "
-              >
-                <div className="h-12 w-12 rounded-xl bg-linear-to-br from-cyan-400/20 to-amber-200/20 border border-cyan-300/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="h-6 w-6 text-cyan-300" />
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-white/60 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Fun Facts */}
-        <div
-          ref={factsRef}
-          className="mt-10 p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
-        >
-          <h3 className="text-lg font-semibold text-white mb-4">
-            Working Style At A Glance
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {funFacts.map((fact, i) => (
-              <p key={i} className="text-sm text-white/60">
-                {fact}
+    <section id="about" ref={sectionRef} className="w-full pt-32 pb-20 relative overflow-hidden">
+      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[100px] -translate-y-1/2 -z-10 pointer-events-none" />
+      
+      <div className="w-full max-w-6xl mx-auto px-4">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: Typography & Bio */}
+          <div ref={textRef} className="lg:col-span-5 flex flex-col justify-center">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 w-fit mb-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+                The Journey
+              </span>
+            </div>
+            
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white leading-tight">
+              A bit about{" "}
+              <span className="bg-clip-text text-transparent bg-linear-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
+                my background
+              </span>
+            </h2>
+            
+            <div className="space-y-6 text-lg text-white/60 leading-relaxed">
+              <p>
+                I am a full-stack engineer who genuinely enjoys solving messy product problems. Over the past 1.5+ years, I have worked on platforms where quality, reliability, and delivery speed were critical.
               </p>
-            ))}
+              <p>
+                I started by perfecting pixel-level UI tasks and quickly grew into taking full ownership of end-to-end features. Outside of coding, I play football and take long walks to reset and think clearly.
+              </p>
+              <p className="text-white/80 font-medium">
+                If your team needs someone who can convert complex designs into polished UI and integrate APIs cleanly, that is the exact gap I fill.
+              </p>
+            </div>
           </div>
+
+          {/* Right Column: Grid of Highlights */}
+          <div ref={cardsRef} className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+            {highlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  data-about-card
+                  className="group p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md hover:bg-emerald-500/5 hover:border-emerald-500/30 transition-all duration-300 flex flex-col justify-center"
+                >
+                  <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300">
+                    <Icon className="h-6 w-6 text-emerald-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/60 leading-relaxed text-sm">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
       </div>
     </section>

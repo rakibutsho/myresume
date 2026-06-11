@@ -82,7 +82,7 @@ export default function Services() {
         <div ref={headingRef} className="mb-12">
           <h2 className="text-4xl sm:text-6xl font-bold">
             Services That {}
-            <span className="bg-linear-to-r from-cyan-300 via-sky-300 to-amber-200 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-emerald-300 via-emerald-400 to-emerald-200 bg-clip-text text-transparent">
               Move Metrics
             </span>
           </h2>
@@ -100,10 +100,10 @@ export default function Services() {
               <article
                 key={service.title}
                 data-service-card
-                className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm hover:bg-white/10 hover:border-cyan-300/30 transition-colors duration-300"
+                className="rounded-3xl border border-emerald-500/20 bg-emerald-500/5 p-6 backdrop-blur-md hover:bg-emerald-500/10 hover:border-emerald-500/40 transition-all duration-300"
               >
-                <div className="h-12 w-12 rounded-xl bg-linear-to-br from-cyan-400/20 to-amber-200/20 border border-cyan-300/25 flex items-center justify-center mb-4">
-                  <Icon className="h-6 w-6 text-cyan-300" />
+                <div className="h-12 w-12 rounded-xl bg-linear-to-br from-emerald-400/20 to-emerald-200/20 border border-emerald-500/25 flex items-center justify-center mb-4">
+                  <Icon className="h-6 w-6 text-emerald-400" />
                 </div>
 
                 <h3 className="text-xl font-semibold text-white">{service.title}</h3>
