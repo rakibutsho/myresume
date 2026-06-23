@@ -59,12 +59,12 @@ function AboutMe() {
         const cards = cardsRef.current.querySelectorAll<HTMLElement>("[data-about-card]");
         gsap.fromTo(
           cards,
-          { opacity: 0, x: 30, scale: 0.95 },
+          { opacity: 0, y: 30, scale: 0.95 },
           {
             opacity: 1,
-            x: 0,
+            y: 0,
             scale: 1,
-            duration: 0.7,
+            duration: 0.8,
             ease: "power3.out",
             stagger: 0.1,
             scrollTrigger: {
@@ -81,58 +81,62 @@ function AboutMe() {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="w-full pt-32 pb-20 relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[100px] -translate-y-1/2 -z-10 pointer-events-none" />
+    <section id="about" ref={sectionRef} className="w-full pt-15 pb-5 relative overflow-hidden bg-[#09090b]">
+      <div className="absolute top-1/2 left-0 w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-emerald-500/5 rounded-full blur-[150px] -translate-y-1/2 -z-10 pointer-events-none" />
       
-      <div className="w-full max-w-6xl mx-auto px-4">
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Typography & Bio */}
           <div ref={textRef} className="lg:col-span-5 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 w-fit mb-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md w-fit">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
                 The Journey
               </span>
             </div>
             
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white leading-tight">
+            <h2 className="text-5xl md:text-6xl font-bold mb-8 text-white leading-[1.1] tracking-tight">
               A bit about{" "}
-              <span className="bg-clip-text text-transparent bg-linear-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
                 my background
               </span>
             </h2>
             
-            <div className="space-y-6 text-lg text-white/60 leading-relaxed">
+            <div className="space-y-6 text-xl text-[#a1a1aa] font-light leading-relaxed">
               <p>
                 I am a full-stack engineer who genuinely enjoys solving messy product problems. Over the past 1.5+ years, I have worked on platforms where quality, reliability, and delivery speed were critical.
               </p>
               <p>
                 I started by perfecting pixel-level UI tasks and quickly grew into taking full ownership of end-to-end features. Outside of coding, I play football and take long walks to reset and think clearly.
               </p>
-              <p className="text-white/80 font-medium">
+              <p className="text-white font-medium">
                 If your team needs someone who can convert complex designs into polished UI and integrate APIs cleanly, that is the exact gap I fill.
               </p>
             </div>
           </div>
 
           {/* Right Column: Grid of Highlights */}
-          <div ref={cardsRef} className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 h-full">
+          <div ref={cardsRef} className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 h-full">
             {highlights.map((item) => {
               const Icon = item.icon;
               return (
                 <div
                   key={item.title}
                   data-about-card
-                  className="group p-6 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md hover:bg-emerald-500/5 hover:border-emerald-500/30 transition-all duration-300 flex flex-col justify-center"
+                  className="group relative rounded-[2rem] p-8 bg-[#121214] border border-white/5 overflow-hidden flex flex-col justify-center hover:border-white/10 transition-colors duration-500 shadow-2xl"
                 >
-                  <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300">
+                  <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                  <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="h-14 w-14 rounded-2xl bg-[#09090b] border border-white/10 shadow-inner group-hover:border-emerald-500/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500 relative z-10">
                     <Icon className="h-6 w-6 text-emerald-400" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">
+                  <h3 className="text-2xl font-bold tracking-tight text-white mb-3 relative z-10">
                     {item.title}
                   </h3>
-                  <p className="text-white/60 leading-relaxed text-sm">
+                  <p className="text-[#a1a1aa] leading-relaxed text-sm font-light relative z-10">
                     {item.desc}
                   </p>
                 </div>

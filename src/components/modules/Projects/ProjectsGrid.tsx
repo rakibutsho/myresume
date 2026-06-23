@@ -82,7 +82,7 @@ export default function ProjectsGrid({ projects }: Props) {
   return (
     <div
       ref={wrapRef}
-      className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 items-stretch"
     >
       {projects.map((p) => (
         <ProjectCard key={p.id} project={p} />

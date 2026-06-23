@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Menu, X } from "lucide-react";
+import { Download, Menu, X, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -62,18 +62,18 @@ export const Navbar = () => {
       <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#111827]/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg"
+          ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg"
           : "bg-transparent py-5"
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 lg:px-8 flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link
           href="#home"
           onClick={(e) => handleClick(e, "#home")}
-          className="text-2xl font-bold tracking-tight text-white flex items-center gap-1"
+          className="text-2xl font-bold tracking-tight text-white flex items-center gap-1 hover:text-emerald-400 transition-colors"
         >
-          Rakibul Islam<span className="text-[#10b981]">.</span>
+          Rakibul<span className="text-[#10b981]">.</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -81,16 +81,20 @@ export const Navbar = () => {
           {navigationLinks.map((link) => {
             const isActive = activeSection === link.href;
             return (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleClick(e, link.href)}
-                className={`text-sm font-medium transition-colors hover:text-emerald-400 ${
-                  isActive ? "text-emerald-400" : "text-white/70"
-                }`}
-              >
-                {link.name}
-              </a>
+               <div key={link.name} className="relative group flex items-center">
+                <a
+                  href={link.href}
+                  onClick={(e) => handleClick(e, link.href)}
+                  className={`text-sm font-semibold tracking-wide uppercase transition-colors hover:text-white ${
+                    isActive ? "text-white" : "text-[#a1a1aa]"
+                  }`}
+                >
+                  {link.name}
+                </a>
+                {isActive && (
+                  <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400" />
+                )}
+              </div>
             );
           })}
         </nav>
@@ -100,17 +104,17 @@ export const Navbar = () => {
           <a
             href="/cv/Rakibul_Islam.pdf"
             download="Rakibul_Islam.pdf"
-            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-emerald-500/30 text-emerald-300 text-sm font-medium hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-all"
+            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-emerald-400 hover:text-black transition-all group"
           >
-            <Download className="w-4 h-4" />
             Resume
+            <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
           </a>
 
           {/* Mobile Nav */}
           <div className="lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="p-2 -mr-2 text-white/80 hover:text-white transition-colors cursor-pointer"
+              className="p-2 -mr-2 text-white hover:text-emerald-400 transition-colors cursor-pointer"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -119,7 +123,7 @@ export const Navbar = () => {
       </div>
     </header>
 
-      {/* Mobile Drawer (Rendered Outside Header to escape backdrop-blur containment) */}
+      {/* Mobile Drawer */}
       <div 
         className="lg:hidden"
         style={{ pointerEvents: mobileMenuOpen ? "auto" : "none" }}
@@ -132,7 +136,7 @@ export const Navbar = () => {
 
         {/* Drawer */}
         <div
-          className={`fixed top-0 bottom-0 right-0 z-[101] w-[85vw] sm:w-[350px] bg-[#0f172a] border-l border-white/10 shadow-2xl p-6 sm:p-8 flex flex-col transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+          className={`fixed top-0 bottom-0 right-0 z-[101] w-[85vw] sm:w-[350px] bg-[#09090b] border-l border-white/10 shadow-2xl p-6 sm:p-8 flex flex-col transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
             <Link
@@ -143,7 +147,7 @@ export const Navbar = () => {
               }}
               className="text-2xl font-bold tracking-tight text-white"
             >
-              Rakibul Islam<span className="text-emerald-400">.</span>
+              Rakibul<span className="text-emerald-400">.</span>
             </Link>
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -164,10 +168,10 @@ export const Navbar = () => {
                     handleClick(e, link.href);
                     setMobileMenuOpen(false);
                   }}
-                  className={`flex items-center gap-3 px-4 py-4 rounded-xl text-base font-semibold transition-all ${
+                  className={`flex items-center gap-3 px-4 py-4 rounded-xl text-sm tracking-widest font-bold uppercase transition-all ${
                     isActive
                       ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                      : "text-white/70 hover:text-white hover:bg-white/5 border border-transparent"
+                      : "text-[#a1a1aa] hover:text-white hover:bg-white/5 border border-transparent"
                   }`}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-emerald-400 shadow-[0_0_8px_#10b981]" : "bg-transparent"}`} />
@@ -180,10 +184,10 @@ export const Navbar = () => {
               <a
                 href="/cv/Rakibul_Islam.pdf"
                 download="Rakibul_Islam.pdf"
-                className="flex items-center justify-center gap-2 w-full px-5 py-4 rounded-xl bg-[#10b981] hover:bg-emerald-400 text-white font-bold transition-all shadow-lg shadow-emerald-500/25"
+                className="flex items-center justify-center gap-2 w-full px-5 py-4 rounded-full bg-white hover:bg-emerald-400 text-black font-bold uppercase tracking-widest transition-all shadow-lg"
               >
                 <Download className="w-5 h-5" />
-                Download Resume
+                Resume
               </a>
             </div>
           </div>

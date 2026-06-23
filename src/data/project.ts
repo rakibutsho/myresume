@@ -2,6 +2,11 @@
 
 export type ProjectType = "Frontend" | "Full Stack" | "Backend";
 
+export type ProjectImageObj =
+  | { cover: string }
+  | { responsive: string }
+  | { dashboard: Array<{ id: number; link: string }> };
+
 export type Project = {
   id: string;
   title: string;
@@ -14,94 +19,206 @@ export type Project = {
   liveUrl?: string;
   githubUrl?: string;
   isPrivate: boolean;
-  image?: string;
+  image?: string | ProjectImageObj[];
 };
 
 export const projects: Project[] = [
   {
-    id: "dimcprep",
-    title: "DIMCPrep",
-    subtitle: "Subscription-based Exam Preparation Platform",
-    type: "Frontend",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux"],
-    isPrivate: true,
-    liveUrl: "https://www.dimcprep.com/",
-    problem:
-      "The platform needed a modern learning experience and admin workflow that could handle growing student traffic without UI slowdowns.",
-    solution:
-      "Built the student-facing app and admin dashboard with Next.js, TypeScript, and Redux. Implemented SEO metadata strategy, dynamic quiz rendering, and resilient API-driven interfaces.",
-    results: [
-      "Improved Lighthouse SEO score to 92+ on key pages.",
-      "Reduced repetitive admin actions with reusable dashboard components.",
-      "Increased mobile usability with responsive layouts and cleaner interaction patterns.",
+    id: "Pawradise",
+    title: "Pawradise",
+    subtitle: "petcare-booking-platform",
+    type: "Full Stack",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "MongoDB",
+      "Redux",
+      "JWT Auth",
+      "Prisma",
+      "Express",
+      "Node.js",
+      "REST API",
     ],
-    image: "/projects/dimcprep.png",
+    isPrivate: false,
+    githubUrl: "https://github.com/rakib-utsho/petcare-booking-platform",
+    liveUrl: "https://pawradise.lu/",
+    problem:
+      "The client needed a comprehensive booking platform that handles complex pet training scheduling, user profiles, automated invoicing, and role-based administration seamlessly without performance bottlenecks.",
+    solution:
+      "Developed a full-stack system with an interactive Client Portal for seamless scheduling and a secure Admin Dashboard for session management. Implemented OTP authentication and background jobs via node-cron.",
+    results: [
+      "Delivered a smooth, interactive booking experience featuring Framer Motion and secure Stripe payments.",
+      "Automated invoice generation via Puppeteer and recurring task scheduling, saving hours of manual administrative work.",
+      "Ensured high performance and type safety across the stack with Next.js, Node.js, Express, and Prisma ORM.",
+    ],
+    image: [
+      {
+        cover:
+          "https://drive.google.com/file/d/1tdEVgSnPg4FLfNiaQ8hVUZoDiZV9YXUY/view?usp=drive_link",
+      },
+      {
+        responsive:
+          "https://drive.google.com/file/d/1Y9udRx6WSgBy9WUDZJM3ut_pAXzsnf3H/view?usp=drive_link",
+      },
+      {
+        dashboard: [
+          {
+            id: 0,
+            link: "https://drive.google.com/file/d/1VBgRi2QM5BCy-qXhaPR1BI0ZPYy-EoYZ/view?usp=drive_link",
+          },
+          {
+            id: 1,
+            link: "https://drive.google.com/file/d/1bit-RLSZyLYE08QYnA1qFMWJZkCw40ZC/view?usp=drive_link",
+          },
+          {
+            id: 2,
+            link: "https://drive.google.com/file/d/13mO06Ex1FSCbuo-C9ZQQUe0F5Evs6LIa/view?usp=drive_link",
+          },
+        ],
+      },
+    ],
   },
   {
     id: "anesthelink",
     title: "Anesthelink",
-    subtitle: "Hospital Management Platform",
+    subtitle: "Healthcare-Staffing-Platform",
     type: "Frontend",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux"],
     isPrivate: true,
     liveUrl: "https://anesthelink.com",
     problem:
-      "Hospital staff needed a clearer, faster interface for high-frequency operations and role-based access across multiple dashboards.",
+      "Hospital staff needed a clearer, faster interface for high-frequency operations. A critical challenge was building a performant custom Address Autocomplete component from scratch, avoiding heavy third-party libraries that would slow down the initial page load.",
     solution:
-      "Implemented a structured dashboard UI with reusable modules, robust API integration, and secure authentication to support daily medical operations.",
+      "Implemented a structured dashboard UI with reusable modules. For the autocomplete challenge: 1) Dynamically injected the Google Maps script only on mount, 2) Added a 250ms debounce on keystrokes to prevent API rate limits and save costs, and 3) Triggered a silent background geocoding request upon selection to seamlessly fetch latitude/longitude.",
     results: [
       "Cut key screen load friction through optimized rendering and state handling.",
       "Improved data visibility for operational teams with cleaner table and form UX.",
       "Delivered responsive admin workflows usable across desktop and tablet devices.",
+      "Created a completely seamless user experience for address entry while saving on API costs and optimizing initial page load times.",
     ],
-    image: "/projects/anesthelink.png",
+    image: [
+      {
+        cover:
+          "https://drive.google.com/file/d/1lzncONQctN5fcog1gJFeWi7qJYUz_87B/view?usp=sharing",
+      },
+      {
+        responsive:
+          "https://drive.google.com/file/d/1Bme4DwKKw7ZfsdY_yDKzPZgmtLsYP3zh/view?usp=drive_link",
+      },
+      {
+        dashboard: [
+          {
+            id: 0,
+            link: "https://drive.google.com/file/d/1e7veyberra6GHQgsEYKDIt674pANFesj/view?usp=drive_link",
+          },
+          {
+            id: 1,
+            link: "https://drive.google.com/file/d/1YanjYArQxK5M3Cvl-d3UCOTiocWaANYG/view?usp=sharing",
+          },
+        ],
+      },
+    ],
   },
+
   {
-    id: "expense-manager",
-    title: "Expense Manager",
-    subtitle: "Full Stack Expense Tracking App",
-    type: "Full Stack",
+    id: "farmadirect",
+    title: "FarmaDirect",
+    subtitle: "Cross-Border Medicine Delivery Platform",
+    type: "Frontend",
     tech: [
-      "Next.js",
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
       "Tailwind CSS",
-      "Redux",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "Prisma",
+      "Redux Toolkit",
+      "Stripe",
+      "Framer Motion",
+      "GSAP",
     ],
-    isPrivate: false,
-    liveUrl: "https://personalexpencemanager-frontend.vercel.app",
-    githubUrl: "https://github.com/rakib-utsho/FullStack_Expence-Manager",
+    isPrivate: true,
+    liveUrl: "https://farmadirect.online", // TODO: Update this
+    // githubUrl: "https://github.com/rakib-utsho/saarsip-front-end", // TODO: Update this
     problem:
-      "Many personal finance tools are hard to use and fail to provide quick visibility into spending behavior.",
+      "Panamanian customers needed a reliable and accessible way to purchase a wide range of medications from Colombian pharmacies with seamless doorstep delivery.",
     solution:
-      "Developed a full-stack expense tracker with JWT auth, category-wise analytics, and a dashboard experience focused on fast updates and simple reporting.",
+      "Developed a high-performance frontend for a cross-border e-commerce platform featuring a secure Stripe checkout, a user dashboard, and built-in multi-language support.",
     results: [
-      "Enabled users to log, update, and filter expenses in seconds.",
-      "Added visual spending trends for better month-over-month decision making.",
-      "Shipped complete CRUD flow with secure auth and protected routes.",
+      "Integrated secure, international payment processing using Stripe.",
+      "Implemented a custom language context for seamless bilingual (English/Spanish) user experiences.",
+      "Delivered a premium, highly interactive UI utilizing Framer Motion, GSAP, and Tailwind CSS.",
+      "Ensured reliable session management for carts and authentication using Redux Persist.",
     ],
-    image: "/projects/expense-manager.png",
+    image: [
+      {
+        cover:
+          "https://drive.google.com/file/d/1Uko9VmPrL-jAUqHRdfDRNAOlszCPzCAx/view?usp=drive_link",
+      },
+      {
+        responsive:
+          "https://drive.google.com/file/d/1vDbfplt20v6603JA6B9DDOUJjVFmu0JB/view?usp=drive_link",
+      },
+      // {
+      //   dashboard: [
+      //     {
+      //       id: 0,
+      //       link: "https://drive.google.com/file/d/1e7veyberra6GHQgsEYKDIt674pANFesj/view?usp=drive_link",
+      //     },
+      //     {
+      //       id: 1,
+      //       link: "https://drive.google.com/file/d/1YanjYArQxK5M3Cvl-d3UCOTiocWaANYG/view?usp=sharing",
+      //     },
+      //   ],
+      // },
+    ],
   },
   {
-    id: "urban-nest",
-    title: "Urban Nest",
-    subtitle: "Home Rental WebApp (Airbnb-inspired)",
-    type: "Full Stack",
-    tech: ["EJS", "Bootstrap CSS", "Node.js", "Express.js", "MongoDB"],
-    isPrivate: false,
-    liveUrl: "https://urbannest-rental-webapp-tbgr.onrender.com",
-    githubUrl: "https://github.com/rakib-utsho/UrbanNest-Rental-WebApp",
-    problem:
-      "Property listing experiences often fail on discoverability and trust, especially when location context is unclear.",
-    solution:
-      "Built a full-stack rental marketplace with secure authentication, listing/review workflows, and Mapbox-powered location discovery.",
-    results: [
-      "Improved listing discoverability with location-aware search and map previews.",
-      "Supported complete host and renter workflows from listing to review.",
-      "Delivered an end-to-end full-stack app with production-ready route handling.",
+    id: "bacuff-tournament",
+    title: "Crown And Pitch",
+    subtitle: "Sports-Management-Multi Role Dashboard",
+    type: "Frontend",
+    tech: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "Redux Toolkit",
+      "RTK Query",
+      "shadcn/ui",
     ],
-    image: "/projects/urban-nest.png",
+    isPrivate: true,
+    liveUrl: "https://crownandpitch.com", // Add your live URL
+    // githubUrl: "https://github.com/rakib-utsho/NextJs_REDUX_boilerplate", // Update if needed
+    problem:
+      "Managing complex tournament creation forms and tracking system-wide activity logs required a scalable frontend architecture capable of handling deep API states without performance bottlenecks.",
+    solution:
+      "Developed a modern frontend dashboard integrating RTK Query for automated caching. Structured complex tournament generation schemas and implemented a paginated, color-coded activity tracking system.",
+    results: [
+      "Integrated seamless CRUD operations for tournament management with real-time RTK Query cache invalidation.",
+      "Built a robust, paginated activity log system providing structured monitoring of user actions and events.",
+      "Established a highly scalable, type-safe Next.js boilerplate with persistent state and reusable UI primitives.",
+    ],
+    image: [
+      {
+        cover:
+          "https://drive.google.com/file/d/18OzG4ozs-89uQaHcOtyf54_Vg2ovSKuq/view?usp=drive_link",
+      },
+      {
+        responsive:
+          "https://drive.google.com/file/d/1pnyWE-sn2W51TCLMbYdFCx9Tss3HCXoq/view?usp=drive_link",
+      },
+      {
+        dashboard: [
+          {
+            id: 0,
+            link: "https://drive.google.com/file/d/1UVG8oW5yMaNjb0caGJiAlzgf-o8vwfP2/view?usp=drive_link",
+          },
+          {
+            id: 1,
+            link: "https://drive.google.com/file/d/1BIvTRDQBcKsT1IH1ia5l1YqryX4gN8si/view?usp=drive_link",
+          },
+        ],
+      },
+    ],
   },
 ];

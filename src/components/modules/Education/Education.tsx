@@ -31,25 +31,26 @@ const Education = () => {
   }, []);
 
   return (
-    <section id="education" className="w-full pt-32 pb-20 relative">
-      <div className="w-full max-w-6xl mx-auto px-4">
+    <section id="education" className="w-full pt-15 pb-20 relative bg-[#09090b]">
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
         
         {/* Premium Header */}
-        <div ref={headingRef} className="mb-16 text-center max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0f172a] shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] border border-white/5 mb-6">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-300">
+        <div ref={headingRef} className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
+          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
               Academic Background
             </span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white leading-tight">
+          
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-[1.1] tracking-tight">
             Educational {""}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
               Journey
             </span>
           </h2>
 
-          <p className="text-lg text-white/50 leading-relaxed font-medium">
+          <p className="text-xl text-[#a1a1aa] font-light leading-relaxed">
             The academic foundation that shaped my engineering mindset and problem-solving skills.
           </p>
         </div>

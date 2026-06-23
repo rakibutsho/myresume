@@ -47,15 +47,18 @@ const Institute = () => {
         <div
           key={insti.id}
           data-edu-card
-          className="group relative p-8 rounded-[2rem] bg-[#131b2c] border border-[#1e293b] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_15px_30px_rgba(0,0,0,0.4)] hover:border-emerald-500/30 hover:bg-[#152033] hover:-translate-y-2 transition-all duration-500 flex flex-col h-full overflow-hidden"
+          className="group relative p-8 rounded-[2rem] bg-[#121214] border border-white/5 shadow-2xl hover:border-white/10 transition-colors duration-500 flex flex-col h-full overflow-hidden"
         >
+          {/* Subtle Background Pattern */}
+          <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+          
           {/* Subtle ambient light inside the card */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-[60px] pointer-events-none group-hover:bg-emerald-500/10 transition-colors duration-500" />
 
           {/* Top Section: Logo & Timeline */}
           <div className="flex justify-between items-start mb-8 relative z-10">
             {/* 3D Logo Container */}
-            <div className="relative w-16 h-16 rounded-2xl bg-[#0f172a] shadow-[inset_0_2px_4px_rgba(255,255,255,0.1),0_8px_16px_rgba(0,0,0,0.6)] border border-[#1e293b] flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+            <div className="relative w-16 h-16 rounded-[1.25rem] bg-[#09090b] shadow-inner border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-emerald-500/30 transition-all duration-500">
               <Image
                 src={insti.logo}
                 alt={insti.institute}
@@ -66,9 +69,9 @@ const Institute = () => {
             </div>
 
             {/* Timeline Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0f172a] border border-white/5 shadow-inner">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#09090b] border border-white/5 shadow-inner">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
-              <span className="text-[11px] font-mono font-medium text-white/70">
+              <span className="text-[11px] font-mono font-medium text-[#a1a1aa] tracking-widest uppercase">
                 {insti.timeline}
               </span>
             </div>
@@ -76,18 +79,18 @@ const Institute = () => {
 
           {/* Main Info */}
           <div className="flex flex-col grow relative z-10">
-            <h3 className="text-xl font-bold leading-tight text-white group-hover:text-emerald-400 transition-colors mb-2">
+            <h3 className="text-2xl font-bold tracking-tight leading-tight text-white group-hover:text-emerald-400 transition-colors mb-2">
               {insti.institute}
             </h3>
             
-            <p className="text-sm text-white/60 font-medium mb-6">
+            <p className="text-sm text-[#a1a1aa] font-medium mb-8">
               {insti.subject}
             </p>
 
             {/* Degree Badge at the bottom */}
             <div className="mt-auto pt-6 border-t border-white/5">
-              <div className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-semibold w-full justify-center">
-                <GraduationCap className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white font-semibold tracking-wide w-full justify-center group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors duration-300">
+                <GraduationCap className="w-5 h-5" />
                 {insti.degree}
               </div>
             </div>

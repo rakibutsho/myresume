@@ -18,7 +18,7 @@ const HomePage = () => {
       </div>
       <AboutMe />
       <Services />
-      <Skills />
+      {/* <Skills /> */}
       <section id="experience">
         <JobHistory />
       </section>
