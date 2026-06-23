@@ -85,7 +85,9 @@ export const projects: Project[] = [
     subtitle: "Healthcare-Staffing-Platform",
     type: "Frontend",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux"],
-    isPrivate: true,
+    isPrivate: false,
+    githubUrl:
+      "https://github.com/rakib-utsho/Healthcare-Staffing-Platform_Frontend",
     liveUrl: "https://anesthelink.com",
     problem:
       "Hospital staff needed a clearer, faster interface for high-frequency operations. A critical challenge was building a performant custom Address Autocomplete component from scratch, avoiding heavy third-party libraries that would slow down the initial page load.",

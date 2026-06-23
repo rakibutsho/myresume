@@ -28,24 +28,30 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/#home" },
+  { name: "About", href: "/#about" },
+  { name: "Services", href: "/#services" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export const Footer = () => {
   const handleScroll = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      // If not on the homepage, let standard Next.js routing handle it
+      if (window.location.pathname !== "/") {
+        return;
+      }
+      
       e.preventDefault();
-      const id = href.replace("#", "");
+      const id = href.replace(/.*#/, "");
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else if (href === "#home") {
+        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      } else if (id === "home") {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     },
@@ -156,8 +162,8 @@ export const Footer = () => {
             </ul>
 
             <a
-              href="#contact"
-              onClick={(e) => handleScroll(e, "#contact")}
+              href="/#contact"
+              onClick={(e) => handleScroll(e, "/#contact")}
               className="
                 group flex items-center justify-center gap-3 w-full
                 rounded-2xl px-6 py-4 text-sm font-semibold tracking-wide uppercase text-black

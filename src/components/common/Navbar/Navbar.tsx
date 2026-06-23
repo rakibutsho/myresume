@@ -3,37 +3,43 @@
 import { Download, Menu, X, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Dancing_Script } from "next/font/google";
+
+const signatureFont = Dancing_Script({ subsets: ["latin"], weight: "700" });
 
 const navigationLinks = [
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
-  { name: "Education", href: "#education" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "/#about" },
+  { name: "Services", href: "/#services" },
+  { name: "Skills", href: "/#skills" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Education", href: "/#education" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("#home");
+  const [activeSection, setActiveSection] = useState("/#home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
+      // Only update active section if we are on the home page
+      if (window.location.pathname !== "/") return;
+
       // Update active section
       const sectionIds = [
         "home",
-        ...navigationLinks.map((l) => l.href.replace("#", "")),
+        ...navigationLinks.map((l) => l.href.replace("/#", "")),
       ];
       const scrollY = window.scrollY + 100;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (el && el.offsetTop <= scrollY) {
-          setActiveSection(`#${sectionIds[i]}`);
+          setActiveSection(`/#${sectionIds[i]}`);
           return;
         }
       }
@@ -47,12 +53,18 @@ export const Navbar = () => {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
+    // If not on the homepage, let standard Next.js routing handle it
+    if (window.location.pathname !== "/") {
+      return;
+    }
+    
     e.preventDefault();
-    const id = href.replace("#", "");
+    const id = href.replace(/.*#/, "");
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else if (href === "#home") {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    } else if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -69,9 +81,9 @@ export const Navbar = () => {
       <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex items-center justify-between">
         {/* Logo */}
         <Link
-          href="#home"
-          onClick={(e) => handleClick(e, "#home")}
-          className="text-2xl font-bold tracking-tight text-white flex items-center gap-1 hover:text-emerald-400 transition-colors"
+          href="/#home"
+          onClick={(e) => handleClick(e, "/#home")}
+          className={`text-3xl font-bold tracking-wide text-white flex items-center gap-1 hover:text-emerald-400 transition-colors ${signatureFont.className}`}
         >
           Rakibul<span className="text-[#10b981]">.</span>
         </Link>
@@ -140,12 +152,12 @@ export const Navbar = () => {
         >
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
             <Link
-              href="#home"
+              href="/#home"
               onClick={(e) => {
-                handleClick(e, "#home");
+                handleClick(e, "/#home");
                 setMobileMenuOpen(false);
               }}
-              className="text-2xl font-bold tracking-tight text-white"
+              className={`text-3xl font-bold tracking-wide text-white ${signatureFont.className}`}
             >
               Rakibul<span className="text-emerald-400">.</span>
             </Link>
