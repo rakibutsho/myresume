@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Education = () => {
   return (
     <section id="education" className="w-full py-24 relative bg-[#0a0a0c] font-sans text-white border-t border-white/5">
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
+      <div className="w-full max-w-300 mx-auto px-4 md:px-8">
         
         {/* Header Bar */}
         <div className="flex justify-between items-center text-xs font-mono text-[#a1a1aa] mb-12 uppercase tracking-widest">

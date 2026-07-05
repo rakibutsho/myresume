@@ -46,7 +46,7 @@ const Institute = () => {
         <div
           key={insti.id}
           data-edu-card
-          className="group relative p-8 md:p-10 rounded-[2rem] bg-[#0f0f11] border border-white/5 shadow-2xl hover:border-white/20 transition-colors duration-500 flex flex-col h-full overflow-hidden"
+          className="group relative p-8 md:p-10 rounded-4xl bg-[#0f0f11] border border-white/5 shadow-2xl hover:border-white/20 transition-colors duration-500 flex flex-col h-full overflow-hidden"
         >
           
           {/* Top Section: Timeline & Logo */}
