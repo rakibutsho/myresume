@@ -12,21 +12,14 @@ import Tools from "@/components/modules/Tools/Tools";
 const HomePage = () => {
   return (
     <div>
-      <div id="home">
-        <Home />
-        <Tools />
-      </div>
+      <Home />
       <AboutMe />
-      <Services />
-      {/* <Skills /> */}
-      <section id="experience">
-        <JobHistory />
-      </section>
-      {/* <Tools /> */}
-      <section id="projects">
-        <ProjectsPage />
-      </section>
+      {/* <Services /> */}
+      <Skills />
       <Education />
+      <JobHistory />
+      <ProjectsPage />
+
       <Testimonials />
       <Contact />
     </div>

@@ -9,7 +9,7 @@ export default function CommonLayout({
     <div>
       <Navbar />
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 // src/data/projects.ts
 
-export type ProjectType = "Frontend" | "Full Stack" | "Backend";
+export type ProjectType = string;
 
 export type ProjectImageObj =
   | { cover: string }
@@ -26,7 +26,7 @@ export const projects: Project[] = [
   {
     id: "Pawradise",
     title: "Pawradise",
-    subtitle: "petcare-booking-platform",
+    subtitle: "Petcare Booking Platform",
     type: "Full Stack",
     tech: [
       "Next.js",
@@ -44,14 +44,9 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/rakib-utsho/petcare-booking-platform",
     liveUrl: "https://pawradise.lu/",
     problem:
-      "The client needed a comprehensive booking platform that handles complex pet training scheduling, user profiles, automated invoicing, and role-based administration seamlessly without performance bottlenecks.",
-    solution:
-      "Developed a full-stack system with an interactive Client Portal for seamless scheduling and a secure Admin Dashboard for session management. Implemented OTP authentication and background jobs via node-cron.",
-    results: [
-      "Delivered a smooth, interactive booking experience featuring Framer Motion and secure Stripe payments.",
-      "Automated invoice generation via Puppeteer and recurring task scheduling, saving hours of manual administrative work.",
-      "Ensured high performance and type safety across the stack with Next.js, Node.js, Express, and Prisma ORM.",
-    ],
+      "Developed a comprehensive, high-performance petcare booking platform handling complex scheduling, user profiles, and role-based administration. Implemented secure payment processing, OTP authentication, and automated invoicing via Puppeteer to seamlessly streamline administrative workflows.",
+    solution: "✨ Automated invoice generation & task scheduling, saving hours of manual work.",
+    results: [],
     image: [
       {
         cover:
@@ -82,7 +77,7 @@ export const projects: Project[] = [
   {
     id: "anesthelink",
     title: "Anesthelink",
-    subtitle: "Healthcare-Staffing-Platform",
+    subtitle: "Healthcare Staffing Platform",
     type: "Frontend",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux"],
     isPrivate: false,
@@ -90,15 +85,9 @@ export const projects: Project[] = [
       "https://github.com/rakib-utsho/Healthcare-Staffing-Platform_Frontend",
     liveUrl: "https://anesthelink.com",
     problem:
-      "Hospital staff needed a clearer, faster interface for high-frequency operations. A critical challenge was building a performant custom Address Autocomplete component from scratch, avoiding heavy third-party libraries that would slow down the initial page load.",
-    solution:
-      "Implemented a structured dashboard UI with reusable modules. For the autocomplete challenge: 1) Dynamically injected the Google Maps script only on mount, 2) Added a 250ms debounce on keystrokes to prevent API rate limits and save costs, and 3) Triggered a silent background geocoding request upon selection to seamlessly fetch latitude/longitude.",
-    results: [
-      "Cut key screen load friction through optimized rendering and state handling.",
-      "Improved data visibility for operational teams with cleaner table and form UX.",
-      "Delivered responsive admin workflows usable across desktop and tablet devices.",
-      "Created a completely seamless user experience for address entry while saving on API costs and optimizing initial page load times.",
-    ],
+      "Built a performant, structured dashboard UI for high-frequency healthcare staffing operations. Implemented a custom, optimized address autocomplete component that drastically cut initial load times and reduced third-party API costs.",
+    solution: "⚡ Cut key screen load friction through highly optimized state handling.",
+    results: [],
     image: [
       {
         cover:
@@ -122,11 +111,10 @@ export const projects: Project[] = [
       },
     ],
   },
-
   {
     id: "farmadirect",
     title: "FarmaDirect",
-    subtitle: "Cross-Border Medicine Delivery Platform",
+    subtitle: "Cross-Border Medicine Delivery",
     type: "Frontend",
     tech: [
       "Next.js 16",
@@ -139,18 +127,11 @@ export const projects: Project[] = [
       "GSAP",
     ],
     isPrivate: true,
-    liveUrl: "https://farmadirect.online", // TODO: Update this
-    // githubUrl: "https://github.com/rakib-utsho/saarsip-front-end", // TODO: Update this
+    liveUrl: "https://farmadirect.online",
     problem:
-      "Panamanian customers needed a reliable and accessible way to purchase a wide range of medications from Colombian pharmacies with seamless doorstep delivery.",
-    solution:
-      "Developed a high-performance frontend for a cross-border e-commerce platform featuring a secure Stripe checkout, a user dashboard, and built-in multi-language support.",
-    results: [
-      "Integrated secure, international payment processing using Stripe.",
-      "Implemented a custom language context for seamless bilingual (English/Spanish) user experiences.",
-      "Delivered a premium, highly interactive UI utilizing Framer Motion, GSAP, and Tailwind CSS.",
-      "Ensured reliable session management for carts and authentication using Redux Persist.",
-    ],
+      "Developed a high-performance frontend for a cross-border e-commerce platform serving Panamanian customers from Colombian pharmacies. Integrated secure Stripe checkout, seamless bilingual language support, and interactive UI animations.",
+    solution: "🌍 Delivered a premium bilingual user experience with international Stripe processing.",
+    results: [],
     image: [
       {
         cover:
@@ -160,24 +141,12 @@ export const projects: Project[] = [
         responsive:
           "https://drive.google.com/file/d/1vDbfplt20v6603JA6B9DDOUJjVFmu0JB/view?usp=drive_link",
       },
-      // {
-      //   dashboard: [
-      //     {
-      //       id: 0,
-      //       link: "https://drive.google.com/file/d/1e7veyberra6GHQgsEYKDIt674pANFesj/view?usp=drive_link",
-      //     },
-      //     {
-      //       id: 1,
-      //       link: "https://drive.google.com/file/d/1YanjYArQxK5M3Cvl-d3UCOTiocWaANYG/view?usp=sharing",
-      //     },
-      //   ],
-      // },
     ],
   },
   {
     id: "bacuff-tournament",
     title: "Crown And Pitch",
-    subtitle: "Sports-Management-Multi Role Dashboard",
+    subtitle: "Sports Management Dashboard",
     type: "Frontend",
     tech: [
       "Next.js 16",
@@ -189,17 +158,11 @@ export const projects: Project[] = [
       "shadcn/ui",
     ],
     isPrivate: true,
-    liveUrl: "https://crownandpitch.com", // Add your live URL
-    // githubUrl: "https://github.com/rakib-utsho/NextJs_REDUX_boilerplate", // Update if needed
+    liveUrl: "https://crownandpitch.com",
     problem:
-      "Managing complex tournament creation forms and tracking system-wide activity logs required a scalable frontend architecture capable of handling deep API states without performance bottlenecks.",
-    solution:
-      "Developed a modern frontend dashboard integrating RTK Query for automated caching. Structured complex tournament generation schemas and implemented a paginated, color-coded activity tracking system.",
-    results: [
-      "Integrated seamless CRUD operations for tournament management with real-time RTK Query cache invalidation.",
-      "Built a robust, paginated activity log system providing structured monitoring of user actions and events.",
-      "Established a highly scalable, type-safe Next.js boilerplate with persistent state and reusable UI primitives.",
-    ],
+      "Engineered a scalable frontend architecture capable of handling deep API states without performance bottlenecks for a complex tournament creation platform. Structured robust data schemas and implemented a color-coded activity tracking system.",
+    solution: "🚀 Established a robust, type-safe Next.js boilerplate with RTK Query caching.",
+    results: [],
     image: [
       {
         cover:

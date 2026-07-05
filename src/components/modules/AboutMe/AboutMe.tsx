@@ -1,147 +1,116 @@
 "use client";
 
+import { BrainCircuit, Code, Rocket } from "lucide-react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Code2, Gauge, Rocket, Users } from "lucide-react";
-import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const highlights = [
-  {
-    icon: Code2,
-    title: "Frontend Architecture",
-    desc: "Building component-driven systems and state flows that help ship features faster.",
-  },
-  {
-    icon: Rocket,
-    title: "UX Performance",
-    desc: "Reducing friction with fast load times and clean visual hierarchy.",
-  },
-  {
-    icon: Users,
-    title: "Product Mindset",
-    desc: "Aligning frontend and backend engineering decisions directly with business outcomes.",
-  },
-  {
-    icon: Gauge,
-    title: "Quality Delivery",
-    desc: "Delivering production-ready features even in fast-moving startup environments.",
-  },
-];
-
 function AboutMe() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Left text animation
       gsap.fromTo(
-        textRef.current,
-        { opacity: 0, x: -30 },
+        ".fade-up-element",
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
-          x: 0,
+          y: 0,
           duration: 0.8,
+          stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: containerRef.current,
             start: "top 75%",
             toggleActions: "play none none none",
           },
-        },
+        }
       );
-
-      // Right cards stagger
-      if (cardsRef.current) {
-        const cards = cardsRef.current.querySelectorAll<HTMLElement>("[data-about-card]");
-        gsap.fromTo(
-          cards,
-          { opacity: 0, y: 30, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 75%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      }
-    }, sectionRef);
-
+    }, containerRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="w-full pt-15 pb-5 relative overflow-hidden bg-[#09090b]">
-      <div className="absolute top-1/2 left-0 w-[50vw] h-[50vw] max-w-[800px] max-h-[800px] bg-emerald-500/5 rounded-full blur-[150px] -translate-y-1/2 -z-10 pointer-events-none" />
+    <section id="about" ref={containerRef} className="w-full py-24 relative bg-[#0a0a0c] font-sans text-white border-t border-white/5 overflow-hidden">
       
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
+      {/* Abstract Background Element */}
+      <div className="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-emerald-900/10 to-transparent pointer-events-none" />
+      
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* Section Identifier */}
+        <div className="fade-up-element flex items-center gap-4 mb-16">
+          <div className="w-8 h-[1px] bg-emerald-500/50" />
+          <span className="text-xs font-mono uppercase tracking-[0.3em] text-emerald-500">Discover</span>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
-          {/* Left Column: Typography & Bio */}
-          <div ref={textRef} className="lg:col-span-5 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md w-fit">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-                The Journey
-              </span>
-            </div>
-            
-            <h2 className="text-5xl md:text-6xl font-bold mb-8 text-white leading-[1.1] tracking-tight">
-              A bit about{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
-                my background
-              </span>
+          {/* Left Column: Original Bio */}
+          <div className="space-y-10">
+            <h2 className="fade-up-element text-4xl md:text-5xl font-extrabold tracking-tight leading-[1.1]">
+              Architecting <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">scalable web ecosystems</span> from the ground up.
             </h2>
             
-            <div className="space-y-6 text-xl text-[#a1a1aa] font-light leading-relaxed">
+            <div className="fade-up-element space-y-6 text-[#a1a1aa] text-lg leading-relaxed font-light">
               <p>
-                I am a full-stack engineer who genuinely enjoys solving messy product problems. Over the past 1.5+ years, I have worked on platforms where quality, reliability, and delivery speed were critical.
+                My journey is driven by an absolute passion for coding and technology. Beyond just writing syntax, I am deeply involved in the tech community, having led as President of the BUBT IT Club and organized major events like the ICPC Asia Dhaka Regionals.
               </p>
               <p>
-                I started by perfecting pixel-level UI tasks and quickly grew into taking full ownership of end-to-end features. Outside of coding, I play football and take long walks to reset and think clearly.
+                Today, as a Software Engineer at SM Technology, I channel that precision into building robust, full-stack applications. I specialize in Next.js and React, crafting pixel-perfect interfaces that don't compromise on backend performance.
               </p>
-              <p className="text-white font-medium">
-                If your team needs someone who can convert complex designs into polished UI and integrate APIs cleanly, that is the exact gap I fill.
+              <p>
+                Whether I'm optimizing state management with Redux or designing automated REST APIs, my goal remains the same: delivering seamless, conversion-driven user experiences backed by maintainable architecture.
               </p>
             </div>
           </div>
 
-          {/* Right Column: Grid of Highlights */}
-          <div ref={cardsRef} className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6 h-full">
-            {highlights.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.title}
-                  data-about-card
-                  className="group relative rounded-[2rem] p-8 bg-[#121214] border border-white/5 overflow-hidden flex flex-col justify-center hover:border-white/10 transition-colors duration-500 shadow-2xl"
-                >
-                  <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-                  <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <div className="h-14 w-14 rounded-2xl bg-[#09090b] border border-white/10 shadow-inner group-hover:border-emerald-500/30 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500 relative z-10">
-                    <Icon className="h-6 w-6 text-emerald-400" />
-                  </div>
-                  <h3 className="text-2xl font-bold tracking-tight text-white mb-3 relative z-10">
-                    {item.title}
-                  </h3>
-                  <p className="text-[#a1a1aa] leading-relaxed text-sm font-light relative z-10">
-                    {item.desc}
+          {/* Right Column: Unique Capability Cards */}
+          <div className="relative">
+            {/* Decorative background blur */}
+            <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full" />
+            
+            <div className="relative flex flex-col gap-6">
+              
+              <div className="fade-up-element bg-[#121214] border border-white/5 hover:border-emerald-500/30 transition-colors rounded-2xl p-6 shadow-2xl flex gap-5 items-start">
+                <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg shrink-0">
+                  <Code className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">Frontend Mastery</h3>
+                  <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                    Building highly interactive, SEO-optimized web apps using React, Next.js, and Tailwind CSS. Obsessed with Lighthouse scores and clean component structures.
                   </p>
                 </div>
-              );
-            })}
+              </div>
+              
+              <div className="fade-up-element bg-[#121214] border border-white/5 hover:border-blue-500/30 transition-colors rounded-2xl p-6 shadow-2xl flex gap-5 items-start lg:-ml-8">
+                <div className="p-3 bg-blue-500/10 text-blue-400 rounded-lg shrink-0">
+                  <BrainCircuit className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">Community Leadership</h3>
+                  <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                    Former President of the BUBT IT Club and Event Coordinator for ICPC Regionals. I believe that great software is built through collaboration, clear communication, and empowering passionate teams.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="fade-up-element bg-[#121214] border border-white/5 hover:border-purple-500/30 transition-colors rounded-2xl p-6 shadow-2xl flex gap-5 items-start">
+                <div className="p-3 bg-purple-500/10 text-purple-400 rounded-lg shrink-0">
+                  <Rocket className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">Full-Stack Execution</h3>
+                  <p className="text-sm text-[#a1a1aa] leading-relaxed">
+                    Bridging the gap with Node.js, Express, and MongoDB. From secure JWT authentication workflows to handling complex relational data in Prisma.
+                  </p>
+                </div>
+              </div>
+
+            </div>
           </div>
 
         </div>

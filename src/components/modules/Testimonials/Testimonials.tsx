@@ -59,99 +59,52 @@ function Testimonials() {
     return () => ctx.revert();
   }, []);
 
-  const avatarGradients = [
-    "from-emerald-400 to-emerald-600",
-    "from-emerald-500 to-[#10b981]",
-    "from-[#10b981] to-emerald-700",
-    "from-emerald-300 to-emerald-500",
-  ];
 
   return (
-    <section id="testimonials" ref={sectionRef} className="w-full pt-10 pb-20 relative bg-[#09090b]">
+    <section id="testimonials" ref={sectionRef} className="w-full py-24 relative bg-[#0a0a0c] font-sans text-white border-t border-white/5">
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
         
-        {/* Premium Header */}
-        <div ref={headingRef} className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-              Endorsements
-            </span>
-          </div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-[1.1] tracking-tight">
-            What Teams{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
-              Say
-            </span>
+        {/* Header Bar */}
+        <div className="flex justify-between items-center text-xs font-mono text-[#a1a1aa] mb-12 uppercase tracking-widest">
+          <div>— WHAT TEAMS SAY</div>
+          <div>[ ENDORSEMENTS ]</div>
+        </div>
+
+        {/* Heading */}
+        <div ref={headingRef} className="max-w-[1000px] mb-20">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight">
+            <span className="font-serif italic text-white">Kind words from</span>{" "}
+            <span className="font-serif italic text-emerald-400">colleagues.</span>
           </h2>
-          
-          <p className="text-xl text-[#a1a1aa] font-light leading-relaxed">
-            Feedback from managers, developers, and designers I have worked with on real product deliveries.
-          </p>
         </div>
 
         {/* Testimonial Cards Grid */}
-        <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          {testimonials.map((t, i) => (
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1000px]">
+          {testimonials.map((t) => (
             <div
               key={t.id}
               data-testimonial
-              className="
-                group relative p-8 md:p-10 rounded-[2rem]
-                bg-[#121214] border border-white/5 
-                shadow-2xl
-                hover:border-white/10
-                transition-all duration-500 flex flex-col overflow-hidden
-              "
+              className="group relative p-8 md:p-10 rounded-xl bg-[#0f0f11] border border-white/5 hover:border-white/10 transition-colors duration-300 flex flex-col justify-between"
             >
-              {/* Subtle Background Pattern */}
-              <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-
-              {/* Subtle ambient light inside the card */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/5 rounded-full blur-[70px] pointer-events-none group-hover:bg-emerald-500/10 transition-colors duration-500" />
-
-              {/* Huge Quote icon in background */}
-              <div className="absolute -top-6 -right-6 rotate-12 opacity-[0.03] group-hover:opacity-5 group-hover:rotate-6 transition-all duration-500 pointer-events-none">
-                <Quote className="w-40 h-40 text-emerald-300 fill-emerald-300" />
-              </div>
-
               {/* Message */}
-              <div className="relative z-10 flex-grow">
-                <Quote className="h-8 w-8 text-emerald-400/50 mb-8" />
-                <p className="text-xl text-white/90 leading-relaxed italic font-light tracking-wide">
-                  &ldquo;{t.message}&rdquo;
+              <div className="mb-12">
+                <Quote className="h-6 w-6 text-white/10 mb-6 group-hover:text-emerald-400/50 transition-colors" />
+                <p className="text-[15px] text-[#a1a1aa] leading-relaxed">
+                  "{t.message}"
                 </p>
               </div>
 
-              {/* Author */}
-              <div className="flex items-center gap-5 mt-10 pt-6 border-t border-white/5 relative z-10">
-                {/* 3D Avatar */}
-                <div
-                  className={`
-                    h-14 w-14 rounded-[1.25rem] shrink-0
-                    bg-gradient-to-br ${avatarGradients[i % avatarGradients.length]}
-                    flex items-center justify-center
-                    text-white text-xl font-bold
-                    shadow-[inset_0_2px_4px_rgba(255,255,255,0.3),0_8px_16px_rgba(0,0,0,0.5)]
-                    border border-white/20 group-hover:scale-110 transition-transform duration-500
-                  `}
-                >
+              {/* Author Info */}
+              <div className="flex items-center gap-4 border-t border-white/5 pt-6 mt-auto">
+                <div className="w-12 h-12 rounded bg-white/5 border border-white/10 flex items-center justify-center text-[#a1a1aa] font-mono text-xs font-bold group-hover:text-emerald-400 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/5 transition-colors">
                   {t.avatar}
                 </div>
-
-                <div>
-                  <p className="text-lg font-bold text-white tracking-wide group-hover:text-emerald-400 transition-colors mb-1">
+                <div className="flex flex-col gap-1">
+                  <div className="text-[15px] font-semibold text-white tracking-wide group-hover:text-emerald-400 transition-colors">
                     {t.name}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-emerald-400/90">
-                      {t.role}
-                    </span>
-                    <span className="text-white/20 text-xs">•</span>
-                    <span className="text-sm font-medium text-[#a1a1aa]">
-                      {t.company}
-                    </span>
+                  </div>
+                  <div className="text-[11px] font-mono uppercase tracking-widest text-[#6b7280]">
+                    {t.role} <span className="text-white/10 mx-1">|</span> {t.company}
                   </div>
                 </div>
               </div>

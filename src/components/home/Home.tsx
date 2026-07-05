@@ -1,183 +1,149 @@
 "use client";
 
-import gsap from "gsap";
-import { BadgeCheck, Download, Facebook, GithubIcon, LinkedinIcon, Phone, ArrowUpRight } from "lucide-react";
-import Image from "next/image";
+import { Download, ArrowUpRight, Code2, Terminal, User, Briefcase, MapPin } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
-import profile from "@/assets/profile-2.png";
-
-const social = [
-  { name: "Facebook", href: "https://www.facebook.com/rakibulislam.utsho/", icon: Facebook },
-  { name: "WhatsApp", href: "https://wa.me/8801707934655", icon: Phone },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/md-rakibutsho-cse/", icon: LinkedinIcon },
-  { name: "GitHub", href: "https://github.com/rakib-utsho", icon: GithubIcon },
-];
-
-const STATS = [
-  { label: "Years Experience", value: "1.5+" },
-  { label: "Production Projects", value: "15+" },
-  { label: "Lighthouse Score", value: "90+" },
-];
+import { useEffect, useState } from "react";
 
 function Home() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const descRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const bentoRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [time, setTime] = useState("");
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        wrapRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.8, ease: "power3.out" },
+    const updateClock = () => {
+      const now = new Date();
+      setTime(
+        now.toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+          timeZone: "Asia/Dhaka",
+        }) + " GMT+6"
       );
-
-      gsap.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 30, filter: "blur(8px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out", delay: 0.1 },
-      );
-
-      gsap.fromTo(
-        descRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.3 },
-      );
-
-      gsap.fromTo(
-        ctaRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.4 },
-      );
-
-      gsap.fromTo(
-        bentoRefs.current,
-        { opacity: 0, y: 30, scale: 0.98 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out", stagger: 0.1, delay: 0.5 },
-      );
-    });
-
-    return () => ctx.revert();
+    };
+    updateClock();
+    const interval = setInterval(updateClock, 60000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="home" ref={wrapRef} className="w-full pt-32 pb-20 min-h-screen flex items-center justify-center relative overflow-hidden bg-[#09090b]">
-      {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] rounded-full bg-emerald-500/5 blur-[150px] pointer-events-none -z-10" />
-      
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-center">
+    <section id="home" className="w-full pt-28 pb-20 min-h-screen flex flex-col justify-center relative overflow-hidden bg-[#0a0a0c] font-sans text-white">
+      {/* Background elements */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] -z-10" />
+
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 z-10 flex flex-col items-center">
         
-        {/* Main Hero Text (Centered) */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-              Available for Full-Stack Roles
-            </span>
-          </div>
-
-          <h1 ref={titleRef} className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold leading-[1.1] tracking-tight text-white mb-8">
-            Full-stack Next.js Engineer for{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
-              Product Teams.
-            </span>
-          </h1>
-
-          <p ref={descRef} className="text-xl md:text-2xl text-[#a1a1aa] font-light leading-relaxed max-w-3xl mx-auto mb-10">
-            I help startups ship fast, reliable web apps that users trust and teams can scale. 
-            I specialize in <span className="text-white font-medium">Next.js, React, Node.js</span>, and creating premium UI experiences.
-          </p>
-
-          <div ref={ctaRef} className="flex flex-wrap items-center justify-center gap-5">
-            <a href="#projects" className="group flex items-center justify-center gap-3 rounded-full px-8 py-4 text-sm font-semibold tracking-wide uppercase text-black bg-white hover:bg-emerald-400 hover:text-black transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(16,185,129,0.3)]">
-              View Case Studies
-              <ArrowUpRight className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
-            </a>
-            <a href="/cv/Rakibul_Islam.pdf" download="Rakibul_Islam.pdf" className="group flex items-center justify-center gap-3 rounded-full px-8 py-4 text-sm font-semibold tracking-wide uppercase text-white bg-white/5 border border-white/10 hover:bg-white/10 transition-colors duration-300">
-              <Download className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
-              Download Resume
-            </a>
-          </div>
-        </div>
-
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+        {/* Main Flex Container */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 w-full">
           
-          {/* Profile Tile (Spans 2 columns) */}
-          <div 
-            ref={(el) => { bentoRefs.current[0] = el; }}
-            className="col-span-1 md:col-span-2 lg:col-span-2 rounded-[2rem] p-8 md:p-10 bg-[#121214] border border-white/5 relative overflow-hidden group hover:border-white/10 transition-colors duration-500 shadow-2xl flex flex-col md:flex-row items-center gap-10"
-          >
-            <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-            
-            <div className="relative shrink-0 w-48 h-48 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-white/10 shadow-2xl bg-[#09090b] z-10 group-hover:border-emerald-500/30 transition-colors duration-500">
-              <Image src={profile} alt="Md. Rakibul Islam" className="w-full h-full object-cover object-top transform transition-transform duration-700 group-hover:scale-105" priority />
+          {/* Left: Text & Intro */}
+          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-emerald-400">
+              <Terminal className="w-3.5 h-3.5" />
+              <span>Hello, World!</span>
             </div>
             
-            <div className="text-center md:text-left flex-1 relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white flex items-center justify-center md:justify-start gap-3 mb-2">
-                Rakibul Islam
-                <BadgeCheck className="h-7 w-7 text-emerald-400 shrink-0" />
-              </h2>
-              <div className="flex items-center justify-center md:justify-start gap-2 mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
-                <p className="text-xs tracking-[0.2em] uppercase text-[#a1a1aa] font-semibold">Software Engineer</p>
-                <span className="w-1.5 h-1.5 rounded-full bg-white/40" />
-              </div>
-              <p className="text-white/60 mb-8 leading-relaxed text-lg font-light">
-                Based in Dhaka, Bangladesh. I specialize in building high-performance web applications with scalable architectures.
-              </p>
-              
-              <div className="flex justify-center md:justify-start gap-4">
-                {social.map((app) => {
-                  const Icon = app.icon;
-                  return (
-                    <Link
-                      key={app.name}
-                      href={app.href}
-                      target="_blank"
-                      aria-label={app.name}
-                      className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white/70 hover:text-black hover:bg-white hover:border-white transition-all duration-300 hover:scale-110 shadow-lg"
-                    >
-                      <Icon className="w-5 h-5" />
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* Current Focus Tile */}
-          <div 
-            ref={(el) => { bentoRefs.current[1] = el; }}
-            className="col-span-1 rounded-[2rem] p-8 md:p-10 bg-[#121214] border border-white/5 relative overflow-hidden flex flex-col justify-center group hover:border-white/10 transition-colors duration-500 shadow-2xl"
-          >
-            <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="flex items-center gap-3 mb-6 relative z-10">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a1a1aa]">Current Focus</p>
-            </div>
-            <p className="text-xl text-white leading-relaxed font-light tracking-wide relative z-10">
-              Building conversion-focused SaaS dashboards and highly maintainable design systems.
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              Md. Rakibul Islam<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500">
+                Software Engineer
+              </span>
+            </h1>
+            
+            <p className="text-[#a1a1aa] text-lg max-w-lg leading-relaxed">
+              Frontend-focused Full Stack Developer specializing in React, Next.js, and scalable web architectures. Building pixel-perfect, high-performance applications.
             </p>
+            
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <Link href="#contact" className="px-7 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-lg transition-colors flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+                <Briefcase className="w-4 h-4" />
+                Hire Me
+              </Link>
+              <a href="/cv/Rakibul_Islam.pdf" download="Rakibul_Islam.pdf" className="px-7 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-lg transition-colors flex items-center gap-2 text-sm">
+                <Download className="w-4 h-4" />
+                Resume
+              </a>
+            </div>
           </div>
 
-          {/* Stats Tiles */}
-          {STATS.map((s, i) => (
-            <div 
-              key={s.label}
-              ref={(el) => { bentoRefs.current[2 + i] = el; }}
-              className="col-span-1 rounded-[2rem] p-8 md:p-10 bg-[#121214] border border-white/5 relative overflow-hidden flex flex-col justify-center items-center text-center group hover:border-white/10 transition-all duration-500 shadow-2xl"
-            >
-              <h3 className="text-5xl font-bold tracking-tight text-white mb-4 group-hover:scale-110 transition-transform duration-500">{s.value}</h3>
-              <p className="text-xs text-[#a1a1aa] font-medium uppercase tracking-[0.15em]">{s.label}</p>
+          {/* Right: Code Editor Concept */}
+          <div className="w-full lg:w-[550px] relative">
+            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-blue-500/20 rounded-xl blur-xl -z-10 translate-y-2 opacity-50" />
+            <div className="bg-[#111113] border border-white/10 rounded-xl shadow-2xl overflow-hidden font-mono text-[13px] md:text-sm">
+              
+              {/* Editor Tabs */}
+              <div className="flex items-center bg-[#18181b] border-b border-white/5 px-2">
+                <div className="flex items-center gap-2 px-4 py-3 bg-[#111113] border-t-2 border-t-emerald-500 text-emerald-400">
+                  <Code2 className="w-4 h-4" />
+                  <span>developer.ts</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-3 text-[#a1a1aa] hover:text-white transition-colors cursor-pointer">
+                  <User className="w-4 h-4" />
+                  <span>experience.json</span>
+                </div>
+              </div>
+              
+              {/* Editor Content */}
+              <div className="p-6 overflow-x-auto text-[#a1a1aa]">
+                <div className="flex">
+                  {/* Line Numbers */}
+                  <div className="pr-4 text-white/20 select-none text-right border-r border-white/5 mr-4 space-y-1">
+                    1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11
+                  </div>
+                  {/* Code */}
+                  <div className="space-y-1 whitespace-nowrap">
+                    <div><span className="text-blue-400">const</span> <span className="text-white">developer</span> = {"{"}</div>
+                    <div className="pl-6">
+                      <span className="text-emerald-300">name</span>: <span className="text-yellow-300">'Md. Rakibul Islam'</span>,
+                    </div>
+                    <div className="pl-6">
+                      <span className="text-emerald-300">role</span>: <span className="text-yellow-300">'Software Engineer'</span>,
+                    </div>
+                    <div className="pl-6">
+                      <span className="text-emerald-300">company</span>: <span className="text-yellow-300">'SM Technology'</span>,
+                    </div>
+                    <div className="pl-6">
+                      <span className="text-emerald-300">skills</span>: [
+                    </div>
+                    <div className="pl-12 text-yellow-300">
+                      'React', 'Next.js', 'TypeScript',
+                    </div>
+                    <div className="pl-12 text-yellow-300">
+                      'Node.js', 'Tailwind', 'MongoDB'
+                    </div>
+                    <div className="pl-6">],</div>
+                    <div className="pl-6">
+                      <span className="text-emerald-300">passion</span>: <span className="text-yellow-300">'Building scalable web apps'</span>
+                    </div>
+                    <div>{"};"}</div>
+                    <div className="mt-2 text-white/50 italic">// Let's build something amazing together</div>
+                  </div>
+                </div>
+              </div>
+              
             </div>
-          ))}
-          
+          </div>
+
         </div>
+
+        {/* Footer Info Bar */}
+        <div className="w-full mt-24 pt-6 border-t border-white/10 flex flex-wrap justify-between gap-6 text-sm text-[#a1a1aa]">
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-emerald-500" />
+            <span>Dhaka, Bangladesh</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>{time || "Loading time..."}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-1 rounded bg-white/5 text-xs text-emerald-400 border border-emerald-500/20">Open to work</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Briefcase className="w-4 h-4 text-emerald-500" />
+            <span>SE @ SM Technology</span>
+          </div>
+        </div>
+        
       </div>
     </section>
   );

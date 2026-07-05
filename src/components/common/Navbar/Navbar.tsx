@@ -9,11 +9,11 @@ const signatureFont = Dancing_Script({ subsets: ["latin"], weight: "700" });
 
 const navigationLinks = [
   { name: "About", href: "/#about" },
-  { name: "Services", href: "/#services" },
   { name: "Skills", href: "/#skills" },
+  { name: "Education", href: "/#education" },
   { name: "Experience", href: "/#experience" },
   { name: "Projects", href: "/#projects" },
-  { name: "Education", href: "/#education" },
+  { name: "Testimonials", href: "/#testimonials" },
   { name: "Contact", href: "/#contact" },
 ];
 
@@ -26,23 +26,35 @@ export const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Only update active section if we are on the home page
       if (window.location.pathname !== "/") return;
 
-      // Update active section
       const sectionIds = [
         "home",
         ...navigationLinks.map((l) => l.href.replace("/#", "")),
       ];
-      const scrollY = window.scrollY + 100;
+
+      let currentActive = "/#home";
+      // Dynamic threshold: 60% of the viewport height. 
+      // This means a section becomes active when its top edge crosses the lower middle of the screen.
+      const threshold = window.innerHeight * 0.6;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollY) {
-          setActiveSection(`/#${sectionIds[i]}`);
-          return;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= threshold) {
+            currentActive = `/#${sectionIds[i]}`;
+            break;
+          }
         }
       }
+
+      // If we've scrolled to the absolute bottom, activate the last section
+      if (window.innerHeight + Math.round(window.scrollY) >= document.body.offsetHeight - 50) {
+        currentActive = "/#contact";
+      }
+
+      setActiveSection(currentActive);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -53,11 +65,10 @@ export const Navbar = () => {
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
-    // If not on the homepage, let standard Next.js routing handle it
     if (window.location.pathname !== "/") {
       return;
     }
-    
+
     e.preventDefault();
     const id = href.replace(/.*#/, "");
     const el = document.getElementById(id);
@@ -72,71 +83,82 @@ export const Navbar = () => {
   return (
     <>
       <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#09090b]/80 backdrop-blur-xl border-b border-white/10 py-3 shadow-lg"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/#home"
-          onClick={(e) => handleClick(e, "/#home")}
-          className={`text-3xl font-bold tracking-wide text-white flex items-center gap-1 hover:text-emerald-400 transition-colors ${signatureFont.className}`}
+        className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-500 ${
+          scrolled ? "top-4 px-4" : "top-0 px-0"
+        }`}
+      >
+        <div
+          className={`flex items-center justify-between transition-all duration-500 w-full ${
+            scrolled
+              ? "max-w-[1000px] bg-[#0f0f11]/90 backdrop-blur-lg border border-white/10 rounded-full py-3 px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+              : "max-w-[1200px] bg-transparent py-6 px-4 md:px-8 border-transparent"
+          }`}
         >
-          Rakibul<span className="text-[#10b981]">.</span>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {navigationLinks.map((link) => {
-            const isActive = activeSection === link.href;
-            return (
-               <div key={link.name} className="relative group flex items-center">
-                <a
-                  href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
-                  className={`text-sm font-semibold tracking-wide uppercase transition-colors hover:text-white ${
-                    isActive ? "text-white" : "text-[#a1a1aa]"
-                  }`}
-                >
-                  {link.name}
-                </a>
-                {isActive && (
-                  <span className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400" />
-                )}
-              </div>
-            );
-          })}
-        </nav>
-
-        {/* Action Button & Mobile Toggle */}
-        <div className="flex items-center gap-4">
-          <a
-            href="/cv/Rakibul_Islam.pdf"
-            download="Rakibul_Islam.pdf"
-            className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-emerald-400 hover:text-black transition-all group"
+          {/* Logo */}
+          <Link
+            href="/#home"
+            onClick={(e) => handleClick(e, "/#home")}
+            className={`text-2xl md:text-3xl font-bold tracking-wide text-white flex items-center gap-1 hover:text-emerald-400 transition-colors shrink-0 ${signatureFont.className}`}
           >
-            Resume
-            <Download className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
-          </a>
+            Rakibul<span className="text-[#10b981]">.</span>
+          </Link>
 
-          {/* Mobile Nav */}
-          <div className="lg:hidden">
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="p-2 -mr-2 text-white hover:text-emerald-400 transition-colors cursor-pointer"
+          {/* Desktop Nav */}
+          <nav className="hidden xl:flex items-center gap-6">
+            {navigationLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <div
+                  key={link.name}
+                  className="relative group flex items-center"
+                >
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleClick(e, link.href)}
+                    className={`text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-white ${
+                      isActive ? "text-white" : "text-[#a1a1aa]"
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                  {isActive && (
+                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
+                  )}
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* Action Button & Mobile Toggle */}
+          <div className="flex items-center gap-3 shrink-0">
+            <a
+              href="/cv/Rakibul_Islam.pdf"
+              download="Rakibul_Islam.pdf"
+              className={`hidden md:flex items-center gap-2 rounded-full font-bold uppercase tracking-widest transition-all group ${
+                scrolled
+                  ? "bg-white/10 text-white hover:bg-emerald-400 hover:text-black px-4 py-2 text-[10px]"
+                  : "bg-white text-black hover:bg-emerald-400 hover:text-black px-5 py-2.5 text-xs"
+              }`}
             >
-              <Menu className="w-6 h-6" />
-            </button>
+              Resume
+              <Download className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+
+            {/* Mobile Nav */}
+            <div className="xl:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(true)}
+                className="p-2 -mr-2 text-white hover:text-emerald-400 transition-colors cursor-pointer"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
 
       {/* Mobile Drawer */}
-      <div 
+      <div
         className="lg:hidden"
         style={{ pointerEvents: mobileMenuOpen ? "auto" : "none" }}
       >
@@ -186,7 +208,9 @@ export const Navbar = () => {
                       : "text-[#a1a1aa] hover:text-white hover:bg-white/5 border border-transparent"
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-emerald-400 shadow-[0_0_8px_#10b981]" : "bg-transparent"}`} />
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-emerald-400 shadow-[0_0_8px_#10b981]" : "bg-transparent"}`}
+                  />
                   {link.name}
                 </a>
               );

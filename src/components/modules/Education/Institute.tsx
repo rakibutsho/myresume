@@ -5,7 +5,6 @@ import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { GraduationCap } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,57 +41,66 @@ const Institute = () => {
   }, []);
 
   return (
-    <div ref={listRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <div ref={listRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
       {education.map((insti) => (
         <div
           key={insti.id}
           data-edu-card
-          className="group relative p-8 rounded-[2rem] bg-[#121214] border border-white/5 shadow-2xl hover:border-white/10 transition-colors duration-500 flex flex-col h-full overflow-hidden"
+          className="group relative p-8 md:p-10 rounded-[2rem] bg-[#0f0f11] border border-white/5 shadow-2xl hover:border-white/20 transition-colors duration-500 flex flex-col h-full overflow-hidden"
         >
-          {/* Subtle Background Pattern */}
-          <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
           
-          {/* Subtle ambient light inside the card */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-[60px] pointer-events-none group-hover:bg-emerald-500/10 transition-colors duration-500" />
-
-          {/* Top Section: Logo & Timeline */}
+          {/* Top Section: Timeline & Logo */}
           <div className="flex justify-between items-start mb-8 relative z-10">
-            {/* 3D Logo Container */}
-            <div className="relative w-16 h-16 rounded-[1.25rem] bg-[#09090b] shadow-inner border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-emerald-500/30 transition-all duration-500">
+            {/* Timeline */}
+            <div className="text-[10px] font-mono text-[#a1a1aa] uppercase tracking-[0.2em] pt-3">
+              {insti.timeline}
+            </div>
+
+            {/* Logo */}
+            <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 opacity-70 group-hover:opacity-100 transition-opacity">
               <Image
                 src={insti.logo}
                 alt={insti.institute}
                 fill
-                className="object-contain p-2"
-                sizes="64px"
+                className="object-contain p-1.5"
+                sizes="56px"
               />
-            </div>
-
-            {/* Timeline Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#09090b] border border-white/5 shadow-inner">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
-              <span className="text-[11px] font-mono font-medium text-[#a1a1aa] tracking-widest uppercase">
-                {insti.timeline}
-              </span>
             </div>
           </div>
 
           {/* Main Info */}
           <div className="flex flex-col grow relative z-10">
-            <h3 className="text-2xl font-bold tracking-tight leading-tight text-white group-hover:text-emerald-400 transition-colors mb-2">
-              {insti.institute}
+            <h3 className="text-2xl md:text-3xl font-serif italic tracking-tight leading-[1.2] text-white mb-2">
+              {insti.degree}
             </h3>
             
-            <p className="text-sm text-[#a1a1aa] font-medium mb-8">
-              {insti.subject}
+            <p className="text-emerald-400 text-[13px] font-mono font-medium mb-8">
+              {insti.institute}
             </p>
+            
+            {((insti as any).CGPA || (insti as any).GPA) && (() => {
+              const isCGPA = !!(insti as any).CGPA;
+              const scoreStr = isCGPA ? (insti as any).CGPA : (insti as any).GPA;
+              const parts = scoreStr.split("out of");
+              const mainScore = parts[0]?.trim();
+              const subScore = parts.length > 1 ? `/ ${parts[1]?.trim()} ${isCGPA ? "CGPA" : "GPA"}` : "";
 
-            {/* Degree Badge at the bottom */}
-            <div className="mt-auto pt-6 border-t border-white/5">
-              <div className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white font-semibold tracking-wide w-full justify-center group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 group-hover:text-emerald-400 transition-colors duration-300">
-                <GraduationCap className="w-5 h-5" />
-                {insti.degree}
-              </div>
+              return (
+                <div className="mt-auto mb-6 flex items-baseline gap-2">
+                  <span className="text-5xl md:text-6xl font-serif italic text-white tracking-tighter">
+                    {mainScore}
+                  </span>
+                  <span className="text-[11px] font-mono text-[#a1a1aa] uppercase tracking-widest">
+                    {subScore}
+                  </span>
+                </div>
+              );
+            })()}
+
+            <div className="pt-6 border-t border-white/5">
+              <span className="text-[10px] font-mono text-[#a1a1aa] uppercase tracking-widest leading-relaxed">
+                {insti.subject}
+              </span>
             </div>
           </div>
         </div>

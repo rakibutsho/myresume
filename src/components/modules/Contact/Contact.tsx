@@ -2,50 +2,28 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
-import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "rakibutsho1920@gmail.com",
-    href: "mailto:rakibutsho1920@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+880 1707-934655",
-    href: "tel:+8801707934655",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Dhaka, Bangladesh",
-    href: null,
-  },
-];
 
 function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const infoRef = useRef<HTMLDivElement>(null);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading
+      // Heading & Info
       gsap.fromTo(
         headingRef.current,
         { opacity: 0, y: 30 },
@@ -66,36 +44,15 @@ function Contact() {
       if (formRef.current) {
         gsap.fromTo(
           formRef.current,
-          { opacity: 0, x: -40, scale: 0.98 },
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
-            x: 0,
-            scale: 1,
+            y: 0,
             duration: 0.8,
             ease: "power3.out",
+            delay: 0.2,
             scrollTrigger: {
               trigger: formRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      }
-
-      // Info Cards
-      if (infoRef.current) {
-        const cards = infoRef.current.children;
-        gsap.fromTo(
-          cards,
-          { opacity: 0, x: 40 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.6,
-            ease: "power3.out",
-            stagger: 0.15,
-            scrollTrigger: {
-              trigger: infoRef.current,
               start: "top 85%",
               toggleActions: "play none none none",
             },
@@ -111,12 +68,12 @@ function Contact() {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
-      toast.error("Please fill in all fields");
+      toast.error("Please fill in all required fields.");
       return;
     }
 
     if (!formData.email.includes("@")) {
-      toast.error("Please enter a valid email address");
+      toast.error("Please enter a valid email address.");
       return;
     }
 
@@ -132,7 +89,7 @@ function Contact() {
       const data = await response.json();
       if (data.success) {
         toast.success("Message sent successfully! Thank you for reaching out.");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
       } else {
         toast.error(
           data.error || "Something went wrong. Please try again later.",
@@ -148,178 +105,162 @@ function Contact() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="w-full pt-15 pb-5 relative bg-[#09090b]">
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
-        
-        {/* Premium Header */}
-        <div ref={headingRef} className="mb-16 text-center max-w-3xl mx-auto flex flex-col items-center">
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-              Get In Touch
-            </span>
-          </div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-[1.1] tracking-tight">
-            Let&apos;s Build{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#10b981]">
-              Together
-            </span>
-          </h2>
-          
-          <p className="text-xl text-[#a1a1aa] font-light leading-relaxed">
-            Hiring for a frontend role or planning a product build? Share your goals and timeline. I usually respond within 24 hours.
-          </p>
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="w-full py-24 relative bg-[#0a0a0c] border-t border-white/5 font-sans text-white flex flex-col items-center"
+    >
+      <div className="w-full max-w-[800px] mx-auto px-4 md:px-8 flex flex-col items-center">
+        {/* Header Bar */}
+        <div className="text-xs font-mono text-[#a1a1aa] mb-12 uppercase tracking-widest text-center">
+          — 05 - GET IN TOUCH
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
-          {/* Contact Form */}
-          <div className="lg:col-span-7">
-            <form
-              ref={formRef}
-              onSubmit={handleSubmit}
-              className="relative p-8 md:p-10 rounded-[2rem] bg-[#121214] border border-white/5 shadow-2xl overflow-hidden"
+        {/* Heading & Contact Info */}
+        <div
+          ref={headingRef}
+          className="w-full flex flex-col items-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-8 text-center">
+            <span className="font-serif italic text-white">
+              Let's build something
+            </span>{" "}
+            <span className="font-serif italic text-emerald-400">
+              together.
+            </span>
+          </h2>
+
+          <div className="flex items-center gap-2 mb-10 group">
+            <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+            <a
+              href="mailto:rakibutsho1920@gmail.com"
+              className="text-[15px] md:text-lg font-mono text-white/90 hover:text-emerald-400 transition-colors"
             >
-              {/* Subtle Background Pattern */}
-              <div className="absolute inset-0 opacity-[0.15] transition-opacity duration-500" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-
-              {/* Subtle ambient light inside the form */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-[80px] pointer-events-none" />
-
-              <div className="space-y-6 relative z-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-[0.2em] text-white mb-3">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      placeholder="John Doe"
-                      className="
-                        w-full px-5 py-4 rounded-xl
-                        bg-[#09090b] border border-white/10 shadow-inner
-                        text-white placeholder:text-[#a1a1aa]/50 font-medium
-                        focus:outline-none focus:border-emerald-500/50 focus:bg-[#09090b]
-                        transition-all duration-300
-                      "
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-bold uppercase tracking-[0.2em] text-white mb-3">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      placeholder="john@example.com"
-                      className="
-                        w-full px-5 py-4 rounded-xl
-                        bg-[#09090b] border border-white/10 shadow-inner
-                        text-white placeholder:text-[#a1a1aa]/50 font-medium
-                        focus:outline-none focus:border-emerald-500/50 focus:bg-[#09090b]
-                        transition-all duration-300
-                      "
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-[0.2em] text-white mb-3">
-                    Message
-                  </label>
-                  <textarea
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    placeholder="Tell me about your project or idea..."
-                    rows={5}
-                    className="
-                      w-full px-5 py-4 rounded-xl resize-none
-                      bg-[#09090b] border border-white/10 shadow-inner
-                      text-white placeholder:text-[#a1a1aa]/50 font-medium
-                      focus:outline-none focus:border-emerald-500/50 focus:bg-[#09090b]
-                      transition-all duration-300
-                    "
-                  />
-                </div>
-
-                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                  <p className="text-sm text-[#a1a1aa] font-light max-w-xs leading-relaxed">
-                    Open to full-time roles, contract work, and long-term product collaboration.
-                  </p>
-                  <button
-                    type="submit"
-                    disabled={sending}
-                    className="
-                      inline-flex items-center justify-center gap-2 shrink-0
-                      px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest text-black
-                      bg-white hover:bg-emerald-400
-                      transition-all duration-300
-                      shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(16,185,129,0.3)]
-                      disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer
-                    "
-                  >
-                    {sending ? "Sending..." : "Send Message"}
-                    <Send className="h-4 w-4 ml-1" />
-                  </button>
-                </div>
-              </div>
-            </form>
+              rakibutsho1920@gmail.com
+            </a>
           </div>
 
-          {/* Contact Info Sidebar */}
-          <div ref={infoRef} className="lg:col-span-5 space-y-4">
-            {contactInfo.map((info) => {
-              const Icon = info.icon;
-              const content = (
-                <div
-                  className="
-                    group flex items-center gap-5 p-6 md:p-8 rounded-[2rem]
-                    bg-[#121214] border border-white/5
-                    shadow-2xl
-                    hover:border-white/10 hover:-translate-y-1
-                    transition-all duration-500
-                  "
-                >
-                  {/* 3D Icon Container */}
-                  <div className="relative w-14 h-14 rounded-[1.25rem] bg-[#09090b] shadow-inner border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:border-emerald-500/30 transition-all duration-500">
-                    <Icon className="h-6 w-6 text-emerald-400" />
-                  </div>
-                  <div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a1a1aa] mb-2">
-                      {info.label}
-                    </p>
-                    <p className="text-lg text-white font-bold tracking-tight group-hover:text-emerald-400 transition-colors">
-                      {info.value}
-                    </p>
-                  </div>
-                </div>
-              );
-
-              return info.href ? (
-                <Link
-                  key={info.label}
-                  href={info.href}
-                  target={info.href.startsWith("mailto") ? undefined : "_blank"}
-                  className="block"
-                >
-                  {content}
-                </Link>
-              ) : (
-                <div key={info.label}>{content}</div>
-              );
-            })}
+          <div className="flex flex-wrap justify-center items-center gap-4 text-[#a1a1aa] font-mono text-[11px] md:text-xs uppercase tracking-widest">
+            <a
+              href="https://github.com/rakib-utsho"
+              target="_blank"
+              className="hover:text-emerald-400 transition-colors"
+            >
+              github/rakib-utsho
+            </a>
+            <span className="text-white/20">•</span>
+            <a
+              href="https://www.linkedin.com/in/md-rakibutsho-cse"
+              target="_blank"
+              className="hover:text-emerald-400 transition-colors"
+            >
+              linkedin/rakib-utsho
+            </a>
+            <span className="text-white/20">•</span>
+            <a
+              href="tel:+8801707934655"
+              className="hover:text-emerald-400 transition-colors"
+            >
+              +880 1707-934655
+            </a>
           </div>
+        </div>
 
+        {/* Contact Form */}
+        <div className="w-full">
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="w-full p-6 md:p-10 rounded-2xl bg-[#0f0f11] border border-white/5 shadow-2xl flex flex-col gap-6"
+          >
+            <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6b7280] mb-2">
+              SEND A MESSAGE
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
+                Your Name
+              </label>
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
+                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
+                required
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
+                Email
+              </label>
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
+                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
+                required
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
+                Subject
+              </label>
+              <input
+                type="text"
+                value={formData.subject}
+                onChange={(e) =>
+                  setFormData({ ...formData, subject: e.target.value })
+                }
+                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
+                Message
+              </label>
+              <textarea
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
+                rows={4}
+                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white resize-none focus:outline-none focus:border-emerald-500/50 transition-colors"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={sending}
+              className="w-full mt-4 py-4 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+            >
+              {sending ? "Sending..." : "Send"}{" "}
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 mt-32 border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[#6b7280] font-mono text-[10px] uppercase tracking-widest">
+        <div>
+          © {new Date().getFullYear()} Rakibul Islam — crafted with care in
+          Dhaka.
+        </div>
+        <div>
+          last updated{" "}
+          {new Date().toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          })}{" "}
+          - v1.0
         </div>
       </div>
     </section>
