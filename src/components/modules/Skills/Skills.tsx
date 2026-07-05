@@ -9,17 +9,17 @@ gsap.registerPlugin(ScrollTrigger);
 const SKILL_CATEGORIES = [
   {
     title: "BACKEND",
-    skills: ["Node.js", "Express.js", "Python", "Django", "DRF", "REST APIs"],
+    skills: ["Node.js", "Express.js", "REST APIs", "Socket.io", "JWT Authentication"],
     highlight: true,
   },
   {
     title: "DATABASES",
-    skills: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Prisma"],
+    skills: ["PostgreSQL", "MongoDB", "MySQL", "Prisma", "Mongoose"],
     highlight: true,
   },
   {
     title: "FRONTEND",
-    skills: ["React", "Next.js", "Tailwind CSS", "Redux", "HTML5", "CSS3"],
+    skills: ["React", "Next.js", "Tailwind CSS", "Redux", "HTML5", "CSS3", "Shadcn UI", "Framer Motion", "React Query", "React Hook Form"],
     highlight: false,
   },
   {
@@ -30,18 +30,19 @@ const SKILL_CATEGORIES = [
       "CI/CD Basics",
       "Vercel",
       "Railway",
+      "VPS Hosting",
       "AWS Basics",
     ],
     highlight: true,
   },
   {
     title: "LANGUAGES",
-    skills: ["JavaScript", "TypeScript", "Python", "C/C++", "SQL"],
+    skills: ["JavaScript", "TypeScript", "Go", "C/C++", "SQL"],
     highlight: true,
   },
   {
     title: "TOOLS & ARCHITECTURE",
-    skills: ["System Design", "Microservices", "Postman", "Pytest", "Linux"],
+    skills: ["System Design", "Microservices", "Postman", "Linux", "Figma", "Agile/Scrum"],
     highlight: false,
   },
 ];

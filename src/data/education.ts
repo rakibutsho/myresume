@@ -9,7 +9,7 @@ export const education = [
     degree: "Master of Science - M.Sc.",
     subject: "Computer Science",
     timeline: "Jan 2026 - Ongoing",
-    CGPA: "3.74 out of 4",
+    CGPA: "3.75 out of 4",
     logo: ju,
   },
   {
