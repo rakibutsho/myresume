@@ -1,11 +1,14 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 "use client";
 
 import { Download, ArrowUpRight, Code2, Terminal, User, Briefcase, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PdfModal } from "../common/PdfModal/PdfModal";
 
 function Home() {
   const [time, setTime] = useState("");
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
   useEffect(() => {
     const updateClock = () => {
@@ -58,10 +61,10 @@ function Home() {
                 <Briefcase className="w-4 h-4" />
                 Hire Me
               </Link>
-              <a href="/cv/Rakibul_Islam.pdf" download="Rakibul_Islam.pdf" className="px-7 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-lg transition-colors flex items-center gap-2 text-sm">
+              <button onClick={() => setIsPdfModalOpen(true)} className="px-7 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-lg transition-colors flex items-center gap-2 text-sm">
                 <Download className="w-4 h-4" />
                 Resume
-              </a>
+              </button>
             </div>
           </div>
 
@@ -93,29 +96,29 @@ function Home() {
                   <div className="space-y-1 whitespace-nowrap">
                     <div><span className="text-blue-400">const</span> <span className="text-white">developer</span> = {"{"}</div>
                     <div className="pl-6">
-                      <span className="text-emerald-300">name</span>: <span className="text-yellow-300">'Md. Rakibul Islam'</span>,
+                      <span className="text-emerald-300">name</span>: <span className="text-yellow-300">&apos;Md. Rakibul Islam&apos;</span>,
                     </div>
                     <div className="pl-6">
-                      <span className="text-emerald-300">role</span>: <span className="text-yellow-300">'Software Engineer'</span>,
+                      <span className="text-emerald-300">role</span>: <span className="text-yellow-300">&apos;Software Engineer&apos;</span>,
                     </div>
                     <div className="pl-6">
-                      <span className="text-emerald-300">company</span>: <span className="text-yellow-300">'SM Technology'</span>,
+                      <span className="text-emerald-300">company</span>: <span className="text-yellow-300">&apos;SM Technology&apos;</span>,
                     </div>
                     <div className="pl-6">
                       <span className="text-emerald-300">skills</span>: [
                     </div>
                     <div className="pl-12 text-yellow-300">
-                      'React', 'Next.js', 'TypeScript',
+                      &apos;React&apos;, &apos;Next.js&apos;, &apos;TypeScript&apos;,
                     </div>
                     <div className="pl-12 text-yellow-300">
-                      'Node.js', 'Tailwind', 'MongoDB'
+                      &apos;Node.js&apos;, &apos;Tailwind&apos;, &apos;MongoDB&apos;
                     </div>
                     <div className="pl-6">],</div>
                     <div className="pl-6">
-                      <span className="text-emerald-300">passion</span>: <span className="text-yellow-300">'Building scalable web apps'</span>
+                      <span className="text-emerald-300">passion</span>: <span className="text-yellow-300">&apos;Building scalable web apps&apos;</span>
                     </div>
                     <div>{"};"}</div>
-                    <div className="mt-2 text-white/50 italic">// Let's build something amazing together</div>
+                    <div className="mt-2 text-white/50 italic">// Let&apos;s build something amazing together</div>
                   </div>
                 </div>
               </div>
@@ -145,6 +148,12 @@ function Home() {
         </div>
         
       </div>
+
+      <PdfModal
+        isOpen={isPdfModalOpen}
+        onClose={() => setIsPdfModalOpen(false)}
+        pdfUrl="/cv/Rakibul%20Islam.pdf"
+      />
     </section>
   );
 }

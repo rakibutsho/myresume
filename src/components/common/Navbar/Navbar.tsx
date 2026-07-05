@@ -4,6 +4,7 @@ import { Download, Menu, X, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Dancing_Script } from "next/font/google";
+import { PdfModal } from "../PdfModal/PdfModal";
 
 const signatureFont = Dancing_Script({ subsets: ["latin"], weight: "700" });
 
@@ -21,6 +22,7 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("/#home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -131,9 +133,8 @@ export const Navbar = () => {
 
           {/* Action Button & Mobile Toggle */}
           <div className="flex items-center gap-3 shrink-0">
-            <a
-              href="/cv/Rakibul_Islam.pdf"
-              download="Rakibul_Islam.pdf"
+            <button
+              onClick={() => setIsPdfModalOpen(true)}
               className={`hidden md:flex items-center gap-2 rounded-full font-bold uppercase tracking-widest transition-all group ${
                 scrolled
                   ? "bg-white/10 text-white hover:bg-emerald-400 hover:text-black px-4 py-2 text-[10px]"
@@ -142,7 +143,7 @@ export const Navbar = () => {
             >
               Resume
               <Download className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
-            </a>
+            </button>
 
             {/* Mobile Nav */}
             <div className="xl:hidden">
@@ -217,18 +218,26 @@ export const Navbar = () => {
             })}
 
             <div className="mt-auto pt-6 border-t border-white/10 pb-4">
-              <a
-                href="/cv/Rakibul_Islam.pdf"
-                download="Rakibul_Islam.pdf"
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setIsPdfModalOpen(true);
+                }}
                 className="flex items-center justify-center gap-2 w-full px-5 py-4 rounded-full bg-white hover:bg-emerald-400 text-black font-bold uppercase tracking-widest transition-all shadow-lg"
               >
                 <Download className="w-5 h-5" />
                 Resume
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <PdfModal
+        isOpen={isPdfModalOpen}
+        onClose={() => setIsPdfModalOpen(false)}
+        pdfUrl="/cv/Rakibul%20Islam.pdf"
+      />
     </>
   );
 };
