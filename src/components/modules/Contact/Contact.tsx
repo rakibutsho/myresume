@@ -3,7 +3,7 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useEffect, useRef, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -72,7 +72,8 @@ function Contact() {
       return;
     }
 
-    if (!formData.email.includes("@")) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
       toast.error("Please enter a valid email address.");
       return;
     }
@@ -202,6 +203,8 @@ function Contact() {
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
                 }
+                pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
+                title="Please enter a valid email address (e.g., name@example.com)"
                 className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
                 required
               />
@@ -219,6 +222,22 @@ function Contact() {
                 }
                 className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
               />
+              <div className="flex flex-wrap gap-2 mt-1">
+                {["Job Opportunity", "Freelance Project", "Networking", "Project Inquiry"].map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, subject: suggestion })}
+                    className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded-full border transition-colors cursor-pointer ${
+                      formData.subject === suggestion
+                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                        : "bg-[#121214] text-[#a1a1aa] border-white/5 hover:border-white/20 hover:text-white"
+                    }`}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -239,7 +258,7 @@ function Contact() {
             <button
               type="submit"
               disabled={sending}
-              className="w-full mt-4 py-4 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+              className="w-full mt-4 py-4 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
             >
               {sending ? "Sending..." : "Send"}{" "}
               <ArrowRight className="w-4 h-4" />

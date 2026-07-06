@@ -10,7 +10,8 @@ import {
 import ReduxProvider from "@/redux/Provider";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Toaster } from "sonner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
@@ -59,7 +60,7 @@ export default function RootLayout({
         <Suspense fallback={<Loading />}>
           <ReduxProvider>
             {children}
-            <Toaster richColors position="top-right" />
+            <ToastContainer position="top-right" theme="dark" />
             <Analytics />
           </ReduxProvider>
         </Suspense>

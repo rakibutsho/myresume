@@ -5,8 +5,8 @@ import nodemailer from "nodemailer";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { name, email, message } = body;
-    console.log("Received contact form submission:", { name, email, message });
+    const { name, email, subject, message } = body;
+    console.log("Received contact form submission:", { name, email, subject, message });
 
     if (!name || !email || !message) {
       return new Response(
@@ -28,8 +28,8 @@ export async function POST(req: Request) {
       from: email,
       to: process.env.EMAIL_USER,
       replyTo: email,
-      subject: `New Message from ${name} (${email})`,
-      html: contactEmailTemplate({ name, email, message }),
+      subject: subject ? `${subject} — Message from ${name}` : `New Message from ${name} (${email})`,
+      html: contactEmailTemplate({ name, email, subject, message }),
     };
 
     await transporter.sendMail(mailOptions);

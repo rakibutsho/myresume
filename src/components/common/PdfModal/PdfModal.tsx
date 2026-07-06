@@ -9,6 +9,16 @@ interface PdfModalProps {
   pdfUrl: string;
 }
 
+const getDownloadUrl = (url: string) => {
+  if (url.includes("drive.google.com")) {
+    const match = url.match(/\/d\/(.*?)\//);
+    if (match && match[1]) {
+      return `https://drive.google.com/uc?export=download&id=${match[1]}`;
+    }
+  }
+  return url;
+};
+
 export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
   useEffect(() => {
     if (isOpen) {
@@ -33,7 +43,7 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
           <h3 className="text-white font-semibold tracking-wide">Resume</h3>
           <div className="flex items-center gap-3">
             <a
-              href={pdfUrl}
+              href={getDownloadUrl(pdfUrl)}
               download
               className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors text-sm font-medium border border-emerald-500/20"
             >
@@ -50,7 +60,7 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
         </div>
         <div className="flex-1 w-full bg-white/5 relative">
           <iframe
-            src={`${pdfUrl}#toolbar=0&view=FitH`}
+            src={pdfUrl.includes('drive.google.com') ? pdfUrl.replace(/\/view.*$/, '/preview') : `${pdfUrl}#toolbar=0&view=FitH`}
             className="w-full h-full border-none absolute inset-0"
             title="Resume PDF"
           />
