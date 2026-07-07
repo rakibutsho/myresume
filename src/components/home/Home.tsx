@@ -57,7 +57,7 @@ function Home() {
               <span>Hello, World!</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] min-h-[130px] sm:min-h-[140px] md:min-h-[150px] lg:min-h-[160px]">
               Md. Rakibul Islam
               <br />
               <TypeAnimation

@@ -2,24 +2,42 @@
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
+
+interface ContactFormInputs {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<ContactFormInputs>({
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
   });
-  const [sending, setSending] = useState(false);
+
+  const subjectValue = watch("subject");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -64,44 +82,28 @@ function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error("Please fill in all required fields.");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
-
+  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     try {
-      setSending(true);
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
-      const data = await response.json();
-      if (data.success) {
+      const resData = await response.json();
+      if (resData.success) {
         toast.success("Message sent successfully! Thank you for reaching out.");
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        reset();
       } else {
         toast.error(
-          data.error || "Something went wrong. Please try again later.",
+          resData.error || "Something went wrong. Please try again later.",
         );
       }
     } catch (error: any) {
       toast.error(
         error.message || "Failed to send message. Please try again later.",
       );
-    } finally {
-      setSending(false);
     }
   };
 
@@ -171,7 +173,7 @@ function Contact() {
         <div className="w-full">
           <form
             ref={formRef}
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             className="w-full p-6 md:p-10 rounded-2xl bg-[#0f0f11] border border-white/5 shadow-2xl flex flex-col gap-6"
           >
             <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6b7280] mb-2">
@@ -184,13 +186,10 @@ function Contact() {
               </label>
               <input
                 type="text"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
-                required
+                {...register("name", { required: "Name is required" })}
+                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.name ? 'border-red-500/50' : 'border-white/5'} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
               />
+              {errors.name && <span className="text-red-400 text-xs font-mono">{errors.name.message}</span>}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -199,15 +198,16 @@ function Contact() {
               </label>
               <input
                 type="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
-                title="Please enter a valid email address (e.g., name@example.com)"
-                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
-                required
+                {...register("email", { 
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Please enter a valid email address",
+                  }
+                })}
+                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.email ? 'border-red-500/50' : 'border-white/5'} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
               />
+              {errors.email && <span className="text-red-400 text-xs font-mono">{errors.email.message}</span>}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -216,10 +216,7 @@ function Contact() {
               </label>
               <input
                 type="text"
-                value={formData.subject}
-                onChange={(e) =>
-                  setFormData({ ...formData, subject: e.target.value })
-                }
+                {...register("subject")}
                 className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
               />
               <div className="flex flex-wrap gap-2 mt-1">
@@ -227,9 +224,9 @@ function Contact() {
                   <button
                     key={suggestion}
                     type="button"
-                    onClick={() => setFormData({ ...formData, subject: suggestion })}
+                    onClick={() => setValue("subject", suggestion, { shouldValidate: true })}
                     className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded-full border transition-colors cursor-pointer ${
-                      formData.subject === suggestion
+                      subjectValue === suggestion
                         ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
                         : "bg-[#121214] text-[#a1a1aa] border-white/5 hover:border-white/20 hover:text-white"
                     }`}
@@ -245,22 +242,19 @@ function Contact() {
                 Message
               </label>
               <textarea
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
+                {...register("message", { required: "Message is required" })}
                 rows={4}
-                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white resize-none focus:outline-none focus:border-emerald-500/50 transition-colors"
-                required
+                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.message ? 'border-red-500/50' : 'border-white/5'} text-[14px] text-white resize-none focus:outline-none focus:border-emerald-500/50 transition-colors`}
               />
+              {errors.message && <span className="text-red-400 text-xs font-mono">{errors.message.message}</span>}
             </div>
 
             <button
               type="submit"
-              disabled={sending}
+              disabled={isSubmitting}
               className="w-full mt-4 py-4 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
             >
-              {sending ? "Sending..." : "Send"}{" "}
+              {isSubmitting ? "Sending..." : "Send"}{" "}
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
