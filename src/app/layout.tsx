@@ -16,12 +16,13 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Md. Rakibul Islam | Full-Stack Next.js Engineer",
+  metadataBase: new URL("https://rakibutsho.dev/"),
+  title: "Md. Rakibul Islam | Software Engineer",
   description:
-    "Portfolio of Md. Rakibul Islam, a full-stack engineer building conversion-ready SaaS interfaces with Next.js, React, TypeScript, and Node.js.",
+    "Portfolio of Md. Rakibul Islam, a software engineer building conversion-ready SaaS interfaces with Next.js, React, TypeScript, and Node.js.",
   keywords: [
     "Rakibul Islam",
-    "Full-Stack Engineer",
+    "Software Engineer",
     "Frontend Developer",
     "React Developer",
     "Next.js",
@@ -34,15 +35,15 @@ export const metadata: Metadata = {
     "Bangladesh",
   ],
   openGraph: {
-    title: "Md. Rakibul Islam | Full-Stack Next.js Engineer",
+    title: "Md. Rakibul Islam | Software Engineer",
     description:
-      "I build high-performance SaaS products and full-stack interfaces using Next.js, React, TypeScript, and Node.js.",
+      "I build high-performance SaaS products and robust web applications using Next.js, React, TypeScript, and Node.js.",
     type: "website",
-    url: "https://rakib-utsho.vercel.app/",
+    url: "https://rakibutsho.dev/",
     siteName: "Md. Rakibul Islam Portfolio",
   },
   alternates: {
-    canonical: "https://rakib-utsho.vercel.app/",
+    canonical: "https://rakibutsho.dev/",
   },
 };
 
