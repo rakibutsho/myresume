@@ -52,7 +52,8 @@ export const projects: Project[] = [
     liveUrl: "https://pawradise.lu/",
     problem:
       "Developed a comprehensive, high-performance petcare booking platform handling complex scheduling, user profiles, and role-based administration. Implemented secure payment processing, OTP authentication, and automated invoicing via Puppeteer to seamlessly streamline administrative workflows.",
-    solution: "✨ Automated invoice generation & task scheduling, saving hours of manual work.",
+    solution:
+      "✨ Automated invoice generation & task scheduling, saving hours of manual work.",
     results: [],
     image: [
       {
@@ -86,14 +87,30 @@ export const projects: Project[] = [
     title: "Anesthelink",
     subtitle: "Healthcare Staffing Platform",
     type: "Frontend",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Ant Design", "Redux", "NextAuth", "Framer Motion", "WebSocket", "Shadcn UI", "Vercel", "VPS Hosting", "Git", "CI/CD Basics", "System Design"],
-    isPrivate: false,
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Ant Design",
+      "Redux",
+      "NextAuth",
+      "Framer Motion",
+      "WebSocket",
+      "Shadcn UI",
+      "Vercel",
+      "VPS Hosting",
+      "Git",
+      "CI/CD Basics",
+      "System Design",
+    ],
+    isPrivate: true,
     githubUrl:
       "https://github.com/rakib-utsho/Healthcare-Staffing-Platform_Frontend",
     liveUrl: "https://anesthelink.com",
     problem:
       "Built a performant, structured dashboard UI for high-frequency healthcare staffing operations. Implemented a custom, optimized address autocomplete component that drastically cut initial load times and reduced third-party API costs.",
-    solution: "⚡ Cut key screen load friction through highly optimized state handling.",
+    solution:
+      "⚡ Cut key screen load friction through highly optimized state handling.",
     results: [],
     image: [
       {
@@ -139,13 +156,13 @@ export const projects: Project[] = [
       "WebSocket",
       "NextAuth",
       "React Hook Form",
-
     ],
     isPrivate: true,
     liveUrl: "https://farmadirect.online",
     problem:
       "Developed a high-performance frontend for a cross-border e-commerce platform serving Panamanian customers from Colombian pharmacies. Integrated secure Stripe checkout, seamless bilingual language support, and interactive UI animations.",
-    solution: "🌍 Delivered a premium bilingual user experience with international Stripe processing.",
+    solution:
+      "🌍 Delivered a premium bilingual user experience with international Stripe processing.",
     results: [],
     image: [
       {
@@ -182,7 +199,8 @@ export const projects: Project[] = [
     liveUrl: "https://crownandpitch.com",
     problem:
       "Engineered a scalable frontend architecture capable of handling deep API states without performance bottlenecks for a complex tournament creation platform. Structured robust data schemas and implemented a color-coded activity tracking system.",
-    solution: "🚀 Established a robust, type-safe Next.js boilerplate with RTK Query caching.",
+    solution:
+      "🚀 Established a robust, type-safe Next.js boilerplate with RTK Query caching.",
     results: [],
     image: [
       {
