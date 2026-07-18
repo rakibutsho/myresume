@@ -28,7 +28,7 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       from: email,
-      to: process.env.EMAIL_USER,
+      to: process.env.SMTP_USER,
       replyTo: email,
       subject: subject ? `${subject} — Message from ${name}` : `New Message from ${name} (${email})`,
       html: contactEmailTemplate({ name, email, subject, message }),
