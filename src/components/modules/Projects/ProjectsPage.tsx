@@ -7,8 +7,6 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="w-full py-24 relative overflow-hidden font-sans text-white">
       {/* Modern Background Glows */}
-      <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
 
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
         
@@ -21,7 +19,7 @@ export default function ProjectsSection() {
 
         {/* Heading */}
         <div className="max-w-[1000px] mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-black-ops">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-serif">
             <span className="text-white">Selected Case</span>{" "}
             <span className="text-emerald-400">Studies.</span>
           </h2>

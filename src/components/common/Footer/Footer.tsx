@@ -26,7 +26,6 @@ export const Footer = () => {
   return (
     <footer className="w-full flex flex-col items-center justify-center pt-10 pb-10 px-4 mt-20 relative overflow-hidden bg-transparent">
       {/* Modern Background Glows - Optional ambient glow to match theme */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-emerald-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
 
       {/* Main Container */}
       <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center md:items-start justify-between gap-10 pb-10 border-b border-white/10 relative z-10">

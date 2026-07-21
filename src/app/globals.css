@@ -49,8 +49,6 @@ html {
   --font-sans: var(--font-open-sans);
   --font-serif: var(--font-playfair);
   --font-mono: var(--font-roboto);
-  --font-black-ops: var(--font-black-ops-font);
-
   /* Additional custom font families */
   --font-lobster: var(--font-lobster);
   --font-bitcount: var(--font-bitcount);
@@ -137,7 +135,7 @@ html {
 }
 
 .bg-textured {
-  background: #111827;
+  background: #09090b; /* Very dark specific color */
   min-height: 100vh;
   position: relative;
   isolation: isolate; /* creates a safe stacking context */
@@ -152,7 +150,7 @@ html {
   z-index: 0;
 
   /* make it visible */
-  opacity: 0.18; /* increase if you want stronger grain */
+  opacity: 0.25; /* stronger grain */
   mix-blend-mode: overlay;
 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");

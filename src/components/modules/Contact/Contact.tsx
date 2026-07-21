@@ -114,8 +114,6 @@ function Contact() {
       className="w-full relative overflow-hidden font-sans text-white flex flex-col items-start"
     >
       {/* Modern Background Glows */}
-      <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
 
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-start relative z-10">
         {/* Section Identifier */}
@@ -129,7 +127,7 @@ function Contact() {
 
         {/* Heading & Contact Info */}
         <div ref={headingRef} className="w-full flex flex-col items-start mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-4 font-black-ops">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-4 font-serif">
             <span className="text-white">Let's build </span>
             <span className="text-emerald-400">something</span>
           </h2>

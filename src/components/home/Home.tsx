@@ -26,8 +26,6 @@ function Home() {
       className="w-full pt-32 pb-24 min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-sans text-white"
     >
       {/* Dynamic Background Glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-emerald-500/20 via-emerald-500/5 to-transparent blur-[100px] -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] -z-10 pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
         {/* Left Column: Text Content */}
@@ -41,7 +39,7 @@ function Home() {
           </div>
 
           {/* Hero Headline */}
-          <h1 className="fade-up-element text-5xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tighter leading-[1.05] mb-8 font-black-ops max-w-2xl">
+          <h1 className="fade-up-element text-5xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tighter leading-[1.05] mb-8 font-serif max-w-2xl">
             Building{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500 drop-shadow-sm">
               digital products

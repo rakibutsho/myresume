@@ -36,8 +36,6 @@ function AboutMe() {
     <section id="about" ref={containerRef} className="w-full py-24 relative font-sans text-white overflow-hidden">
       
       {/* Modern Background Glows */}
-      <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
       
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
         
@@ -51,7 +49,7 @@ function AboutMe() {
         <div className="flex flex-col gap-10">
           
           {/* Main Header */}
-          <h2 className="fade-up-element text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] font-black-ops lg:max-w-[55%]">
+          <h2 className="fade-up-element text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] font-serif lg:max-w-[55%]">
             Engineer, <span className="text-emerald-400">builder,</span><br className="hidden md:block"/> and lifelong learner
           </h2>
           
