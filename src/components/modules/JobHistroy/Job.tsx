@@ -4,18 +4,23 @@ import JobInstitute from "./JobInstitue";
 
 const JobHistory = () => {
   return (
-    <section id="experience" className="w-full py-24 relative bg-[#0a0a0c] font-sans text-white border-t border-white/5">
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
+    <section id="experience" className="w-full py-24 relative overflow-hidden font-sans text-white">
+      {/* Modern Background Glows */}
+      <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
+
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
         
-        {/* Header Bar */}
-        <div className="flex justify-between items-center text-xs font-mono text-[#a1a1aa] mb-12 uppercase tracking-widest">
-          <div>— PROFESSIONAL JOURNEY</div>
-          <div>[ CAREER PATH ]</div>
+        {/* Section Identifier */}
+        <div className="fade-up-element flex items-center gap-4 mb-12">
+          <span className="text-sm font-mono text-emerald-400">04</span>
+          <div className="w-8 h-[1px] bg-emerald-500/50" />
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-emerald-400 font-bold">Experience</span>
         </div>
 
         {/* Heading */}
-        <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight mb-16 leading-tight">
-          <span className="font-serif italic">Building systems that</span> <span className="font-serif italic text-emerald-400">scale.</span>
+        <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight mb-16 leading-tight font-black-ops">
+          <span className="">Building systems that</span> <span className="text-emerald-400">scale.</span>
         </h2>
 
         {/* Job Cards */}

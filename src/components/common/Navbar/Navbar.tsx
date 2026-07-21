@@ -4,10 +4,7 @@
 import { Download, Menu, X, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Dancing_Script } from "next/font/google";
 import { PdfModal } from "../PdfModal/PdfModal";
-
-const signatureFont = Dancing_Script({ subsets: ["latin"], weight: "700" });
 
 const navigationLinks = [
   { name: "About", href: "/#about" },
@@ -96,7 +93,7 @@ export const Navbar = () => {
         <div
           className={`flex items-center justify-between transition-all duration-500 w-full ${
             scrolled
-              ? "max-w-[1000px] bg-[#0f0f11]/90 backdrop-blur-lg border border-white/10 rounded-full py-3 px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+              ? "max-w-[1000px] bg-black/60 backdrop-blur-xl border border-white/10 rounded-full py-3 px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
               : "max-w-[1200px] bg-transparent py-6 px-4 md:px-8 border-transparent"
           }`}
         >
@@ -104,7 +101,7 @@ export const Navbar = () => {
           <Link
             href="/#home"
             onClick={(e) => handleClick(e, "/#home")}
-            className={`text-2xl md:text-3xl font-bold tracking-wide text-white flex items-center gap-1 hover:text-emerald-400 transition-colors shrink-0 ${signatureFont.className}`}
+            className={`text-2xl md:text-3xl tracking-wide text-white flex items-center gap-1 hover:text-emerald-400 transition-colors shrink-0 font-black-ops`}
           >
             Rakibul<span className="text-[#10b981]">.</span>
           </Link>
@@ -175,7 +172,7 @@ export const Navbar = () => {
 
         {/* Drawer */}
         <div
-          className={`fixed top-0 bottom-0 right-0 z-[101] w-[85vw] sm:w-[350px] bg-[#09090b] border-l border-white/10 shadow-2xl p-6 sm:p-8 flex flex-col transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
+          className={`fixed top-0 bottom-0 right-0 z-[101] w-[85vw] sm:w-[350px] bg-black/40 backdrop-blur-3xl border-l border-white/10 shadow-2xl p-6 sm:p-8 flex flex-col transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
             <Link
@@ -184,7 +181,7 @@ export const Navbar = () => {
                 handleClick(e, "/#home");
                 setMobileMenuOpen(false);
               }}
-              className={`text-3xl font-bold tracking-wide text-white ${signatureFont.className}`}
+              className={`text-3xl tracking-wide text-white font-black-ops`}
             >
               Rakibul<span className="text-emerald-400">.</span>
             </Link>

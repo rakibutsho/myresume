@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import React, { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail, LinkedinIcon, AtSign } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,177 +111,95 @@ function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="w-full py-24 relative bg-[#0a0a0c] border-t border-white/5 font-sans text-white flex flex-col items-center"
+      className="w-full relative overflow-hidden font-sans text-white flex flex-col items-start"
     >
-      <div className="w-full max-w-[800px] mx-auto px-4 md:px-8 flex flex-col items-center">
-        {/* Header Bar */}
-        <div className="text-xs font-mono text-[#a1a1aa] mb-12 uppercase tracking-widest text-center">
-          — 05 - GET IN TOUCH
+      {/* Modern Background Glows */}
+      <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
+
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-start relative z-10">
+        {/* Section Identifier */}
+        <div className="fade-up-element flex justify-center items-center gap-4 mb-12">
+          <span className="text-sm font-mono text-emerald-400">07</span>
+          <div className="w-8 h-[1px] bg-emerald-500/50" />
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-emerald-400 font-bold">
+            Contact
+          </span>
         </div>
 
         {/* Heading & Contact Info */}
-        <div
-          ref={headingRef}
-          className="w-full flex flex-col items-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-8 text-center">
-            <span className="font-serif italic text-white">
-              Let's build something
-            </span>{" "}
-            <span className="font-serif italic text-emerald-400">
-              together.
-            </span>
+        <div ref={headingRef} className="w-full flex flex-col items-start mb-12">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-4 font-black-ops">
+            <span className="text-white">Let's build </span>
+            <span className="text-emerald-400">something</span>
           </h2>
-
-          <div className="flex items-center gap-2 mb-10 group">
-            <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
-            <a
-              href="mailto:rakibutsho1920@gmail.com"
-              className="text-[15px] md:text-lg font-mono text-white/90 hover:text-emerald-400 transition-colors"
-            >
-              rakibutsho1920@gmail.com
-            </a>
-          </div>
-
-          <div className="flex flex-wrap justify-center items-center gap-4 text-[#a1a1aa] font-mono text-[11px] md:text-xs uppercase tracking-widest">
-            <a
-              href="https://github.com/rakibutsho"
-              target="_blank"
-              className="hover:text-emerald-400 transition-colors"
-            >
-              github/rakibutsho
-            </a>
-            <span className="text-white/20">•</span>
-            <a
-              href="https://www.linkedin.com/in/rakibutsho"
-              target="_blank"
-              className="hover:text-emerald-400 transition-colors"
-            >
-              linkedin/rakibutsho
-            </a>
-            <span className="text-white/20">•</span>
-            <a
-              href="tel:+8801707934655"
-              className="hover:text-emerald-400 transition-colors"
-            >
-              +880 1707-934655
-            </a>
-          </div>
+          <p className="text-[#a1a1aa] text-[17px] font-medium max-w-2xl">
+            Have a project or a role in mind? Send a message and I'll get back to you soon.
+          </p>
         </div>
 
-        {/* Contact Form */}
+        {/* Contact Form Card */}
         <div className="w-full">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit(onSubmit)}
-            className="w-full p-6 md:p-10 rounded-2xl bg-[#0f0f11] border border-white/5 shadow-2xl flex flex-col gap-6"
-          >
-            <div className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#6b7280] mb-2">
-              SEND A MESSAGE
+          <div className="w-full p-6 md:p-8 rounded-[2rem] bg-black/20 backdrop-blur-xl border border-white/10 flex flex-col gap-8 shadow-2xl hover:border-emerald-500/30 transition-all duration-300">
+            
+            {/* Tabs */}
+            <div className="flex items-center gap-3">
+              <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 border border-white/5 text-white text-[13px] font-medium transition-colors">
+                <AtSign className="w-4 h-4 text-[#a1a1aa]" /> Email
+              </button>
+              <a href="https://www.linkedin.com/in/rakibutsho" target="_blank" className="flex items-center gap-2 px-4 py-2 rounded-xl bg-transparent border border-transparent text-[#a1a1aa] text-[13px] font-medium hover:bg-white/5 hover:border-white/5 transition-colors">
+                <LinkedinIcon className="w-4 h-4" /> LinkedIn
+              </a>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
-                Your Name
-              </label>
-              <input
-                type="text"
-                {...register("name", { required: "Name is required" })}
-                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.name ? "border-red-500/50" : "border-white/5"} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
-              />
-              {errors.name && (
-                <span className="text-red-400 text-xs font-mono">
-                  {errors.name.message}
-                </span>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
-                Email
-              </label>
-              <input
-                type="email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Please enter a valid email address",
-                  },
-                })}
-                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.email ? "border-red-500/50" : "border-white/5"} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
-              />
-              {errors.email && (
-                <span className="text-red-400 text-xs font-mono">
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
-                Subject
-              </label>
-              <input
-                type="text"
-                {...register("subject")}
-                className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
-              />
-              <div className="flex flex-wrap gap-2 mt-1">
-                {[
-                  "Job Opportunity",
-                  "Freelance Project",
-                  "Networking",
-                  "Project Inquiry",
-                ].map((suggestion) => (
-                  <button
-                    key={suggestion}
-                    type="button"
-                    onClick={() =>
-                      setValue("subject", suggestion, { shouldValidate: true })
-                    }
-                    className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded-full border transition-colors cursor-pointer ${
-                      subjectValue === suggestion
-                        ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                        : "bg-[#121214] text-[#a1a1aa] border-white/5 hover:border-white/20 hover:text-white"
-                    }`}
-                  >
-                    {suggestion}
-                  </button>
-                ))}
+            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+              
+              {/* Name */}
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Your name"
+                  {...register("name", { required: true })}
+                  className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] focus:outline-none focus:border-emerald-500/30 focus:bg-white/10 transition-all"
+                />
               </div>
-            </div>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-[11px] font-mono uppercase tracking-widest text-[#a1a1aa]">
-                Message
-              </label>
-              <textarea
-                {...register("message", { required: "Message is required" })}
-                rows={4}
-                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.message ? "border-red-500/50" : "border-white/5"} text-[14px] text-white resize-none focus:outline-none focus:border-emerald-500/50 transition-colors`}
-              />
-              {errors.message && (
-                <span className="text-red-400 text-xs font-mono">
-                  {errors.message.message}
-                </span>
-              )}
-            </div>
+              {/* Email */}
+              <div className="relative">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  {...register("email", { required: true })}
+                  className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] focus:outline-none focus:border-emerald-500/30 focus:bg-white/10 transition-all"
+                />
+                <Mail className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b7280]" />
+              </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full mt-4 py-4 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-sm uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
-            >
-              {isSubmitting ? "Sending..." : "Send"}{" "}
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
+              {/* Message */}
+              <div className="relative">
+                <textarea
+                  placeholder="Your message"
+                  {...register("message", { required: true })}
+                  rows={6}
+                  className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] resize-none focus:outline-none focus:border-emerald-500/30 focus:bg-white/10 transition-all"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full mt-2 py-4 rounded-xl bg-[#34d399] hover:bg-emerald-300 text-black font-semibold text-[15px] transition-colors disabled:opacity-50"
+              >
+                {isSubmitting ? "Sending..." : "Send message"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 mt-32 border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[#6b7280] font-mono text-[10px] uppercase tracking-widest">
+      {/* <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 mt-32 border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[#6b7280] font-mono text-[10px] uppercase tracking-widest">
         <div>
           © {new Date().getFullYear()} Rakibul Islam — crafted with care in
           Dhaka.
@@ -294,7 +212,7 @@ function Contact() {
           })}{" "}
           - v1.0
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

@@ -49,6 +49,7 @@ html {
   --font-sans: var(--font-open-sans);
   --font-serif: var(--font-playfair);
   --font-mono: var(--font-roboto);
+  --font-black-ops: var(--font-black-ops-font);
 
   /* Additional custom font families */
   --font-lobster: var(--font-lobster);

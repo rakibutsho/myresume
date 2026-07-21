@@ -4,262 +4,186 @@
 
 import {
   Download,
-  ArrowUpRight,
-  Code2,
-  Terminal,
-  User,
-  Briefcase,
+  ArrowRight,
+  BadgeCheck,
+  GithubIcon,
+  LinkedinIcon,
   MapPin,
+  Mail,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PdfModal } from "../common/PdfModal/PdfModal";
-import { TypeAnimation } from "react-type-animation";
+import Image from "next/image";
+import profileImg from "@/assets/profile-2.png";
 
 function Home() {
-  const [time, setTime] = useState("");
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<'developer.ts' | 'experience.json'>('developer.ts');
-
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: true,
-          timeZone: "Asia/Dhaka",
-        }) + " GMT+6",
-      );
-    };
-    updateClock();
-    const interval = setInterval(updateClock, 60000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section
       id="home"
-      className="w-full pt-28 pb-20 min-h-screen flex flex-col justify-center relative overflow-hidden bg-[#0a0a0c] font-sans text-white"
+      className="w-full pt-32 pb-24 min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-sans text-white"
     >
-      {/* Background elements */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] -z-10" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px] -z-10" />
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-gradient-to-b from-emerald-500/20 via-emerald-500/5 to-transparent blur-[100px] -z-10 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] -z-10 pointer-events-none" />
 
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 z-10 flex flex-col items-center">
-        {/* Main Flex Container */}
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 w-full">
-          {/* Left: Text & Intro */}
-          <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-emerald-400">
-              <Terminal className="w-3.5 h-3.5" />
-              <span>Hello, World!</span>
-            </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] min-h-[130px] sm:min-h-[140px] md:min-h-[150px] lg:min-h-[160px]">
-              Md. Rakibul Islam
-              <br />
-              <TypeAnimation
-                sequence={[
-                  "Software Engineer",
-                  2000,
-                  "Tech Enthusiast",
-                  2000,
-                  "Always learning, always building.",
-                  2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                repeat={Infinity}
-                className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-500"
-              />
-            </h1>
-
-            <p className="text-[#a1a1aa] text-lg max-w-lg leading-relaxed">
-              Frontend-focused Full Stack Developer specializing in React,
-              Next.js, and scalable web architectures. Building pixel-perfect,
-              high-performance applications.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              <Link
-                href="#contact"
-                className="px-7 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-lg transition-colors flex items-center gap-2 text-sm shadow-[0_0_20px_rgba(16,185,129,0.2)]"
-              >
-                <Briefcase className="w-4 h-4" />
-                Hire Me
-              </Link>
-              <button
-                onClick={() => setIsPdfModalOpen(true)}
-                className="px-7 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium rounded-lg transition-colors flex items-center gap-2 text-sm cursor-pointer"
-              >
-                <Download className="w-4 h-4" />
-                Resume
-              </button>
-            </div>
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+        {/* Left Column: Text Content */}
+        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+          {/* Availability Badge */}
+          <div className="fade-up-element flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 shadow-xl hover:bg-white/10 transition-colors cursor-default">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
+            <span className="text-sm font-medium text-white/90">
+              Available for new opportunities
+            </span>
           </div>
 
-          {/* Right: Code Editor Concept */}
-          <div className="w-full lg:w-[550px] relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-blue-500/20 rounded-xl blur-xl -z-10 translate-y-2 opacity-50" />
-            <div className="bg-[#111113] border border-white/10 rounded-xl shadow-2xl overflow-hidden font-mono text-[13px] md:text-sm">
-              {/* Editor Tabs */}
-              <div className="flex items-center bg-[#18181b] border-b border-white/5 px-2">
-                <div 
-                  onClick={() => setActiveTab('developer.ts')}
-                  className={`flex items-center gap-2 px-4 py-3 cursor-pointer transition-colors ${activeTab === 'developer.ts' ? 'bg-[#111113] border-t-2 border-t-emerald-500 text-emerald-400' : 'text-[#a1a1aa] hover:text-white'}`}
-                >
-                  <Code2 className="w-4 h-4" />
-                  <span>developer.ts</span>
-                </div>
-                <div 
-                  onClick={() => setActiveTab('experience.json')}
-                  className={`flex items-center gap-2 px-4 py-3 cursor-pointer transition-colors ${activeTab === 'experience.json' ? 'bg-[#111113] border-t-2 border-t-emerald-500 text-emerald-400' : 'text-[#a1a1aa] hover:text-white'}`}
-                >
-                  <User className="w-4 h-4" />
-                  <span>experience.json</span>
-                </div>
-              </div>
+          {/* Hero Headline */}
+          <h1 className="fade-up-element text-5xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tighter leading-[1.05] mb-8 font-black-ops max-w-2xl">
+            Building{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500 drop-shadow-sm">
+              digital products
+            </span>{" "}
+            <br className="hidden lg:block" />
+            that ship and scale.
+          </h1>
 
-              {/* Editor Content */}
-              <div className="p-6 overflow-x-auto text-[#a1a1aa] min-h-[320px]">
-                {activeTab === 'developer.ts' ? (
-                  <div className="flex">
-                    {/* Line Numbers */}
-                    <div className="pr-4 text-white/20 select-none text-right border-r border-white/5 mr-4 space-y-1">
-                      1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9
-                      <br />
-                      10
-                      <br />
-                      11
-                    </div>
-                    {/* Code */}
-                    <div className="space-y-1 whitespace-nowrap">
-                      <div>
-                        <span className="text-blue-400">const</span>{" "}
-                        <span className="text-white">developer</span> = {"{"}
-                      </div>
-                      <div className="pl-6">
-                        <span className="text-emerald-300">name</span>:{" "}
-                        <span className="text-yellow-300">
-                          &apos;Md. Rakibul Islam&apos;
-                        </span>
-                        ,
-                      </div>
-                      <div className="pl-6">
-                        <span className="text-emerald-300">role</span>:{" "}
-                        <span className="text-yellow-300">
-                          &apos;Software Engineer&apos;
-                        </span>
-                        ,
-                      </div>
-                      <div className="pl-6">
-                        <span className="text-emerald-300">company</span>:{" "}
-                        <span className="text-yellow-300">
-                          &apos;SM Technology&apos;
-                        </span>
-                        ,
-                      </div>
-                      <div className="pl-6">
-                        <span className="text-emerald-300">skills</span>: [
-                      </div>
-                      <div className="pl-12 text-yellow-300">
-                        &apos;React&apos;, &apos;Next.js&apos;,
-                        &apos;TypeScript&apos;,
-                      </div>
-                      <div className="pl-12 text-yellow-300">
-                        &apos;Node.js&apos;, &apos;Tailwind&apos;,
-                        &apos;MongoDB&apos;
-                      </div>
-                      <div className="pl-6">],</div>
-                      <div className="pl-6">
-                        <span className="text-emerald-300">passion</span>:{" "}
-                        <span className="text-yellow-300">
-                          &apos;Building scalable web apps&apos;
-                        </span>
-                      </div>
-                      <div>{"};"}</div>
-                      <div className="mt-2 text-white/50 italic">
-                        // Let&apos;s build something amazing together
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex">
-                    {/* Line Numbers */}
-                    <div className="pr-4 text-white/20 select-none text-right border-r border-white/5 mr-4 space-y-1">
-                      1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9
-                      <br />
-                      10
-                      <br />
-                      11<br />12<br />13<br />14
-                    </div>
-                    {/* Code */}
-                    <div className="space-y-1 whitespace-nowrap">
-                      <div><span className="text-white">[</span></div>
-                      <div className="pl-6"><span className="text-white">{"{"}</span></div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;company&quot;</span>:{" "}
-                        <span className="text-yellow-300">&quot;SM Technology&quot;</span>,
-                      </div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;role&quot;</span>:{" "}
-                        <span className="text-yellow-300">&quot;Frontend Engineer&quot;</span>,
-                      </div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;period&quot;</span>:{" "}
-                        <span className="text-yellow-300">&quot;Apr 2025 - Present&quot;</span>,
-                      </div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;stack&quot;</span>: [
-                        <span className="text-yellow-300">&quot;React&quot;</span>,{" "}
-                        <span className="text-yellow-300">&quot;Next.js&quot;</span>,{" "}
-                        <span className="text-yellow-300">&quot;TypeScript&quot;</span>
-                        ]
-                      </div>
-                      <div className="pl-6"><span className="text-white">{"}"}</span>,</div>
-                      <div className="pl-6"><span className="text-white">{"{"}</span></div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;company&quot;</span>:{" "}
-                        <span className="text-yellow-300">&quot;Trodev&quot;</span>,
-                      </div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;role&quot;</span>:{" "}
-                        <span className="text-yellow-300">&quot;Junior Developer&quot;</span>,
-                      </div>
-                      <div className="pl-12">
-                        <span className="text-emerald-300">&quot;period&quot;</span>:{" "}
-                        <span className="text-yellow-300">&quot;Feb 2024 - May 2024&quot;</span>
-                      </div>
-                      <div className="pl-6"><span className="text-white">{"}"}</span></div>
-                      <div><span className="text-white">]</span></div>
-                    </div>
-                  </div>
-                )}
+          {/* Subheadline */}
+          <p className="fade-up-element text-lg md:text-xl text-white/80 max-w-[600px] mb-10 leading-relaxed font-medium">
+            I'm a Full-Stack Software Engineer specializing in React, Next.js,
+            and modern web architecture. I turn complex problems into elegant,
+            high-performance solutions.
+          </p>
+
+          {/* Action Buttons */}
+          <div className="fade-up-element flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto mb-10">
+            <Link
+              href="#contact"
+              className="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-black font-bold rounded-xl hover:bg-emerald-400 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(16,185,129,0.3)]"
+            >
+              Start a Project <ArrowRight className="w-5 h-5" />
+            </Link>
+            <button
+              onClick={() => setIsPdfModalOpen(true)}
+              className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white font-medium rounded-xl hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+            >
+              <Download className="w-4 h-4" /> Download Résumé
+            </button>
+          </div>
+
+          {/* Social Connections */}
+          <div className="fade-up-element flex items-center gap-6">
+            <Link
+              href="https://www.linkedin.com/in/rakibutsho"
+              target="_blank"
+              className="flex items-center gap-2 text-white/60 hover:text-blue-400 transition-colors font-mono text-sm group"
+            >
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-blue-500/10 transition-colors">
+                <LinkedinIcon className="w-4 h-4" />
               </div>
-            </div>
+              linkedin.in/rakibutsho
+            </Link>
+            <Link
+              href="https://github.com/rakibutsho"
+              target="_blank"
+              className="flex items-center gap-2 text-white/60 hover:text-emerald-400 transition-colors font-mono text-sm group"
+            >
+              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-emerald-500/10 transition-colors">
+                <GithubIcon className="w-4 h-4" />
+              </div>
+              github/rakibutsho
+            </Link>
           </div>
         </div>
 
-        {/* Footer Info Bar */}
-        <div className="w-full mt-24 pt-6 border-t border-white/10 flex flex-wrap justify-between gap-6 text-sm text-[#a1a1aa]">
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-emerald-500" />
-            <span>Dhaka, Bangladesh</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>{time || "Loading time..."}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-1 rounded bg-white/5 text-xs text-emerald-400 border border-emerald-500/20">
-              Open to work
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-emerald-500" />
-            <span>SE @ SM Technology</span>
+        {/* Right Column: Modern Profile Card */}
+        <div className="fade-up-element w-full max-w-[400px] lg:max-w-[460px] relative">
+          <div className="w-full bg-black/20 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-4 md:p-6 shadow-2xl overflow-hidden relative group hover:border-emerald-500/30 transition-all duration-500">
+            {/* Inner glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            {/* Image Container */}
+            <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden mb-4 md:mb-6 border border-white/5 bg-[#121214]">
+              <Image
+                src={profileImg}
+                alt="Rakibul Islam"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-90" />
+
+              {/* Overlay Details */}
+              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div className="flex flex-col">
+                  <span className="text-white font-bold text-2xl tracking-wide mb-1">
+                    Md. Rakibul Islam
+                  </span>
+                  <span className="text-emerald-400 font-mono text-xs uppercase tracking-[0.2em] font-semibold">
+                    Software Engineer
+                  </span>
+                </div>
+                <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-xl">
+                  <BadgeCheck className="w-6 h-6 text-emerald-400" />
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Info & Socials inside Card */}
+            <div className="relative z-10 flex flex-col gap-4">
+              <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-medium text-white/90">
+                    Dhaka, Bangladesh
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Link
+                    href="https://github.com/rakibutsho"
+                    target="_blank"
+                    className="p-2 rounded-xl bg-white/5 text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/10 transition-all"
+                  >
+                    <GithubIcon className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="https://www.linkedin.com/in/rakibutsho"
+                    target="_blank"
+                    className="p-2 rounded-xl bg-white/5 text-[#a1a1aa] hover:text-blue-400 hover:bg-white/10 transition-all"
+                  >
+                    <LinkedinIcon className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Stats Row */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex flex-col items-center justify-center group-hover:bg-white/10 transition-colors">
+                  <span className="text-white font-bold text-2xl font-serif">
+                    2+
+                  </span>
+                  <span className="text-[#a1a1aa] text-[10px] uppercase tracking-widest font-mono text-center mt-1">
+                    Years
+                    <br />
+                    Experience
+                  </span>
+                </div>
+                <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex flex-col items-center justify-center group-hover:bg-white/10 transition-colors">
+                  <span className="text-white font-bold text-2xl font-serif">
+                    20+
+                  </span>
+                  <span className="text-[#a1a1aa] text-[10px] uppercase tracking-widest font-mono text-center mt-1">
+                    Projects
+                    <br />
+                    Shipped
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
