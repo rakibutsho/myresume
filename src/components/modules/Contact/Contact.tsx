@@ -145,19 +145,19 @@ function Contact() {
 
           <div className="flex flex-wrap justify-center items-center gap-4 text-[#a1a1aa] font-mono text-[11px] md:text-xs uppercase tracking-widest">
             <a
-              href="https://github.com/rakib-utsho"
+              href="https://github.com/rakibutsho"
               target="_blank"
               className="hover:text-emerald-400 transition-colors"
             >
-              github/rakib-utsho
+              github/rakibutsho
             </a>
             <span className="text-white/20">•</span>
             <a
-              href="https://www.linkedin.com/in/md-rakibutsho-cse"
+              href="https://www.linkedin.com/in/rakibutsho"
               target="_blank"
               className="hover:text-emerald-400 transition-colors"
             >
-              linkedin/rakib-utsho
+              linkedin/rakibutsho
             </a>
             <span className="text-white/20">•</span>
             <a
@@ -187,9 +187,13 @@ function Contact() {
               <input
                 type="text"
                 {...register("name", { required: "Name is required" })}
-                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.name ? 'border-red-500/50' : 'border-white/5'} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
+                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.name ? "border-red-500/50" : "border-white/5"} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
               />
-              {errors.name && <span className="text-red-400 text-xs font-mono">{errors.name.message}</span>}
+              {errors.name && (
+                <span className="text-red-400 text-xs font-mono">
+                  {errors.name.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -198,16 +202,20 @@ function Contact() {
               </label>
               <input
                 type="email"
-                {...register("email", { 
+                {...register("email", {
                   required: "Email is required",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     message: "Please enter a valid email address",
-                  }
+                  },
                 })}
-                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.email ? 'border-red-500/50' : 'border-white/5'} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
+                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.email ? "border-red-500/50" : "border-white/5"} text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors`}
               />
-              {errors.email && <span className="text-red-400 text-xs font-mono">{errors.email.message}</span>}
+              {errors.email && (
+                <span className="text-red-400 text-xs font-mono">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
 
             <div className="flex flex-col gap-2">
@@ -220,11 +228,18 @@ function Contact() {
                 className="w-full px-4 py-3 rounded-lg bg-[#121214] border border-white/5 text-[14px] text-white focus:outline-none focus:border-emerald-500/50 transition-colors"
               />
               <div className="flex flex-wrap gap-2 mt-1">
-                {["Job Opportunity", "Freelance Project", "Networking", "Project Inquiry"].map((suggestion) => (
+                {[
+                  "Job Opportunity",
+                  "Freelance Project",
+                  "Networking",
+                  "Project Inquiry",
+                ].map((suggestion) => (
                   <button
                     key={suggestion}
                     type="button"
-                    onClick={() => setValue("subject", suggestion, { shouldValidate: true })}
+                    onClick={() =>
+                      setValue("subject", suggestion, { shouldValidate: true })
+                    }
                     className={`text-[10px] font-mono uppercase tracking-wider px-3 py-1.5 rounded-full border transition-colors cursor-pointer ${
                       subjectValue === suggestion
                         ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
@@ -244,9 +259,13 @@ function Contact() {
               <textarea
                 {...register("message", { required: "Message is required" })}
                 rows={4}
-                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.message ? 'border-red-500/50' : 'border-white/5'} text-[14px] text-white resize-none focus:outline-none focus:border-emerald-500/50 transition-colors`}
+                className={`w-full px-4 py-3 rounded-lg bg-[#121214] border ${errors.message ? "border-red-500/50" : "border-white/5"} text-[14px] text-white resize-none focus:outline-none focus:border-emerald-500/50 transition-colors`}
               />
-              {errors.message && <span className="text-red-400 text-xs font-mono">{errors.message.message}</span>}
+              {errors.message && (
+                <span className="text-red-400 text-xs font-mono">
+                  {errors.message.message}
+                </span>
+              )}
             </div>
 
             <button

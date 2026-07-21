@@ -36,8 +36,8 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6 md:p-8">
       {/* Backdrop click to close */}
-      <div className="absolute inset-0" onClick={onClose} />
-      
+      <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
+
       <div className="relative w-full max-w-5xl h-full flex flex-col bg-[#09090b] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#0f0f11]">
           <h3 className="text-white font-semibold tracking-wide">Resume</h3>
@@ -52,7 +52,7 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
             </a>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-[#a1a1aa] hover:text-white hover:bg-white/10 transition-colors"
+              className="p-1.5 rounded-lg text-[#a1a1aa] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -60,7 +60,11 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
         </div>
         <div className="flex-1 w-full bg-white/5 relative">
           <iframe
-            src={pdfUrl.includes('drive.google.com') ? pdfUrl.replace(/\/view.*$/, '/preview') : `${pdfUrl}#toolbar=0&view=FitH`}
+            src={
+              pdfUrl.includes("drive.google.com")
+                ? pdfUrl.replace(/\/view.*$/, "/preview")
+                : `${pdfUrl}#toolbar=0&view=FitH`
+            }
             className="w-full h-full border-none absolute inset-0"
             title="Resume PDF"
           />
