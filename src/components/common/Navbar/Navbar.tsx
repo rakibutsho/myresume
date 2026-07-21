@@ -1,41 +1,45 @@
 "use client";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Download, Menu, X, ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { Tooltip } from "@/components/base/tooltip/tooltip";
+import {
+  Home,
+  UserSquare,
+  Monitor,
+  Backpack,
+  Wrench,
+  BookOpen,
+  Mail,
+  Pentagon,
+  IdCardLanyard,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { PdfModal } from "../PdfModal/PdfModal";
 
 const navigationLinks = [
-  { name: "About", href: "/#about" },
-  { name: "Skills", href: "/#skills" },
-  { name: "Education", href: "/#education" },
-  { name: "Experience", href: "/#experience" },
-  { name: "Projects", href: "/#projects" },
-  { name: "Testimonials", href: "/#testimonials" },
-  { name: "Contact", href: "/#contact" },
+  { name: "Home", href: "/#home", icon: Pentagon },
+  { name: "About", href: "/#about", icon: IdCardLanyard },
+  { name: "Skills", href: "/#skills", icon: Wrench },
+  { name: "Experience", href: "/#experience", icon: Backpack },
+  { name: "Projects", href: "/#projects", icon: Monitor },
+  { name: "Testimonials", href: "/#testimonials", icon: BookOpen },
+  { name: "Contact", href: "/#contact", icon: Mail },
 ];
 
 export const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("/#home");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
       if (window.location.pathname !== "/") return;
 
       const sectionIds = [
         "home",
-        ...navigationLinks.map((l) => l.href.replace("/#", "")),
+        ...navigationLinks
+          .map((l) => l.href.replace("/#", ""))
+          .filter((id) => id !== "home"),
       ];
 
       let currentActive = "/#home";
       // Dynamic threshold: 60% of the viewport height.
-      // This means a section becomes active when its top edge crosses the lower middle of the screen.
       const threshold = window.innerHeight * 0.6;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -61,6 +65,8 @@ export const Navbar = () => {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -84,161 +90,38 @@ export const Navbar = () => {
   };
 
   return (
-    <>
-      <header
-        className={`fixed inset-x-0 z-50 flex justify-center transition-all duration-500 ${
-          scrolled ? "top-4 px-4" : "top-0 px-0"
-        }`}
-      >
-        <div
-          className={`flex items-center justify-between transition-all duration-500 w-full ${
-            scrolled
-              ? "max-w-[1000px] bg-black/60 backdrop-blur-xl border border-white/10 rounded-full py-3 px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-              : "max-w-[1200px] bg-transparent py-6 px-4 md:px-8 border-transparent"
-          }`}
-        >
-          {/* Logo */}
-          <Link
-            href="/#home"
-            onClick={(e) => handleClick(e, "/#home")}
-            className={`text-2xl md:text-3xl tracking-wide text-white flex items-center gap-1 hover:text-emerald-400 transition-colors shrink-0 font-black-ops`}
-          >
-            Rakibul<span className="text-[#10b981]">.</span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden xl:flex items-center gap-6">
-            {navigationLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
-                <div
-                  key={link.name}
-                  className="relative group flex items-center"
-                >
-                  <a
-                    href={link.href}
-                    onClick={(e) => handleClick(e, link.href)}
-                    className={`text-[11px] font-bold tracking-widest uppercase transition-colors hover:text-white ${
-                      isActive ? "text-white" : "text-[#a1a1aa]"
-                    }`}
-                  >
-                    {link.name}
-                  </a>
-                  {isActive && (
-                    <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-                  )}
-                </div>
-              );
-            })}
-          </nav>
-
-          {/* Action Button & Mobile Toggle */}
-          <div className="flex items-center gap-3 shrink-0">
-            <button
-              onClick={() => setIsPdfModalOpen(true)}
-              className={`hidden md:flex items-center gap-2 rounded-full font-bold uppercase tracking-widest transition-all group cursor-pointer ${
-                scrolled
-                  ? "bg-white/10 text-white hover:bg-emerald-400 hover:text-black px-4 py-2 text-[10px]"
-                  : "bg-white text-black hover:bg-emerald-400 hover:text-black px-5 py-2.5 text-xs"
-              }`}
-            >
-              Resume
-              <Download className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
-
-            {/* Mobile Nav */}
-            <div className="xl:hidden">
-              <button
-                onClick={() => setMobileMenuOpen(true)}
-                className="p-2 -mr-2 text-white hover:text-emerald-400 transition-colors cursor-pointer"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Drawer */}
-      <div
-        className="lg:hidden"
-        style={{ pointerEvents: mobileMenuOpen ? "auto" : "none" }}
-      >
-        {/* Overlay */}
-        <div
-          className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100" : "opacity-0"}`}
-          onClick={() => setMobileMenuOpen(false)}
-        />
-
-        {/* Drawer */}
-        <div
-          className={`fixed top-0 bottom-0 right-0 z-[101] w-[85vw] sm:w-[350px] bg-black/40 backdrop-blur-3xl border-l border-white/10 shadow-2xl p-6 sm:p-8 flex flex-col transform transition-transform duration-300 ease-in-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
-        >
-          <div className="flex justify-between items-center mb-8 pb-4 border-b border-white/10">
-            <Link
-              href="/#home"
-              onClick={(e) => {
-                handleClick(e, "/#home");
-                setMobileMenuOpen(false);
-              }}
-              className={`text-3xl tracking-wide text-white font-black-ops`}
-            >
-              Rakibul<span className="text-emerald-400">.</span>
-            </Link>
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-2 -mr-2 text-white/50 hover:text-white hover:bg-white/5 rounded-full transition-colors cursor-pointer"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
-          <div className="flex flex-col gap-2 flex-grow overflow-y-auto">
-            {navigationLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
+    <header className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
+      <nav className="flex items-center gap-1 sm:gap-2 p-1.5 bg-[#111113]/95 backdrop-blur-xl border border-white/5 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+        {navigationLinks.map((link) => {
+          const isActive = activeSection === link.href;
+          const Icon = link.icon;
+          return (
+            <div key={link.name} className="relative group">
+              <Tooltip title={link.name} placement="top" delay={150} arrow>
                 <a
-                  key={link.name}
                   href={link.href}
-                  onClick={(e) => {
-                    handleClick(e, link.href);
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`flex items-center gap-3 px-4 py-4 rounded-xl text-sm tracking-widest font-bold uppercase transition-all ${
+                  onClick={(e) => handleClick(e, link.href)}
+                  className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-all duration-500 ease-out focus:outline-none ${
                     isActive
-                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                      : "text-[#a1a1aa] hover:text-white hover:bg-white/5 border border-transparent"
+                      ? "bg-emerald-400 text-[#0c0c0d] shadow-[0_0_20px_rgba(52,211,153,0.2)]"
+                      : "text-white/40 hover:text-white hover:bg-white/10"
                   }`}
+                  aria-label={link.name}
                 >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-emerald-400 shadow-[0_0_8px_#10b981]" : "bg-transparent"}`}
+                  <Icon
+                    className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-500 ease-out ${
+                      isActive
+                        ? "scale-110"
+                        : "group-hover:scale-110 group-hover:-translate-y-0.5"
+                    }`}
+                    strokeWidth={isActive ? 2.5 : 1.5}
                   />
-                  {link.name}
                 </a>
-              );
-            })}
-
-            <div className="mt-auto pt-6 border-t border-white/10 pb-4">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  setIsPdfModalOpen(true);
-                }}
-                className="flex items-center justify-center gap-2 w-full px-5 py-4 rounded-full bg-white hover:bg-emerald-400 text-black font-bold uppercase tracking-widest transition-all shadow-lg"
-              >
-                <Download className="w-5 h-5" />
-                Resume
-              </button>
+              </Tooltip>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <PdfModal
-        isOpen={isPdfModalOpen}
-        onClose={() => setIsPdfModalOpen(false)}
-        pdfUrl="https://drive.google.com/file/d/1CeJfS4sSUnfe7zyOhBE9g5WYwHV-1nux/view?usp=drive_link"
-      />
-    </>
+          );
+        })}
+      </nav>
+    </header>
   );
 };

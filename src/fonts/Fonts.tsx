@@ -1,5 +1,4 @@
 import {
-  Black_Ops_One,
   Gravitas_One,
   Lobster_Two,
   Open_Sans,
@@ -14,11 +13,6 @@ export const openSans = Open_Sans({
   variable: "--font-open-sans",
 });
 
-export const blackOps = Black_Ops_One({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-black-ops-font",
-});
 
 export const playfair = Playfair_Display({
   subsets: ["latin"],

@@ -12,7 +12,6 @@ export default function AllProjectsPage() {
   return (
     <div className="w-full pt-32 pb-20 relative min-h-screen bg-[#09090b]">
       {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-emerald-500/5 blur-[120px] pointer-events-none -z-10" />
 
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
         

@@ -48,7 +48,6 @@ export default function ProjectDetails({ project }: Props) {
   return (
     <article className="w-full pt-32 pb-20 relative min-h-screen bg-[#09090b]">
       {/* Background ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[500px] bg-emerald-500/5 blur-[150px] pointer-events-none -z-10" />
 
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8">
         {/* Navigation */}
