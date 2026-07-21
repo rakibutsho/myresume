@@ -47,7 +47,7 @@ function JobInstitute() {
           <div 
             key={job.id} 
             data-timeline-item 
-            className="group relative rounded-2xl bg-[#0f0f11] border border-white/10 p-8 md:p-10 transition-colors hover:border-white/20"
+            className="group relative rounded-2xl bg-black/20 backdrop-blur-xl border border-white/10 p-8 md:p-10 transition-all hover:border-emerald-500/30 hover:bg-white/5 shadow-xl"
           >
             {/* Header section */}
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">

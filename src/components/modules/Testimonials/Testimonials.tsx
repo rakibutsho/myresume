@@ -61,20 +61,25 @@ function Testimonials() {
 
 
   return (
-    <section id="testimonials" ref={sectionRef} className="w-full py-24 relative bg-[#0a0a0c] font-sans text-white border-t border-white/5">
-      <div className="w-full max-w-300 mx-auto px-4 md:px-8">
+    <section id="testimonials" ref={sectionRef} className="w-full py-24 relative overflow-hidden font-sans text-white">
+      {/* Modern Background Glows */}
+      <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none -z-10" />
+      <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none -z-10" />
+
+      <div className="w-full max-w-300 mx-auto px-4 md:px-8 relative z-10">
         
-        {/* Header Bar */}
-        <div className="flex justify-between items-center text-xs font-mono text-[#a1a1aa] mb-12 uppercase tracking-widest">
-          <div>— WHAT TEAMS SAY</div>
-          <div>[ ENDORSEMENTS ]</div>
+        {/* Section Identifier */}
+        <div className="fade-up-element flex items-center gap-4 mb-12">
+          <span className="text-sm font-mono text-emerald-400">06</span>
+          <div className="w-8 h-[1px] bg-emerald-500/50" />
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-emerald-400 font-bold">Testimonials</span>
         </div>
 
         {/* Heading */}
         <div ref={headingRef} className="max-w-250 mb-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight">
-            <span className="font-serif italic text-white">Kind words from</span>{" "}
-            <span className="font-serif italic text-emerald-400">colleagues.</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-black-ops">
+            <span className="text-white">Kind words from</span>{" "}
+            <span className="text-emerald-400">colleagues.</span>
           </h2>
         </div>
 
@@ -84,7 +89,7 @@ function Testimonials() {
             <div
               key={t.id}
               data-testimonial
-              className="group relative p-8 md:p-10 rounded-xl bg-[#0f0f11] border border-white/5 hover:border-white/10 transition-colors duration-300 flex flex-col justify-between"
+              className="group relative p-8 md:p-10 rounded-[2rem] bg-black/20 backdrop-blur-xl border border-white/10 shadow-xl hover:border-emerald-500/30 hover:bg-white/5 transition-all duration-300 flex flex-col justify-between"
             >
               {/* Message */}
               <div className="mb-12">

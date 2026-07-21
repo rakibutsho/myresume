@@ -1,4 +1,5 @@
 import {
+  Black_Ops_One,
   Gravitas_One,
   Lobster_Two,
   Open_Sans,
@@ -11,6 +12,12 @@ export const openSans = Open_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-open-sans",
+});
+
+export const blackOps = Black_Ops_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-black-ops-font",
 });
 
 export const playfair = Playfair_Display({
@@ -26,16 +33,16 @@ export const lobster = Lobster_Two({
 });
 
 export const gravitas = Gravitas_One({
-	subsets: ["latin"],
-	weight: ["400"],
-	variable: "--font-gravitas"
-})
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-gravitas",
+});
 
 export const rowdies = Rowdies({
-	subsets: ["latin"],
-	weight: ["400", "700"],
-	variable: "--font-rowdies"
-})
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-rowdies",
+});
 
 export const roboto = Roboto({
   subsets: ["latin"],

@@ -40,7 +40,7 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
 
       <div className="relative w-full max-w-5xl h-full flex flex-col bg-[#09090b] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#0f0f11]">
-          <h3 className="text-white font-semibold tracking-wide">Resume</h3>
+          <h3 className="text-white font-black-ops tracking-wide text-xl">Resume</h3>
           <div className="flex items-center gap-3">
             <a
               href={getDownloadUrl(pdfUrl)}

@@ -41,7 +41,7 @@ export default function ProjectCard({ project, index }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6 }}
-      className="group relative w-full flex flex-col lg:flex-row gap-8 lg:gap-16 py-12 border-b border-white/5 last:border-0"
+      className="group relative w-full flex flex-col lg:flex-row gap-8 lg:gap-16 p-8 md:p-12 bg-black/20 backdrop-blur-xl border border-white/10 rounded-[2rem] hover:border-emerald-500/30 hover:bg-white/5 transition-all shadow-xl"
     >
       
       {/* LEFT: DETAILS */}
