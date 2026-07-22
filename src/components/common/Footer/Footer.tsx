@@ -25,17 +25,15 @@ export const Footer = () => {
 
   return (
     <footer className="w-full flex flex-col items-center justify-center pt-10 pb-10 px-4 mt-20 relative overflow-hidden bg-transparent">
-      {/* Modern Background Glows - Optional ambient glow to match theme */}
-
       {/* Main Container */}
-      <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center md:items-start justify-between gap-10 pb-10 border-b border-white/10 relative z-10">
+      <div className="w-full max-w-[1200px] flex flex-col md:flex-row items-center md:items-start justify-between gap-10 pb-10 border-b border-white/5 relative z-10">
         {/* Left: Name and Title */}
         <div className="flex flex-col items-center md:items-start gap-1">
           <h3 className="text-xl md:text-2xl font-serif text-white font-bold tracking-wide">
-            Rakibul Islam
+            Rakibul Islam<span className="text-emerald-400">.</span>
           </h3>
-          <p className="text-[#a1a1aa] text-[13px] font-medium tracking-wide">
-            Full-Stack Software Engineer · Dhaka, Bangladesh
+          <p className="text-[#a1a1aa] text-[13px] font-medium tracking-wide mt-1">
+            Full-Stack Software Engineer <span className="text-emerald-400 mx-1">/</span> Dhaka, BD
           </p>
         </div>
 
@@ -44,49 +42,49 @@ export const Footer = () => {
           <a
             href="/#about"
             onClick={(e) => handleScroll(e, "/#about")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             About
           </a>
           <a
             href="/#skills"
             onClick={(e) => handleScroll(e, "/#skills")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             Skills
           </a>
           <a
             href="/#education"
             onClick={(e) => handleScroll(e, "/#education")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             Education
           </a>
           <a
             href="/#experience"
             onClick={(e) => handleScroll(e, "/#experience")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             Experience
           </a>
           <a
             href="/#projects"
             onClick={(e) => handleScroll(e, "/#projects")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             Projects
           </a>
           <a
             href="/#testimonials"
             onClick={(e) => handleScroll(e, "/#testimonials")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             Testimonials
           </a>
           <a
             href="/#contact"
             onClick={(e) => handleScroll(e, "/#contact")}
-            className="hover:text-white transition-colors cursor-pointer"
+            className="hover:text-emerald-400 transition-colors cursor-pointer"
           >
             Contact
           </a>
@@ -97,7 +95,7 @@ export const Footer = () => {
           <a
             href="https://github.com/rakibutsho"
             target="_blank"
-            className="w-11 h-11 rounded-full bg-transparent border border-white/10 flex items-center justify-center text-[#a1a1aa] hover:text-white hover:bg-white/5 hover:border-white/20 transition-all shadow-sm"
+            className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/5 hover:border-emerald-500/30 transition-all shadow-sm"
             aria-label="GitHub"
           >
             <Github className="w-4 h-4" />
@@ -105,22 +103,14 @@ export const Footer = () => {
           <a
             href="https://www.linkedin.com/in/rakibutsho"
             target="_blank"
-            className="w-11 h-11 rounded-full bg-transparent border border-white/10 flex items-center justify-center text-[#a1a1aa] hover:text-[#0a66c2] hover:bg-white/5 hover:border-white/20 transition-all shadow-sm"
+            className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-[#0a66c2] hover:bg-white/5 hover:border-[#0a66c2]/30 transition-all shadow-sm"
             aria-label="LinkedIn"
           >
             <Linkedin className="w-4 h-4 fill-current" />
           </a>
-          {/* <a 
-            href="#" 
-            target="_blank" 
-            className="w-11 h-11 rounded-full bg-transparent border border-white/10 flex items-center justify-center text-[#a1a1aa] hover:text-white hover:bg-white/5 hover:border-white/20 transition-all shadow-sm"
-            aria-label="X (Twitter)"
-          >
-            <span className="text-[13px] font-bold font-sans">𝕏</span>
-          </a> */}
           <a
             href="mailto:rakibutsho1920@gmail.com"
-            className="w-11 h-11 rounded-full bg-transparent border border-white/10 flex items-center justify-center text-[#a1a1aa] hover:text-white hover:bg-white/5 hover:border-white/20 transition-all shadow-sm"
+            className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/5 hover:border-emerald-500/30 transition-all shadow-sm"
             aria-label="Email"
           >
             <span className="text-[15px] font-bold font-mono">@</span>
@@ -129,12 +119,11 @@ export const Footer = () => {
       </div>
 
       {/* Bottom: Copyright & Attribution */}
-      <div className="w-full max-w-[1200px] pt-8 flex flex-col items-center justify-center gap-2 text-[13px] text-[#a1a1aa] font-medium relative z-10">
+      <div className="w-full max-w-[1200px] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[13px] text-[#a1a1aa] font-medium relative z-10">
+        <p>© {new Date().getFullYear()} Rakibul Islam. All rights reserved.</p>
         <p className="flex items-center gap-1.5">
-          Built with <span className="text-red-500 text-sm">♥</span> by Rakibul
-          Islam
+          Built with <span className="text-emerald-400 text-sm">♥</span> in BD
         </p>
-        <p>© {new Date().getFullYear()} · All rights reserved</p>
       </div>
     </footer>
   );

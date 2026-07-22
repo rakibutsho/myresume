@@ -46,61 +46,36 @@ const Institute = () => {
         <div
           key={insti.id}
           data-edu-card
-          className="group relative p-8 md:p-10 rounded-[2rem] bg-black/20 backdrop-blur-xl border border-white/10 shadow-2xl hover:border-emerald-500/30 hover:bg-white/5 transition-all duration-500 flex flex-col h-full overflow-hidden"
+          className="group relative rounded-2xl bg-[#0f0f11] border border-white/5 p-8 transition-all hover:bg-white/5 hover:border-white/10 flex flex-col h-full cursor-pointer"
         >
-          
-          {/* Top Section: Timeline & Logo */}
-          <div className="flex justify-between items-start mb-8 relative z-10">
-            {/* Timeline */}
-            <div className="text-[10px] font-mono text-[#a1a1aa] uppercase tracking-[0.2em] pt-3">
-              {insti.timeline}
-            </div>
-
-            {/* Logo */}
-            <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2 opacity-70 group-hover:opacity-100 transition-opacity">
-              <Image
-                src={insti.logo}
-                alt={insti.institute}
-                fill
-                className="object-contain p-1.5"
-                sizes="56px"
-              />
-            </div>
+          {/* Logo */}
+          <div className="relative w-14 h-14 rounded-full bg-white flex items-center justify-center shrink-0 overflow-hidden mb-6">
+            <Image
+              src={insti.logo}
+              alt={insti.institute}
+              fill
+              className="object-contain p-2"
+              sizes="56px"
+            />
           </div>
 
           {/* Main Info */}
-          <div className="flex flex-col grow relative z-10">
-            <h3 className="text-2xl md:text-3xl font-serif italic tracking-tight leading-[1.2] text-white mb-2">
-              {insti.degree}
+          <div className="flex flex-col grow">
+            <h3 className="text-white font-bold text-[17px] tracking-wide mb-1 leading-snug">
+              {insti.institute}
             </h3>
             
-            <p className="text-emerald-400 text-[13px] font-mono font-medium mb-8">
-              {insti.institute}
-            </p>
+            <h4 className="text-emerald-400 font-medium text-[13px] mb-2">
+              {insti.degree}
+            </h4>
             
-            {((insti as any).CGPA || (insti as any).GPA) && (() => {
-              const isCGPA = !!(insti as any).CGPA;
-              const scoreStr = isCGPA ? (insti as any).CGPA : (insti as any).GPA;
-              const parts = scoreStr.split("out of");
-              const mainScore = parts[0]?.trim();
-              const subScore = parts.length > 1 ? `/ ${parts[1]?.trim()} ${isCGPA ? "CGPA" : "GPA"}` : "";
+            <p className="text-[#a1a1aa] text-[14px] font-medium leading-relaxed mb-6">
+              {insti.subject}
+            </p>
 
-              return (
-                <div className="mt-auto mb-6 flex items-baseline gap-2">
-                  <span className="text-5xl md:text-6xl font-serif italic text-white tracking-tighter">
-                    {mainScore}
-                  </span>
-                  <span className="text-[11px] font-mono text-[#a1a1aa] uppercase tracking-widest">
-                    {subScore}
-                  </span>
-                </div>
-              );
-            })()}
-
-            <div className="pt-6 border-t border-white/5">
-              <span className="text-[10px] font-mono text-[#a1a1aa] uppercase tracking-widest leading-relaxed">
-                {insti.subject}
-              </span>
+            {/* Timeline */}
+            <div className="text-[13px] text-[#a1a1aa] font-medium mt-auto">
+              {insti.timeline}
             </div>
           </div>
         </div>

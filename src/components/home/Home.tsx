@@ -23,165 +23,105 @@ function Home() {
   return (
     <section
       id="home"
-      className="w-full pt-32 pb-24 min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-sans text-white"
+      className="w-full pt-32 pb-10 min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-sans text-white"
     >
-      {/* Dynamic Background Glows */}
+      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+        
+        {/* Left Column: Modern Profile Card */}
+        <div className="fade-up-element w-full max-w-[340px] relative shrink-0 mx-auto lg:mx-0">
+          <div className="absolute -inset-1 bg-gradient-to-b from-emerald-500/20 to-transparent rounded-[2.5rem] blur-xl opacity-70"></div>
+          <div className="w-full bg-[#111111]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 relative group flex flex-col items-center text-center shadow-2xl">
+            {/* Open to work badge */}
+            <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+               <span className="text-[10px] font-medium text-white/90 tracking-wide uppercase">Open to work</span>
+            </div>
 
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
-        {/* Left Column: Text Content */}
-        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
-          {/* Availability Badge */}
-          <div className="fade-up-element flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 shadow-xl hover:bg-white/10 transition-colors cursor-default">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-            <span className="text-sm font-medium text-white/90">
-              Available for new opportunities
-            </span>
+            {/* Profile Image - Circular */}
+            <div className="relative w-32 h-32 mt-6 mb-5">
+              <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-md"></div>
+              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-emerald-500/30 bg-[#1a1a1a]">
+                <Image
+                  src={profileImg}
+                  alt="Md. Rakibul Islam"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Name & Title */}
+            <div className="flex items-center gap-1.5 mb-1">
+              <h2 className="text-[22px] font-bold text-white tracking-wide">Md. Rakibul Islam</h2>
+              <BadgeCheck className="w-5 h-5 text-blue-500" />
+            </div>
+            
+            <h3 className="text-emerald-400 font-medium text-sm mb-4">Software Engineer</h3>
+            
+            <div className="text-[#a1a1aa] text-xs space-y-1.5 mb-7 font-medium">
+              <p>2+ yrs • Dhaka, Bangladesh</p>
+              <p>Available for new opportunities</p>
+            </div>
+
+            {/* Social Icons */}
+            <div className="flex items-center justify-center gap-4 mb-7 w-full">
+              <Link href="https://github.com/rakibutsho" target="_blank" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <GithubIcon className="w-4 h-4" />
+              </Link>
+              <Link href="https://www.linkedin.com/in/rakibutsho" target="_blank" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <LinkedinIcon className="w-4 h-4" />
+              </Link>
+              <Link href="mailto:rakib@example.com" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <Mail className="w-4 h-4" />
+              </Link>
+            </div>
+
+            {/* Buttons */}
+            <div className="w-full flex flex-col gap-3">
+              <Link href="#contact" className="w-full py-3.5 bg-emerald-400 text-black font-bold rounded-xl hover:bg-emerald-300 transition-colors flex items-center justify-center gap-2 text-sm shadow-[0_0_20px_rgba(52,211,153,0.2)]">
+                Get in touch <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button onClick={() => setIsPdfModalOpen(true)} className="w-full py-3.5 bg-black/50 border border-white/10 text-white font-medium rounded-xl hover:bg-white/5 transition-colors flex items-center justify-center gap-2 text-sm cursor-pointer">
+                Résumé <ArrowRight className="w-4 h-4 rotate-[-45deg]" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Text Content */}
+        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left mt-10 lg:mt-0">
+          
+          <div className="flex items-center gap-4 mb-6">
+             <div className="h-[1px] w-8 bg-emerald-500/50"></div>
+             <span className="text-emerald-500 text-xs font-bold tracking-[0.2em] uppercase">Full-Stack Software Engineer</span>
           </div>
 
-          {/* Hero Headline */}
-          <h1 className="fade-up-element text-5xl sm:text-6xl md:text-7xl lg:text-[76px] font-extrabold tracking-tighter leading-[1.05] mb-8 font-serif max-w-2xl">
-            Building{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500 drop-shadow-sm">
-              digital products
-            </span>{" "}
-            <br className="hidden lg:block" />
-            that ship and scale.
+          <h1 className="fade-up-element text-[42px] sm:text-5xl md:text-6xl lg:text-[72px] font-extrabold tracking-tight leading-[1.05] mb-8 font-serif">
+            Transforming ideas into<br className="hidden sm:block" />
+            scalable <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">digital solutions.</span>
           </h1>
 
-          {/* Subheadline */}
-          <p className="fade-up-element text-lg md:text-xl text-white/80 max-w-[600px] mb-10 leading-relaxed font-medium">
+          <p className="fade-up-element text-lg md:text-xl text-[#a1a1aa] max-w-[600px] mb-12 leading-relaxed font-medium">
             I'm a Full-Stack Software Engineer specializing in React, Next.js,
             and modern web architecture. I turn complex problems into elegant,
             high-performance solutions.
           </p>
 
-          {/* Action Buttons */}
-          <div className="fade-up-element flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto mb-10">
-            <Link
-              href="#contact"
-              className="w-full sm:w-auto px-8 py-4 bg-emerald-500 text-black font-bold rounded-xl hover:bg-emerald-400 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(16,185,129,0.3)]"
-            >
-              Start a Project <ArrowRight className="w-5 h-5" />
-            </Link>
-            <button
-              onClick={() => setIsPdfModalOpen(true)}
-              className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white font-medium rounded-xl hover:bg-white/10 hover:border-white/20 hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-            >
-              <Download className="w-4 h-4" /> Download Résumé
-            </button>
-          </div>
-
-          {/* Social Connections */}
-          <div className="fade-up-element flex items-center gap-6">
-            <Link
-              href="https://www.linkedin.com/in/rakibutsho"
-              target="_blank"
-              className="flex items-center gap-2 text-white/60 hover:text-blue-400 transition-colors font-mono text-sm group"
-            >
-              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-blue-500/10 transition-colors">
-                <LinkedinIcon className="w-4 h-4" />
-              </div>
-              linkedin.in/rakibutsho
-            </Link>
-            <Link
-              href="https://github.com/rakibutsho"
-              target="_blank"
-              className="flex items-center gap-2 text-white/60 hover:text-emerald-400 transition-colors font-mono text-sm group"
-            >
-              <div className="p-2 rounded-lg bg-white/5 group-hover:bg-emerald-500/10 transition-colors">
-                <GithubIcon className="w-4 h-4" />
-              </div>
-              github/rakibutsho
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Column: Modern Profile Card */}
-        <div className="fade-up-element w-full max-w-[400px] lg:max-w-[460px] relative">
-          <div className="w-full bg-black/20 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-4 md:p-6 shadow-2xl overflow-hidden relative group hover:border-emerald-500/30 transition-all duration-500">
-            {/* Inner glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-            {/* Image Container */}
-            <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden mb-4 md:mb-6 border border-white/5 bg-[#121214]">
-              <Image
-                src={profileImg}
-                alt="Rakibul Islam"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-90" />
-
-              {/* Overlay Details */}
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-                <div className="flex flex-col">
-                  <span className="text-white font-bold text-2xl tracking-wide mb-1">
-                    Md. Rakibul Islam
-                  </span>
-                  <span className="text-emerald-400 font-mono text-xs uppercase tracking-[0.2em] font-semibold">
-                    Software Engineer
-                  </span>
-                </div>
-                <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-xl">
-                  <BadgeCheck className="w-6 h-6 text-emerald-400" />
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Info & Socials inside Card */}
-            <div className="relative z-10 flex flex-col gap-4">
-              <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <span className="text-sm font-medium text-white/90">
-                    Dhaka, Bangladesh
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Link
-                    href="https://github.com/rakibutsho"
-                    target="_blank"
-                    className="p-2 rounded-xl bg-white/5 text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/10 transition-all"
-                  >
-                    <GithubIcon className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    href="https://www.linkedin.com/in/rakibutsho"
-                    target="_blank"
-                    className="p-2 rounded-xl bg-white/5 text-[#a1a1aa] hover:text-blue-400 hover:bg-white/10 transition-all"
-                  >
-                    <LinkedinIcon className="w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Stats Row */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex flex-col items-center justify-center group-hover:bg-white/10 transition-colors">
-                  <span className="text-white font-bold text-2xl font-serif">
-                    2+
-                  </span>
-                  <span className="text-[#a1a1aa] text-[10px] uppercase tracking-widest font-mono text-center mt-1">
-                    Years
-                    <br />
-                    Experience
-                  </span>
-                </div>
-                <div className="bg-white/5 border border-white/5 rounded-2xl p-4 flex flex-col items-center justify-center group-hover:bg-white/10 transition-colors">
-                  <span className="text-white font-bold text-2xl font-serif">
-                    20+
-                  </span>
-                  <span className="text-[#a1a1aa] text-[10px] uppercase tracking-widest font-mono text-center mt-1">
-                    Projects
-                    <br />
-                    Shipped
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* Stats Row */}
+          <div className="fade-up-element w-full grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-10">
+             <div className="flex flex-col gap-2">
+                <span className="text-4xl md:text-5xl font-serif text-white font-bold">2+</span>
+                <span className="text-[#a1a1aa] text-[10px] md:text-[11px] font-bold tracking-widest uppercase">Years Experience</span>
+             </div>
+             <div className="flex flex-col gap-2">
+                <span className="text-4xl md:text-5xl font-serif text-white font-bold">20+</span>
+                <span className="text-[#a1a1aa] text-[10px] md:text-[11px] font-bold tracking-widest uppercase">Projects Shipped</span>
+             </div>
+             <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
+                <span className="text-4xl md:text-5xl font-serif text-white font-bold">10+</span>
+                <span className="text-[#a1a1aa] text-[10px] md:text-[11px] font-bold tracking-widest uppercase">Apps Delivered</span>
+             </div>
           </div>
         </div>
       </div>

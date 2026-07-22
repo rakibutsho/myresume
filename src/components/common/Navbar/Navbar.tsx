@@ -91,7 +91,7 @@ export const Navbar = () => {
 
   return (
     <header className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
-      <nav className="flex items-center gap-1 sm:gap-2 p-1.5 bg-[#111113]/95 backdrop-blur-xl border border-white/5 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.8)]">
+      <nav className="flex items-center gap-1 sm:gap-2 p-2 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.8)]">
         {navigationLinks.map((link) => {
           const isActive = activeSection === link.href;
           const Icon = link.icon;
@@ -101,20 +101,20 @@ export const Navbar = () => {
                 <a
                   href={link.href}
                   onClick={(e) => handleClick(e, link.href)}
-                  className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-all duration-500 ease-out focus:outline-none ${
+                  className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-all duration-300 ease-out focus:outline-none ${
                     isActive
-                      ? "bg-emerald-400 text-[#0c0c0d] shadow-[0_0_20px_rgba(52,211,153,0.2)]"
-                      : "text-white/40 hover:text-white hover:bg-white/10"
+                      ? "bg-emerald-400 text-black shadow-[0_0_20px_rgba(52,211,153,0.3)]"
+                      : "text-[#a1a1aa] hover:text-white hover:bg-white/10"
                   }`}
                   aria-label={link.name}
                 >
                   <Icon
-                    className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-500 ease-out ${
+                    className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] transition-transform duration-300 ease-out ${
                       isActive
-                        ? "scale-110"
+                        ? "scale-100"
                         : "group-hover:scale-110 group-hover:-translate-y-0.5"
                     }`}
-                    strokeWidth={isActive ? 2.5 : 1.5}
+                    strokeWidth={isActive ? 2.5 : 2}
                   />
                 </a>
               </Tooltip>

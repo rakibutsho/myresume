@@ -40,7 +40,7 @@ function AboutMe() {
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
         
         {/* Section Identifier */}
-        <div className="fade-up-element flex items-center gap-4 mb-12">
+        <div className="fade-up-element flex items-center gap-4 mb-2">
           <span className="text-sm font-mono text-emerald-400">01</span>
           <div className="w-8 h-[1px] bg-emerald-500/50" />
           <span className="text-xs font-mono uppercase tracking-[0.2em] text-emerald-400 font-bold">About</span>
