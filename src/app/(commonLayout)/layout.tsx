@@ -6,7 +6,7 @@ export default function CommonLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div>
+    <div className="bg-black/10">
       <Navbar />
       {children}
       <Footer />

@@ -117,7 +117,7 @@ function Contact() {
 
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 flex flex-col items-start relative z-10">
         {/* Section Identifier */}
-        <div className="fade-up-element flex justify-center items-center gap-4 mb-12">
+        <div className="fade-up-element flex items-center gap-4 mb-2">
           <span className="text-sm font-mono text-emerald-400">07</span>
           <div className="w-8 h-[1px] bg-emerald-500/50" />
           <span className="text-xs font-mono uppercase tracking-[0.2em] text-emerald-400 font-bold">
@@ -126,51 +126,53 @@ function Contact() {
         </div>
 
         {/* Heading & Contact Info */}
-        <div ref={headingRef} className="w-full flex flex-col items-start mb-12">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-4 font-serif">
-            <span className="text-white">Let's build </span>
-            <span className="text-emerald-400">something</span>
+        <div ref={headingRef} className="w-full flex flex-col items-start mb-16">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight mb-6 font-serif">
+            <span className="text-white">Let's build</span>{" "}
+            <span className="text-emerald-400">something.</span>
           </h2>
-          <p className="text-[#a1a1aa] text-[17px] font-medium max-w-2xl">
+          <p className="text-[#a1a1aa] text-[15px] font-medium max-w-[500px] leading-[1.8]">
             Have a project or a role in mind? Send a message and I'll get back to you soon.
           </p>
         </div>
 
         {/* Contact Form Card */}
         <div className="w-full">
-          <div className="w-full p-6 md:p-8 rounded-[2rem] bg-black/20 backdrop-blur-xl border border-white/10 flex flex-col gap-8 shadow-2xl hover:border-emerald-500/30 transition-all duration-300">
+          <div className="w-full p-8 md:p-12 rounded-[24px] bg-[#0f0f11] border border-white/5 flex flex-col gap-10 hover:border-white/10 transition-all duration-300">
             
             {/* Tabs */}
             <div className="flex items-center gap-3">
-              <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 border border-white/5 text-white text-[13px] font-medium transition-colors">
-                <AtSign className="w-4 h-4 text-[#a1a1aa]" /> Email
+              <button className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 text-white text-[13px] font-bold tracking-wide transition-colors">
+                <AtSign className="w-4 h-4 text-emerald-400" /> Email
               </button>
-              <a href="https://www.linkedin.com/in/rakibutsho" target="_blank" className="flex items-center gap-2 px-4 py-2 rounded-xl bg-transparent border border-transparent text-[#a1a1aa] text-[13px] font-medium hover:bg-white/5 hover:border-white/5 transition-colors">
+              <a href="https://www.linkedin.com/in/rakibutsho" target="_blank" className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-transparent border border-transparent text-[#a1a1aa] text-[13px] font-bold tracking-wide hover:bg-white/5 hover:border-white/10 hover:text-white transition-all">
                 <LinkedinIcon className="w-4 h-4" /> LinkedIn
               </a>
             </div>
 
-            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
               
-              {/* Name */}
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Your name"
-                  {...register("name", { required: true })}
-                  className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] focus:outline-none focus:border-emerald-500/30 focus:bg-white/10 transition-all"
-                />
-              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {/* Name */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    {...register("name", { required: true })}
+                    className="w-full px-5 py-4 rounded-xl bg-[#18181b] border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] focus:outline-none focus:border-white/20 focus:bg-[#1f1f22] transition-all"
+                  />
+                </div>
 
-              {/* Email */}
-              <div className="relative">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  {...register("email", { required: true })}
-                  className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] focus:outline-none focus:border-emerald-500/30 focus:bg-white/10 transition-all"
-                />
-                <Mail className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b7280]" />
+                {/* Email */}
+                <div className="relative">
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    {...register("email", { required: true })}
+                    className="w-full px-5 py-4 rounded-xl bg-[#18181b] border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] focus:outline-none focus:border-white/20 focus:bg-[#1f1f22] transition-all"
+                  />
+                  <Mail className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-[#6b7280]" />
+                </div>
               </div>
 
               {/* Message */}
@@ -179,7 +181,7 @@ function Contact() {
                   placeholder="Your message"
                   {...register("message", { required: true })}
                   rows={6}
-                  className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] resize-none focus:outline-none focus:border-emerald-500/30 focus:bg-white/10 transition-all"
+                  className="w-full px-5 py-4 rounded-xl bg-[#18181b] border border-white/5 text-[15px] text-white placeholder:text-[#6b7280] resize-none focus:outline-none focus:border-white/20 focus:bg-[#1f1f22] transition-all"
                 />
               </div>
 
@@ -187,7 +189,7 @@ function Contact() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-2 py-4 rounded-xl bg-[#34d399] hover:bg-emerald-300 text-black font-semibold text-[15px] transition-colors disabled:opacity-50"
+                className="w-full mt-4 py-4 rounded-xl bg-[#34d399] hover:bg-[#2ebc89] text-black font-bold text-[14px] tracking-wide transition-colors disabled:opacity-50"
               >
                 {isSubmitting ? "Sending..." : "Send message"}
               </button>

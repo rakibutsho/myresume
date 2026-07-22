@@ -7,7 +7,7 @@ export const education = [
     id: 1,
     institute: "Jahangirnagar University",
     degree: "Master of Science - M.Sc.",
-    subject: "Computer Science",
+    subject: "Computer Science and Engineering (CSE)",
     timeline: "Jan 2026 - Ongoing",
     CGPA: "3.75 out of 4",
     logo: ju,
