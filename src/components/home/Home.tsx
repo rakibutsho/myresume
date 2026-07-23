@@ -27,22 +27,22 @@ function Home() {
       id="home"
       className="w-full pt-32 pb-10 min-h-screen flex flex-col items-center justify-center relative overflow-hidden font-sans text-white"
     >
-      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
+      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center lg:items-stretch justify-between gap-12 lg:gap-20">
         
         {/* Left Column: Modern Profile Card */}
-        <div className="fade-up-element w-full max-w-[340px] relative shrink-0 mx-auto lg:mx-0">
+        <div className="fade-up-element w-full max-w-[340px] relative shrink-0 mx-auto lg:mx-0 flex flex-col">
           <div className="absolute -inset-1 bg-gradient-to-b from-emerald-500/20 to-transparent rounded-[2.5rem] blur-xl opacity-70"></div>
-          <div className="w-full bg-[#111111]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 relative group flex flex-col items-center text-center shadow-2xl">
+          <div className="w-full h-full bg-[#111111]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 relative group flex flex-col items-center text-center shadow-2xl">
             {/* Open to work badge */}
             <div className="absolute top-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                <span className="text-[10px] font-medium text-white/90 tracking-wide uppercase">Open to work</span>
             </div>
 
-            {/* Profile Image - Circular */}
-            <div className="relative w-32 h-32 mt-6 mb-5">
-              <div className="absolute inset-0 bg-emerald-500/20 rounded-full blur-md"></div>
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-emerald-500/30 bg-[#1a1a1a]">
+            {/* Profile Image - Square with rounded corners */}
+            <div className="relative w-60 h-60 mt-6 mb-5">
+              <div className="absolute inset-0 bg-emerald-500/20 rounded-2xl blur-md"></div>
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-emerald-500/30 bg-[#1a1a1a]">
                 <Image
                   src={profileImg}
                   alt="Md. Rakibul Islam"
@@ -80,7 +80,7 @@ function Home() {
             </div>
 
             {/* Buttons */}
-            <div className="w-full flex flex-col gap-3">
+            <div className="w-full flex flex-col gap-3 mt-auto">
               <Link href="#contact" className="w-full py-3.5 bg-emerald-400 text-black font-bold rounded-xl hover:bg-emerald-300 transition-colors flex items-center justify-center gap-2 text-sm shadow-[0_0_20px_rgba(52,211,153,0.2)]">
                 Get in touch <ArrowRight className="w-4 h-4" />
               </Link>
@@ -111,7 +111,7 @@ function Home() {
           </p>
 
           {/* Stats Row */}
-          <div className="fade-up-element w-full grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-10">
+          <div className="mt-auto fade-up-element w-full grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-10">
              <div className="flex flex-col gap-2">
                 <span className="text-4xl md:text-5xl font-serif text-white font-bold">2+</span>
                 <span className="text-[#a1a1aa] text-[10px] md:text-[11px] font-bold tracking-widest uppercase">Years Experience</span>
