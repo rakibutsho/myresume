@@ -1,27 +1,26 @@
 "use client";
 
 import { Tooltip } from "@/components/base/tooltip/tooltip";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  Home,
-  UserSquare,
-  Monitor,
-  Backpack,
-  Wrench,
-  BookOpen,
-  Mail,
-  Pentagon,
-  IdCardLanyard,
-} from "lucide-react";
+  Home01Icon,
+  IdCardLanyardIcon,
+  Wrench01Icon,
+  Mail01Icon,
+  Backpack02Icon,
+  BookOpen02Icon,
+  ModernTvIcon,
+} from "@hugeicons/core-free-icons";
 import { useEffect, useState } from "react";
 
 const navigationLinks = [
-  { name: "Home", href: "/#home", icon: Pentagon },
-  { name: "About", href: "/#about", icon: IdCardLanyard },
-  { name: "Skills", href: "/#skills", icon: Wrench },
-  { name: "Experience", href: "/#experience", icon: Backpack },
-  { name: "Projects", href: "/#projects", icon: Monitor },
-  { name: "Testimonials", href: "/#testimonials", icon: BookOpen },
-  { name: "Contact", href: "/#contact", icon: Mail },
+  { name: "Home", href: "/#home", icon: Home01Icon },
+  { name: "About", href: "/#about", icon: IdCardLanyardIcon },
+  { name: "Skills", href: "/#skills", icon: Wrench01Icon },
+  { name: "Experience", href: "/#experience", icon: Backpack02Icon },
+  { name: "Projects", href: "/#projects", icon: ModernTvIcon },
+  { name: "Testimonials", href: "/#testimonials", icon: BookOpen02Icon },
+  { name: "Contact", href: "/#contact", icon: Mail01Icon },
 ];
 
 export const Navbar = () => {
@@ -91,7 +90,9 @@ export const Navbar = () => {
 
   return (
     <header className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
-      <nav className="flex items-center gap-1 sm:gap-2 p-2 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.8)]">
+      {/* Subtle glowing shadow behind the navbar */}
+      <div className="absolute inset-0 bg-emerald-500/5 blur-2xl rounded-full -z-10" />
+      <nav className="relative flex items-center gap-1 sm:gap-2 p-2 bg-[#111]/70 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
         {navigationLinks.map((link) => {
           const isActive = activeSection === link.href;
           const Icon = link.icon;
@@ -108,7 +109,8 @@ export const Navbar = () => {
                   }`}
                   aria-label={link.name}
                 >
-                  <Icon
+                  <HugeiconsIcon
+                    icon={Icon}
                     className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] transition-transform duration-300 ease-out ${
                       isActive
                         ? "scale-100"

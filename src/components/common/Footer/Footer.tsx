@@ -1,6 +1,7 @@
 "use client";
 
-import { Github, Linkedin } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { GithubIcon, Linkedin01Icon, Linkedin02Icon } from "@hugeicons/core-free-icons";
 import React, { useCallback } from "react";
 
 export const Footer = () => {
@@ -98,7 +99,7 @@ export const Footer = () => {
             className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/5 hover:border-emerald-500/30 transition-all shadow-sm"
             aria-label="GitHub"
           >
-            <Github className="w-4 h-4" />
+            <HugeiconsIcon icon={GithubIcon} className="w-4 h-4" />
           </a>
           <a
             href="https://www.linkedin.com/in/rakibutsho"
@@ -106,7 +107,7 @@ export const Footer = () => {
             className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-[#0a66c2] hover:bg-white/5 hover:border-[#0a66c2]/30 transition-all shadow-sm"
             aria-label="LinkedIn"
           >
-            <Linkedin className="w-4 h-4 fill-current" />
+            <HugeiconsIcon icon={Linkedin02Icon} className="w-4 h-4 fill-current" />
           </a>
           <a
             href="mailto:rakibutsho1920@gmail.com"

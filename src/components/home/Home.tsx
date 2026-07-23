@@ -16,6 +16,8 @@ import { useState } from "react";
 import { PdfModal } from "../common/PdfModal/PdfModal";
 import Image from "next/image";
 import profileImg from "@/assets/profile-2.png";
+import { BadgeCheckIcon, Github01Icon, GithubFreeIcons, Linkedin02Icon, Mail01FreeIcons, MailAccountFreeIcons, NewReleasesIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 
 function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
@@ -54,7 +56,7 @@ function Home() {
             {/* Name & Title */}
             <div className="flex items-center gap-1.5 mb-1">
               <h2 className="text-[22px] font-bold text-white tracking-wide">Md. Rakibul Islam</h2>
-              <BadgeCheck className="w-5 h-5 text-blue-500" />
+              <HugeiconsIcon icon={NewReleasesIcon} className="w-5 h-5 text-blue-500" />
             </div>
             
             <h3 className="text-emerald-400 font-medium text-sm mb-4">Software Engineer</h3>
@@ -67,13 +69,13 @@ function Home() {
             {/* Social Icons */}
             <div className="flex items-center justify-center gap-4 mb-7 w-full">
               <Link href="https://github.com/rakibutsho" target="_blank" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
-                <GithubIcon className="w-4 h-4" />
+                <HugeiconsIcon icon={GithubFreeIcons} className="w-4 h-4" />
               </Link>
               <Link href="https://www.linkedin.com/in/rakibutsho" target="_blank" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
-                <LinkedinIcon className="w-4 h-4" />
+                <HugeiconsIcon icon={Linkedin02Icon} className="w-4 h-4" />
               </Link>
               <Link href="mailto:rakib@example.com" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
-                <Mail className="w-4 h-4" />
+                <HugeiconsIcon icon={Mail01FreeIcons} className="w-4 h-4" />
               </Link>
             </div>
 
