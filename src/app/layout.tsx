@@ -1,16 +1,12 @@
 import Loading from "@/components/Others/Loader/Loading";
-import {
-  openSans,
-  playfair,
-  roboto,
-} from "@/fonts/Fonts";
+import { openSans, playfair, roboto } from "@/fonts/Fonts";
 import ReduxProvider from "@/redux/Provider";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rakibutsho.dev/"),
@@ -59,6 +55,7 @@ export default function RootLayout({
           {children}
           <ToastContainer position="top-right" theme="dark" />
           <Analytics />
+          <SpeedInsights />
         </ReduxProvider>
       </body>
     </html>
