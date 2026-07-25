@@ -50,6 +50,7 @@ function Home() {
                   className="object-cover"
                   sizes="(max-width: 768px) 240px, 240px"
                   priority
+                  fetchPriority="high"
                 />
               </div>
             </div>
