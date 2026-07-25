@@ -69,14 +69,14 @@ function Home() {
 
             {/* Social Icons */}
             <div className="flex items-center justify-center gap-4 mb-7 w-full">
-              <Link href="https://github.com/rakibutsho" target="_blank" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
-                <HugeiconsIcon icon={GithubFreeIcons} className="w-4 h-4" />
+              <Link href="https://github.com/rakibutsho" target="_blank" aria-label="GitHub Profile" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <HugeiconsIcon aria-hidden="true" icon={GithubFreeIcons} className="w-4 h-4" />
               </Link>
-              <Link href="https://www.linkedin.com/in/rakibutsho" target="_blank" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
-                <HugeiconsIcon icon={Linkedin02Icon} className="w-4 h-4" />
+              <Link href="https://www.linkedin.com/in/rakibutsho" target="_blank" aria-label="LinkedIn Profile" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <HugeiconsIcon aria-hidden="true" icon={Linkedin02Icon} className="w-4 h-4" />
               </Link>
-              <Link href="mailto:rakib@example.com" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
-                <HugeiconsIcon icon={Mail01FreeIcons} className="w-4 h-4" />
+              <Link href="mailto:rakib@example.com" aria-label="Email Me" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all shadow-sm">
+                <HugeiconsIcon aria-hidden="true" icon={Mail01FreeIcons} className="w-4 h-4" />
               </Link>
             </div>
 

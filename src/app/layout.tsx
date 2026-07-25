@@ -52,7 +52,9 @@ export default function RootLayout({
         className={`${openSans.variable} ${playfair.variable} ${roboto.variable} antialiased bg-textured text-white`}
       >
         <ReduxProvider>
-          {children}
+          <main>
+            {children}
+          </main>
           <ToastContainer position="top-right" theme="dark" />
           <Analytics />
           <SpeedInsights />
