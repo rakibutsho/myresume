@@ -2,8 +2,7 @@ import Loading from "@/components/Others/Loader/Loading";
 import { openSans, playfair, roboto } from "@/fonts/Fonts";
 import ReduxProvider from "@/redux/Provider";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-const ToastProvider = dynamic(() => import("@/components/Others/ToastProvider/ToastProvider"), { ssr: false });
+import ClientToast from "@/components/Others/ToastProvider/ClientToast";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -55,7 +54,7 @@ export default function RootLayout({
           <main>
             {children}
           </main>
-          <ToastProvider />
+          <ClientToast />
           <Analytics />
           <SpeedInsights />
         </ReduxProvider>
