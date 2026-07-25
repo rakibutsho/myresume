@@ -30,7 +30,7 @@ function Home() {
       <div className="relative z-10 w-full max-w-[1100px] mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center lg:items-stretch justify-between gap-12 lg:gap-20">
         
         {/* Left Column: Modern Profile Card */}
-        <div className="fade-up-element w-full max-w-[340px] relative shrink-0 mx-auto lg:mx-0 flex flex-col">
+        <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both w-full max-w-[340px] relative shrink-0 mx-auto lg:mx-0 flex flex-col">
           <div className="absolute -inset-1 bg-gradient-to-b from-emerald-500/20 to-transparent rounded-[2.5rem] blur-xl opacity-70"></div>
           <div className="w-full h-full bg-[#111111]/90 backdrop-blur-xl border border-white/10 rounded-3xl p-6 relative group flex flex-col items-center text-center shadow-2xl">
             {/* Open to work badge */}
@@ -100,19 +100,19 @@ function Home() {
              <span className="text-emerald-500 text-xs font-bold tracking-[0.2em] uppercase">Full-Stack Software Engineer</span>
           </div>
 
-          <h1 className="fade-up-element text-[42px] sm:text-5xl md:text-6xl lg:text-[72px] font-extrabold tracking-tight leading-[1.05] mb-8 font-serif">
+          <h1 className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both text-[42px] sm:text-5xl md:text-6xl lg:text-[72px] font-extrabold tracking-tight leading-[1.05] mb-8 font-serif">
             Transforming ideas into<br className="hidden sm:block" />
             scalable <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-200">digital solutions.</span>
           </h1>
 
-          <p className="fade-up-element text-lg md:text-xl text-[#a1a1aa] max-w-[600px] mb-12 leading-relaxed font-medium">
+          <p className="animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both text-lg md:text-xl text-[#a1a1aa] max-w-[600px] mb-12 leading-relaxed font-medium">
             I'm a Full-Stack Software Engineer specializing in React, Next.js,
             and modern web architecture. I turn complex problems into elegant,
             high-performance solutions.
           </p>
 
           {/* Stats Row */}
-          <div className="mt-auto fade-up-element w-full grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-10">
+          <div className="mt-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 fill-mode-both w-full grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 border-t border-white/10 pt-10">
              <div className="flex flex-col gap-2">
                 <span className="text-4xl md:text-5xl font-serif text-white font-bold">2+</span>
                 <span className="text-[#a1a1aa] text-[10px] md:text-[11px] font-bold tracking-widest uppercase">Years Experience</span>
