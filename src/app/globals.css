@@ -50,10 +50,6 @@ html {
   --font-serif: var(--font-playfair);
   --font-mono: var(--font-roboto);
   /* Additional custom font families */
-  --font-lobster: var(--font-lobster);
-  --font-bitcount: var(--font-bitcount);
-  --font-gravitas: var(--font-gravitas);
-  --font-rowdies: var(--font-rowdies);
 }
 
 :root {
