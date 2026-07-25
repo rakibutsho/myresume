@@ -1,11 +1,8 @@
 import Loading from "@/components/Others/Loader/Loading";
 import {
-  gravitas,
-  lobster,
   openSans,
   playfair,
   roboto,
-  rowdies,
 } from "@/fonts/Fonts";
 import ReduxProvider from "@/redux/Provider";
 import type { Metadata } from "next";
@@ -56,7 +53,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${openSans.variable} ${playfair.variable} ${lobster.variable} ${roboto.variable} ${gravitas.variable} ${rowdies.variable} antialiased bg-textured text-white`}
+        className={`${openSans.variable} ${playfair.variable} ${roboto.variable} antialiased bg-textured text-white`}
       >
         <ReduxProvider>
           {children}

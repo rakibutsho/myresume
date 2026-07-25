@@ -1,11 +1,13 @@
 import Home from "@/components/home/Home";
-import AboutMe from "@/components/modules/AboutMe/AboutMe";
-import Contact from "@/components/modules/Contact/Contact";
-import Education from "@/components/modules/Education/Education";
-import JobHistory from "@/components/modules/JobHistroy/Job";
-import ProjectsPage from "@/components/modules/Projects/ProjectsPage";
-import Skills from "@/components/modules/Skills/Skills";
-import Testimonials from "@/components/modules/Testimonials/Testimonials";
+import dynamic from "next/dynamic";
+
+const AboutMe = dynamic(() => import("@/components/modules/AboutMe/AboutMe"), { ssr: true });
+const Skills = dynamic(() => import("@/components/modules/Skills/Skills"), { ssr: true });
+const Education = dynamic(() => import("@/components/modules/Education/Education"), { ssr: true });
+const JobHistory = dynamic(() => import("@/components/modules/JobHistroy/Job"), { ssr: true });
+const ProjectsPage = dynamic(() => import("@/components/modules/Projects/ProjectsPage"), { ssr: true });
+const Testimonials = dynamic(() => import("@/components/modules/Testimonials/Testimonials"), { ssr: true });
+const Contact = dynamic(() => import("@/components/modules/Contact/Contact"), { ssr: true });
 
 const HomePage = () => {
   return (

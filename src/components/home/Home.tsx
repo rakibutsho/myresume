@@ -48,6 +48,7 @@ function Home() {
                   alt="Md. Rakibul Islam"
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 240px, 240px"
                   priority
                 />
               </div>
