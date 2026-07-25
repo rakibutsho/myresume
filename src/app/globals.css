@@ -141,16 +141,12 @@ html {
 .bg-textured::before {
   content: "";
   position: fixed; /* cover full screen even on scroll */
-  inset: -100%; /* oversize to prevent edges showing on mobile scroll bounce */
+  inset: 0;
   pointer-events: none;
   z-index: 0;
 
   /* Performance fix: removed mix-blend-mode: overlay which causes huge paint lag on mobile */
-  opacity: 0.04;
-  
-  /* Performance fix: hardware accelerate the noise layer so it isn't repainted on scroll */
-  transform: translateZ(0);
-  will-change: transform;
+  opacity: 0.03;
 
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }

@@ -1,8 +1,13 @@
 "use client";
 
 import { HugeiconsIcon } from "@hugeicons/react";
-import { GithubIcon, Linkedin01Icon, Linkedin02Icon } from "@hugeicons/core-free-icons";
+import {
+  GithubIcon,
+  Linkedin01Icon,
+  Linkedin02Icon,
+} from "@hugeicons/core-free-icons";
 import React, { useCallback } from "react";
+import { Link } from "react-aria-components";
 
 export const Footer = () => {
   const handleScroll = useCallback(
@@ -34,7 +39,8 @@ export const Footer = () => {
             Rakibul Islam<span className="text-emerald-400">.</span>
           </h3>
           <p className="text-[#a1a1aa] text-[13px] font-medium tracking-wide mt-1">
-            Full-Stack Software Engineer <span className="text-emerald-400 mx-1">/</span> Dhaka, BD
+            Full-Stack Software Engineer{" "}
+            <span className="text-emerald-400 mx-1">/</span> Dhaka, BD
           </p>
         </div>
 
@@ -93,29 +99,37 @@ export const Footer = () => {
 
         {/* Right: Social Icons */}
         <div className="flex items-center gap-4 mt-2 md:mt-0">
-          <a
+          <Link
             href="https://github.com/rakibutsho"
             target="_blank"
             className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/5 hover:border-emerald-500/30 transition-all shadow-sm"
             aria-label="GitHub"
           >
-            <HugeiconsIcon aria-hidden="true" icon={GithubIcon} className="w-4 h-4" />
-          </a>
-          <a
+            <HugeiconsIcon
+              aria-hidden="true"
+              icon={GithubIcon}
+              className="w-4 h-4"
+            />
+          </Link>
+          <Link
             href="https://www.linkedin.com/in/rakibutsho"
             target="_blank"
             className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-[#0a66c2] hover:bg-white/5 hover:border-[#0a66c2]/30 transition-all shadow-sm"
             aria-label="LinkedIn"
           >
-            <HugeiconsIcon aria-hidden="true" icon={Linkedin02Icon} className="w-4 h-4 fill-current" />
-          </a>
-          <a
+            <HugeiconsIcon
+              aria-hidden="true"
+              icon={Linkedin02Icon}
+              className="w-4 h-4 fill-current"
+            />
+          </Link>
+          <Link
             href="mailto:rakibutsho1920@gmail.com"
             className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/5 hover:border-emerald-500/30 transition-all shadow-sm"
             aria-label="Email"
           >
             <span className="text-[15px] font-bold font-mono">@</span>
-          </a>
+          </Link>
         </div>
       </div>
 
