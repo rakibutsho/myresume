@@ -133,7 +133,7 @@ function Home() {
       <PdfModal
         isOpen={isPdfModalOpen}
         onClose={() => setIsPdfModalOpen(false)}
-        pdfUrl="https://drive.google.com/file/d/1CeJfS4sSUnfe7zyOhBE9g5WYwHV-1nux/view?usp=drive_link"
+        pdfUrl="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
       />
     </section>
   );
