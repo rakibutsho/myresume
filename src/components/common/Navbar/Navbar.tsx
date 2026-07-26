@@ -11,7 +11,8 @@ import {
   BookOpen02Icon,
   ModernTvIcon,
 } from "@hugeicons/core-free-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 
 const navigationLinks = [
   { name: "Home", href: "/#home", icon: Home01Icon },
@@ -25,6 +26,38 @@ const navigationLinks = [
 
 export const Navbar = () => {
   const [activeSection, setActiveSection] = useState("/#home");
+  const glowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (glowRef.current) {
+        // Color shifting effect
+        gsap.to(glowRef.current, {
+          keyframes: [
+            { backgroundColor: "rgba(16, 185, 129, 0.2)", duration: 3 }, // emerald
+            { backgroundColor: "rgba(59, 130, 246, 0.2)", duration: 3 }, // blue
+            { backgroundColor: "rgba(139, 92, 246, 0.2)", duration: 3 }, // purple
+            { backgroundColor: "rgba(236, 72, 153, 0.2)", duration: 3 }, // pink
+            { backgroundColor: "rgba(16, 185, 129, 0.2)", duration: 3 }, // back to emerald
+          ],
+          repeat: -1,
+          ease: "linear",
+        });
+
+        // Pulsing scale and opacity
+        gsap.to(glowRef.current, {
+          scale: 1.25,
+          opacity: 0.6,
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,8 +123,11 @@ export const Navbar = () => {
 
   return (
     <header className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
-      {/* Subtle glowing shadow behind the navbar */}
-      <div className="absolute inset-0 bg-emerald-500/5 blur-2xl rounded-full -z-10" />
+      {/* GSAP animated glowing shadow behind the navbar */}
+      <div 
+        ref={glowRef}
+        className="absolute inset-0 blur-[24px] rounded-full -z-10 bg-emerald-500/20" 
+      />
       <nav className="relative flex items-center gap-1 sm:gap-2 p-2 bg-[#111]/70 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
         {navigationLinks.map((link) => {
           const isActive = activeSection === link.href;
