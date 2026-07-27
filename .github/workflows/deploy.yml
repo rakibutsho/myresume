@@ -19,8 +19,10 @@ jobs:
           node-version: "20"
 
       - name: Create .env file
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
         run: |
-          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "$ENV_FILE" > .env
 
       - name: Install Dependencies and Build Locally
         run: |
