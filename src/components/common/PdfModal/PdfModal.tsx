@@ -52,9 +52,10 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
             </a>
             <button
               onClick={onClose}
+              aria-label="Close Resume Modal"
               className="p-1.5 rounded-lg text-[#a1a1aa] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <X className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </div>
