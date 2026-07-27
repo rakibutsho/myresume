@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -157,7 +158,7 @@ function Skills() {
                         : "bg-white/5 border-white/10 text-[#a1a1aa] hover:bg-white/10 hover:text-white"
                     }`}
                   >
-                    <img src={skill.icon} alt={skill.name} className="w-5 h-5 object-contain" />
+                    <Image src={skill.icon} alt={skill.name} width={20} height={20} className="w-5 h-5 object-contain" />
                     {skill.name}
                   </span>
                 ))}
