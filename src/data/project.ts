@@ -58,7 +58,7 @@ export const projects: Project[] = [
     image: [
       {
         cover:
-          "https://drive.google.com/file/d/1tdEVgSnPg4FLfNiaQ8hVUZoDiZV9YXUY/view?usp=drive_link",
+          "https://drive.google.com/file/d/1b2sKpGiw-m34veedTsmHZQxKbzFnYZ6I/view?usp=drive_link",
       },
       {
         responsive:
@@ -115,7 +115,7 @@ export const projects: Project[] = [
     image: [
       {
         cover:
-          "https://drive.google.com/file/d/1lzncONQctN5fcog1gJFeWi7qJYUz_87B/view?usp=sharing",
+          "https://drive.google.com/file/d/1QDeyr_gWZmRNW3bRsIGlQdeTp9uITW_D/view?usp=drive_link",
       },
       {
         responsive:
@@ -167,7 +167,7 @@ export const projects: Project[] = [
     image: [
       {
         cover:
-          "https://drive.google.com/file/d/1Uko9VmPrL-jAUqHRdfDRNAOlszCPzCAx/view?usp=drive_link",
+          "https://drive.google.com/file/d/13xRQX0eCQewWLroC0dAYxWAurhmliDEF/view?usp=drive_link",
       },
       {
         responsive:
@@ -205,7 +205,7 @@ export const projects: Project[] = [
     image: [
       {
         cover:
-          "https://drive.google.com/file/d/18OzG4ozs-89uQaHcOtyf54_Vg2ovSKuq/view?usp=drive_link",
+          "https://drive.google.com/file/d/1J7ssR12g2koNcTGwouDEUFRz-pVdYNEf/view?usp=drive_link",
       },
       {
         responsive:
