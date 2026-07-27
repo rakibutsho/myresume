@@ -1,4 +1,3 @@
-import Loading from "@/components/Others/Loader/Loading";
 import { openSans, playfair, roboto } from "@/fonts/Fonts";
 import ReduxProvider from "@/redux/Provider";
 import type { Metadata } from "next";
