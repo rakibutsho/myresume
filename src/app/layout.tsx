@@ -18,7 +18,10 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Md. Rakibul Islam, a software engineer building conversion-ready SaaS interfaces with Next.js, React, TypeScript, and Node.js.",
   keywords: [
+    "rakibutsho",
+    "rakib utsho",
     "Rakibul Islam",
+    "Md. Rakibul Islam",
     "Software Engineer",
     "Frontend Developer",
     "React Developer",
