@@ -51,4 +51,4 @@ jobs:
 
             cd /var/www/myresume
             npm install --production
-            npx pm2 restart myresume-app || npx pm2 start npm --name "myresume-app" -- start
+            npx pm2 restart myresume-app --update-env || npx pm2 start npm --name "myresume-app" -- start
