@@ -4,7 +4,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=for-the-badge&logo=greensock&logoColor=white)
-![Performance](https://img.shields.io/badge/Lighthouse_Desktop-98/100-brightgreen?style=for-the-badge)
+![Performance](https://img.shields.io/badge/Lighthouse_Desktop-99/100-brightgreen?style=for-the-badge)
 
 The source code for my personal portfolio website, built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**. It is designed to be a highly performant, visually engaging showcase of my skills, projects, and professional experience as a Software Engineer.
 
