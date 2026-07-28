@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     });
 
     const mailOptions = {
-      from: email,
+      from: process.env.SMTP_USER,
       to: process.env.SMTP_USER,
       replyTo: email,
       subject: subject ? `${subject} — Message from ${name}` : `New Message from ${name} (${email})`,

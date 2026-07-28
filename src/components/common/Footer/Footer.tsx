@@ -3,8 +3,8 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   GithubIcon,
-  Linkedin01Icon,
   Linkedin02Icon,
+  Mail01FreeIcons,
 } from "@hugeicons/core-free-icons";
 import React, { useCallback } from "react";
 import { Link } from "react-aria-components";
@@ -124,11 +124,12 @@ export const Footer = () => {
             />
           </Link>
           <Link
-            href="mailto:rakibutsho1920@gmail.com"
+            href="mailto:mail@rakibutsho.dev"
             className="w-11 h-11 rounded-full bg-[#18181b] border border-white/5 flex items-center justify-center text-[#a1a1aa] hover:text-emerald-400 hover:bg-white/5 hover:border-emerald-500/30 transition-all shadow-sm"
             aria-label="Email"
           >
-            <span className="text-[15px] font-bold font-mono">@</span>
+            <HugeiconsIcon icon={Mail01FreeIcons}
+            aria-hidden="true" className="w-4 h-4" />
           </Link>
         </div>
       </div>
