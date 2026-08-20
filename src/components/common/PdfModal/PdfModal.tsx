@@ -34,32 +34,48 @@ export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6 md:p-8">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0A2647]/80 backdrop-blur-md p-4 sm:p-6 md:p-8">
       {/* Backdrop click to close */}
       <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
 
-      <div className="relative w-full max-w-5xl h-full flex flex-col bg-[#09090b] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-        <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#0f0f11]">
-          <h3 className="text-white font-serif tracking-wide text-xl">Resume</h3>
-          <div className="flex items-center gap-3">
-            <a
-              href={getDownloadUrl(pdfUrl)}
-              download
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition-colors text-sm font-medium border border-emerald-500/20"
-            >
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Download</span>
-            </a>
+      <div className="relative w-full max-w-5xl h-full flex flex-col bg-[#0A2647] rounded-xl overflow-hidden border border-[#205295] shadow-[0_0_40px_rgba(10,38,71,0.8)]">
+        {/* Terminal Header */}
+        <div className="relative flex items-center justify-between px-4 py-3 border-b border-[#205295] bg-gradient-to-r from-[#144272] to-[#0A2647]">
+          {/* Left: Traffic light dots */}
+          <div className="flex items-center gap-2 relative z-10">
             <button
               onClick={onClose}
               aria-label="Close Resume Modal"
-              className="p-1.5 rounded-lg text-[#a1a1aa] hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              className="w-3.5 h-3.5 rounded-full bg-red-500/90 hover:bg-red-400 shadow-[0_0_10px_rgba(239,68,68,0.6)] flex items-center justify-center group cursor-pointer"
             >
-              <X className="w-5 h-5" aria-hidden="true" />
+              <X className="w-2.5 h-2.5 text-red-900 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={3} />
             </button>
+            <div className="w-3.5 h-3.5 rounded-full bg-yellow-500/90 shadow-[0_0_10px_rgba(234,179,8,0.6)]" />
+            <div className="w-3.5 h-3.5 rounded-full bg-green-500/90 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
+          </div>
+
+          {/* Center: Title */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span className="text-[#8B9BB4] font-mono text-[13px] tracking-wider">
+              bash - view_resume.pdf
+            </span>
+          </div>
+
+          {/* Right: Actions */}
+          <div className="flex items-center gap-3 relative z-10">
+            <a
+              href={getDownloadUrl(pdfUrl)}
+              download
+              className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#205295]/30 text-[#60A8E0] hover:bg-[#205295]/60 hover:text-white transition-colors text-[13px] font-mono border border-[#205295]/50 group"
+            >
+              <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+              <span className="hidden sm:inline">download_file</span>
+            </a>
           </div>
         </div>
-        <div className="flex-1 w-full bg-white/5 relative">
+
+        {/* Modal Body / PDF Viewer */}
+        <div className="flex-1 w-full bg-black/40 relative">
           <iframe
             src={
               pdfUrl.includes("drive.google.com")

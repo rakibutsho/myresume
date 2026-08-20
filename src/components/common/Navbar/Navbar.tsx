@@ -10,6 +10,7 @@ import {
   Backpack02Icon,
   BookOpen02Icon,
   ModernTvIcon,
+  Mortarboard01Icon,
 } from "@hugeicons/core-free-icons";
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
@@ -18,6 +19,7 @@ const navigationLinks = [
   { name: "Home", href: "/#home", icon: Home01Icon },
   { name: "About", href: "/#about", icon: IdCardLanyardIcon },
   { name: "Skills", href: "/#skills", icon: Wrench01Icon },
+  { name: "Education", href: "/#education", icon: Mortarboard01Icon },
   { name: "Experience", href: "/#experience", icon: Backpack02Icon },
   { name: "Projects", href: "/#projects", icon: ModernTvIcon },
   { name: "Testimonials", href: "/#testimonials", icon: BookOpen02Icon },
@@ -34,11 +36,11 @@ export const Navbar = () => {
         // Color shifting effect
         gsap.to(glowRef.current, {
           keyframes: [
-            { backgroundColor: "rgba(16, 185, 129, 0.2)", duration: 3 }, // emerald
-            { backgroundColor: "rgba(59, 130, 246, 0.2)", duration: 3 }, // blue
-            { backgroundColor: "rgba(139, 92, 246, 0.2)", duration: 3 }, // purple
-            { backgroundColor: "rgba(236, 72, 153, 0.2)", duration: 3 }, // pink
-            { backgroundColor: "rgba(16, 185, 129, 0.2)", duration: 3 }, // back to emerald
+            { backgroundColor: "rgba(44, 116, 179, 0.25)", duration: 3 },  // brand blue
+            { backgroundColor: "rgba(32, 82, 149, 0.25)", duration: 3 },   // mid blue
+            { backgroundColor: "rgba(20, 66, 114, 0.25)", duration: 3 },   // dark blue
+            { backgroundColor: "rgba(10, 38, 71, 0.25)",  duration: 3 },   // deep navy
+            { backgroundColor: "rgba(44, 116, 179, 0.25)", duration: 3 },  // back to blue
           ],
           repeat: -1,
           ease: "linear",
@@ -71,8 +73,8 @@ export const Navbar = () => {
       ];
 
       let currentActive = "/#home";
-      // Dynamic threshold: 60% of the viewport height.
-      const threshold = window.innerHeight * 0.6;
+      // Dynamic threshold: 30% of the viewport height.
+      const threshold = window.innerHeight * 0.3;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
@@ -126,9 +128,9 @@ export const Navbar = () => {
       {/* GSAP animated glowing shadow behind the navbar */}
       <div 
         ref={glowRef}
-        className="absolute inset-0 blur-[24px] rounded-full -z-10 bg-emerald-500/20" 
+        className="absolute inset-0 blur-[24px] rounded-full -z-10 bg-[#2C74B3]/20" 
       />
-      <nav className="relative flex items-center gap-1 sm:gap-2 p-2 bg-[#111]/70 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+      <nav className="relative flex items-center gap-1 sm:gap-1.5 p-1.5 bg-[#071626]/70 backdrop-blur-xl border border-[#205295]/30 rounded-full shadow-[0_8px_32px_rgba(10,38,71,0.8)]">
         {navigationLinks.map((link) => {
           const isActive = activeSection === link.href;
           const Icon = link.icon;
@@ -138,10 +140,10 @@ export const Navbar = () => {
                 <a
                   href={link.href}
                   onClick={(e) => handleClick(e, link.href)}
-                  className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full transition-all duration-300 ease-out focus:outline-none ${
+                  className={`relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full transition-all duration-300 ease-out focus:outline-none ${
                     isActive
-                      ? "bg-emerald-400 text-black shadow-[0_0_20px_rgba(52,211,153,0.3)]"
-                      : "text-[#a1a1aa] hover:text-white hover:bg-white/10"
+                      ? "bg-gradient-to-tr from-[#144272] to-[#2C74B3] text-white shadow-[0_0_15px_rgba(44,116,179,0.4)] border border-[#60A8E0]/20"
+                    : "text-[#8B9BB4] hover:text-white hover:bg-[#144272]/40"
                   }`}
                   aria-label={link.name}
                 >
@@ -152,7 +154,7 @@ export const Navbar = () => {
                         ? "scale-100"
                         : "group-hover:scale-110 group-hover:-translate-y-0.5"
                     }`}
-                    strokeWidth={isActive ? 2.5 : 2}
+                    strokeWidth={isActive ? 2 : 1.5}
                   />
                 </a>
               </Tooltip>

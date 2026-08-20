@@ -45,11 +45,10 @@ html {
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  /* Import Custom Font */
+  /* Fonts */
   --font-sans: var(--font-open-sans);
   --font-serif: var(--font-playfair);
   --font-mono: var(--font-roboto);
-  /* Additional custom font families */
 }
 
 :root {
@@ -85,6 +84,22 @@ html {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Blue Terminal Palette ────────────────────────── */
+  --brand-blue:      #2C74B3;
+  --brand-mid:       #205295;
+  --brand-dark:      #144272;
+  --brand-deep:      #0A2647;
+
+  /* Terminal-specific tokens */
+  --terminal-bg:     #0D1421;
+  --terminal-border: #1E3A5F;
+  --terminal-prompt: #2C74B3;
+  --terminal-cmd:    #E8EDF3;
+  --terminal-output: #8B9BB4;
+  --terminal-cursor: #2C74B3;
+  --terminal-green:  #4ADE80;
+  --terminal-red:    #F87171;
 }
 
 .dark {
@@ -130,29 +145,149 @@ html {
   }
 }
 
+/* ── Textured Background ─────────────────────────────── */
 .bg-textured {
-  background: #09090b; /* Very dark specific color */
+  background: #050C15;
   min-height: 100vh;
   position: relative;
-  isolation: isolate; /* creates a safe stacking context */
+  isolation: isolate;
 }
 
-/* grain layer */
+/* Grain overlay */
 .bg-textured::before {
   content: "";
-  position: fixed; /* cover full screen even on scroll */
+  position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-
-  /* Performance fix: removed mix-blend-mode: overlay which causes huge paint lag on mobile */
-  opacity: 0.03;
-
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
-/* make sure your page content stays above the grain */
+/* Subtle blue dot-grid overlay */
+.bg-textured::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  background-image: radial-gradient(circle, #2C74B3 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* page content above overlays */
 .bg-textured > * {
   position: relative;
   z-index: 1;
+}
+
+/* ── Animation Keyframes ─────────────────────────────── */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px #2C74B3, 0 0 16px rgba(44, 116, 179, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 16px #2C74B3, 0 0 32px rgba(44, 116, 179, 0.4),
+                0 0 48px rgba(44, 116, 179, 0.15);
+  }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes glitch-h {
+  0%   { clip-path: inset(40% 0 60% 0); transform: translateX(-4px); }
+  20%  { clip-path: inset(10% 0 80% 0); transform: translateX( 4px); }
+  40%  { clip-path: inset(70% 0 20% 0); transform: translateX(-2px); }
+  60%  { clip-path: inset(30% 0 50% 0); transform: translateX( 2px); }
+  80%  { clip-path: inset(60% 0 30% 0); transform: translateX(-3px); }
+  100% { clip-path: inset(0%  0 100% 0); transform: translateX(0); }
+}
+
+@keyframes text-flicker {
+  0%, 90%, 100% { opacity: 1; }
+  91%           { opacity: 0.8; }
+  92%           { opacity: 1; }
+  93%           { opacity: 0.7; }
+  94%           { opacity: 1; }
+}
+
+/* ── Terminal Utility Classes ────────────────────────── */
+.terminal-window {
+  background: #0D1421;
+  border: 1px solid #2C74B3;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(44, 116, 179, 0.25),
+    0 24px 60px rgba(10, 38, 71, 0.7),
+    0 4px 20px rgba(44, 116, 179, 0.15);
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 18px;
+  background: linear-gradient(180deg, #112240 0%, #0D1B33 100%);
+  border-bottom: 1px solid #2C74B3;
+  position: relative;
+}
+
+/* Subtle top accent line */
+.terminal-titlebar::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2C74B3, #60A8E0, #2C74B3);
+  opacity: 0.7;
+}
+
+.terminal-dot        { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; }
+.terminal-dot-red    { background: #FF5F57; box-shadow: 0 0 6px rgba(255, 95, 87, 0.6); }
+.terminal-dot-yellow { background: #FEBC2E; box-shadow: 0 0 6px rgba(254, 188, 46, 0.6); }
+.terminal-dot-green  { background: #28C840; box-shadow: 0 0 6px rgba(40, 200, 64, 0.6); }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #7A98B4;
+  margin-left: 8px;
+  letter-spacing: 0.06em;
+}
+
+.terminal-body {
+  padding: 20px 24px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.terminal-prompt  { color: #2C74B3; font-weight: 600; }
+.terminal-cmd     { color: #E8EDF3; }
+.terminal-output  { color: #8B9BB4; }
+.terminal-green   { color: #4ADE80; }
+.terminal-red     { color: #F87171; }
+
+.terminal-cursor {
+  display: inline-block;
+  width: 9px;
+  height: 16px;
+  background: #2C74B3;
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: cursor-blink 1s step-end infinite;
+}
+
+.neon-border {
+  animation: neon-pulse 2.5s ease-in-out infinite;
 }

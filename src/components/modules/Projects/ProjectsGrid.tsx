@@ -27,62 +27,37 @@ export default function ProjectsGrid({ projects }: Props) {
     if (!cards.length) return;
 
     if (!reduceMotion) {
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 18, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.7,
-          ease: "power3.out",
-          stagger: 0.1,
-          clearProps: "transform",
-        },
-      );
-
-      // Hover micro interaction (smooth & non-stacking)
-      const enter = (el: HTMLElement) =>
-        gsap.to(el, {
-          y: -6,
-          duration: 0.25,
-          ease: "power2.out",
-          overwrite: "auto",
+      // Create a ScrollTrigger for each card to animate in as it scrolls into view
+      const ctx = gsap.context(() => {
+        cards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 50, rotationX: 10, scale: 0.95 },
+            {
+              opacity: 1,
+              y: 0,
+              rotationX: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%", // Trigger when top of card hits 85% of viewport
+                toggleActions: "play none none none",
+              },
+            }
+          );
         });
+      }, wrapRef);
 
-      const leave = (el: HTMLElement) =>
-        gsap.to(el, {
-          y: 0,
-          duration: 0.25,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-
-      cards.forEach((el) => {
-        const onEnter = () => enter(el);
-        const onLeave = () => leave(el);
-
-        el.addEventListener("mouseenter", onEnter);
-        el.addEventListener("mouseleave", onLeave);
-
-        // store for cleanup
-        (el as any).__onEnter = onEnter;
-        (el as any).__onLeave = onLeave;
-      });
-
-      return () => {
-        cards.forEach((el) => {
-          el.removeEventListener("mouseenter", (el as any).__onEnter);
-          el.removeEventListener("mouseleave", (el as any).__onLeave);
-        });
-      };
+      return () => ctx.revert();
     }
   }, []);
 
   return (
     <div
       ref={wrapRef}
-      className="flex flex-col gap-12 w-full max-w-[1200px] mx-auto"
+      className="flex flex-col gap-12 w-full max-w-[1200px] mx-auto perspective-1000"
     >
       {projects.map((p, index) => (
         <ProjectCard key={p.id} project={p} index={index} />
