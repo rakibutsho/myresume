@@ -26,9 +26,12 @@ const Education = () => {
         </div>
 
         {/* Heading */}
-        <h2 className="fade-up-element text-4xl md:text-5xl lg:text-6xl tracking-tight mb-16 leading-tight font-serif">
-          Academic <span className="text-[#2C74B3]">foundation</span>
-        </h2>
+        <div className="fade-up-element max-w-[1000px] mb-16 relative">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-serif text-white">
+            Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A8E0] to-[#2C74B3] drop-shadow-[0_0_15px_rgba(44,116,179,0.5)]">foundation.</span>
+          </h2>
+          <div className="absolute -inset-4 bg-[#2C74B3]/5 blur-3xl -z-10 rounded-full" />
+        </div>
 
         {/* Grid of Institutes */}
         <Institute />

@@ -9,11 +9,11 @@ gsap.registerPlugin(ScrollTrigger);
 // ── Terminal commands & output lines ──────────────────────
 const terminalLines = [
   { type: "cmd",    text: "cat profile.md" },
-  { type: "output", text: "My journey is driven by an absolute passion for coding" },
-  { type: "output", text: "and technology. Beyond just writing syntax, I am deeply" },
-  { type: "output", text: "involved in the tech community, having led as President" },
-  { type: "output", text: "of the BUBT IT Club and organized major events like the" },
-  { type: "output", text: "ICPC Asia Dhaka Regionals." },
+  { type: "output", text: "I specialize in the modern web ecosystem, primarily focusing" },
+  { type: "output", text: "on React, Next.js, TypeScript, and Node.js. Whether it’s" },
+  { type: "output", text: "architecting complex booking platforms, optimizing app" },
+  { type: "output", text: "load times by 25%, or building real-time dashboards, I" },
+  { type: "output", text: "thrive on solving complex engineering problems." },
   { type: "blank" },
   { type: "cmd",    text: "ls -la /career" },
   { type: "output", text: "Software Engineer  @  SM Technology" },
@@ -33,13 +33,13 @@ const infoCards = [
     color: "#2C74B3",
   },
   {
-    label: "Based In",
-    value: "Dhaka, Bangladesh",
+    label: "Education",
+    value: "M.Sc. in CS @ Jahangirnagar University",
     color: "#205295",
   },
   {
     label: "Focus",
-    value: "React · Next.js · Full-Stack",
+    value: "Full-Stack System Architecture",
     color: "#2C74B3",
   },
   {
@@ -51,8 +51,8 @@ const infoCards = [
 
 // ── Skill badges ───────────────────────────────────────────
 const skills = [
-  "React", "Next.js", "TypeScript", "Node.js",
-  "PostgreSQL", "Redux", "Docker",
+  "React.js", "Next.js", "TypeScript", "Node.js",
+  "PostgreSQL", "MongoDB", "Docker", "Linux VPS"
 ];
 
 function AboutMe() {

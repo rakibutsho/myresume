@@ -3,15 +3,12 @@
 import { testimonials } from "@/data/testimonials";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Quote } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Terminal, Code2 } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +16,6 @@ function Testimonials() {
   const sectionRef  = useRef<HTMLElement>(null);
   const headingRef  = useRef<HTMLDivElement>(null);
   const cardsRef    = useRef<HTMLDivElement>(null);
-  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -74,82 +70,74 @@ function Testimonials() {
           <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#2C74B3] font-bold">Testimonials</span>
         </div>
 
-        {/* Heading & Nav */}
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-16">
-          <div ref={headingRef} className="max-w-2xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-serif">
-              <span className="text-white">Kind words from</span>{" "}
-              <span className="text-[#2C74B3]">colleagues.</span>
+        {/* Heading */}
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-16 relative">
+          <div ref={headingRef} className="max-w-2xl relative">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-serif text-white">
+              Verified <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A8E0] to-[#2C74B3] drop-shadow-[0_0_15px_rgba(44,116,179,0.5)]">User Logs.</span>
             </h2>
-          </div>
-
-          {/* Navigation buttons */}
-          <div className="flex items-center gap-4 pb-2">
-            <button
-              onClick={() => swiperInstance?.slidePrev()}
-              aria-label="Previous Testimonial"
-              className="w-12 h-12 rounded-full border border-[#1E3A5F] flex items-center justify-center text-[#4A6274] hover:text-[#2C74B3] hover:border-[#2C74B3]/50 hover:bg-[#205295]/10 transition-all cursor-pointer z-10"
-            >
-              <svg aria-hidden className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={() => swiperInstance?.slideNext()}
-              aria-label="Next Testimonial"
-              className="w-12 h-12 rounded-full border border-[#1E3A5F] flex items-center justify-center text-[#4A6274] hover:text-[#2C74B3] hover:border-[#2C74B3]/50 hover:bg-[#205295]/10 transition-all cursor-pointer z-10"
-            >
-              <svg aria-hidden className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            <div className="absolute -inset-4 bg-[#2C74B3]/5 blur-3xl -z-10 rounded-full" />
           </div>
         </div>
 
-        {/* Testimonial Slider */}
-        <div ref={cardsRef} className="w-full">
+        {/* Testimonial Infinite Marquee */}
+        <div ref={cardsRef} className="w-full -mx-4 px-4 sm:mx-0 sm:px-0">
           <Swiper
-            onSwiper={setSwiperInstance}
-            style={{ "--swiper-pagination-color": "#2C74B3" } as React.CSSProperties}
-            modules={[Autoplay, Pagination, Navigation]}
-            spaceBetween={32}
-            slidesPerView={1}
+            modules={[Autoplay]}
+            spaceBetween={24}
+            slidesPerView={1.1}
+            loop={true}
+            speed={6000}
+            autoplay={{ delay: 0, disableOnInteraction: false, pauseOnMouseEnter: true }}
             breakpoints={{
-              768:  { slidesPerView: 2 },
+              640:  { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
             }}
-            autoplay={{ delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }}
-            pagination={{ clickable: true, dynamicBullets: true }}
-            className="pb-16"
+            className="testimonial-swiper py-8"
           >
             {testimonials.map((t) => (
-              <SwiperSlide key={t.id} className="h-auto">
-                <div className="h-full group relative p-8 md:p-10 rounded-2xl bg-[#0A2647]/40 border border-[#1E3A5F] hover:border-[#2C74B3]/40 hover:bg-[#144272]/20 transition-all duration-300 flex flex-col justify-between overflow-hidden">
-                  {/* Left accent bar */}
-                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#2C74B3] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <SwiperSlide key={t.id} className="h-auto pb-8">
+                <div className="h-full group relative p-6 sm:p-8 rounded-xl bg-[#0A2647]/50 backdrop-blur-md border border-[#205295]/50 hover:border-[#60A8E0]/50 hover:bg-[#144272]/40 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_4px_20px_rgba(10,38,71,0.5)] hover:shadow-[0_0_30px_rgba(44,116,179,0.3)]">
+                  
+                  {/* Subtle scanline on hover */}
+                  <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] opacity-0 group-hover:opacity-100 transition-opacity rounded-xl mix-blend-overlay" />
+
+                  {/* Top Header Badge */}
+                  <div className="flex justify-between items-center mb-8 border-b border-[#205295]/40 pb-4">
+                    <div className="flex items-center gap-2">
+                      <Terminal className="w-4 h-4 text-[#60A8E0]" />
+                      <span className="font-mono text-[11px] text-[#8B9BB4] uppercase tracking-wider">
+                        system.log
+                      </span>
+                    </div>
+                    <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
+                  </div>
 
                   {/* Message */}
-                  <div className="mb-12">
-                    <Quote className="h-6 w-6 text-[#1E3A5F] mb-6 group-hover:text-[#2C74B3]/50 transition-colors" />
-                    <p className="text-[15px] text-[#8B9BB4] leading-relaxed font-sans">
-                      &quot;{t.message}&quot;
+                  <div className="mb-10 flex-grow relative">
+                    <Code2 className="absolute -top-3 -left-3 h-8 w-8 text-[#1E3A5F]/40 -z-10 group-hover:text-[#60A8E0]/20 transition-colors" />
+                    <p className="text-[14px] sm:text-[15px] text-[#8B9BB4] group-hover:text-[#b4cbe4] leading-relaxed font-mono transition-colors">
+                      <span className="text-[#60A8E0]">"</span>
+                      {t.message}
+                      <span className="text-[#60A8E0]">"</span>
                     </p>
                   </div>
 
-                  {/* Author */}
-                  <div className="flex items-center gap-4 pt-6 mt-auto border-t border-[#1E3A5F]">
-                    <div className="w-12 h-12 rounded-full bg-[#0D1421] border border-[#1E3A5F] flex items-center justify-center text-[#8B9BB4] font-mono text-sm font-bold group-hover:text-[#2C74B3] group-hover:border-[#2C74B3]/40 transition-colors">
+                  {/* Author Meta Info */}
+                  <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 pt-4 mt-auto border-t border-[#1E3A5F]/60 bg-[#071626]/40 -mx-6 sm:-mx-8 -mb-6 sm:-mb-8 px-6 sm:px-8 py-4 sm:py-5">
+                    <div className="w-10 h-10 rounded bg-[#0D1421] border border-[#205295]/50 flex items-center justify-center text-[#60A8E0] font-mono text-xs font-bold group-hover:bg-[#144272] group-hover:border-[#60A8E0]/40 transition-colors shrink-0">
                       {t.avatar}
                     </div>
-                    <div className="flex flex-col gap-0.5">
-                      <div className="text-[15px] font-semibold text-white tracking-wide group-hover:text-[#2C74B3] transition-colors font-sans">
+                    <div className="flex flex-col gap-1 min-w-0">
+                      <div className="text-[14px] font-bold text-white tracking-wide group-hover:text-[#60A8E0] transition-colors truncate">
                         {t.name}
                       </div>
-                      <div className="text-[11px] font-mono uppercase tracking-widest text-[#4A6274]">
-                        {t.role} <span className="text-[#1E3A5F] mx-1">|</span> {t.company}
+                      <div className="text-[11px] font-mono uppercase tracking-wider text-[#4A6274] truncate">
+                        {t.role} <span className="text-[#1E3A5F] mx-1">|</span> <span className="text-[#8B9BB4]">{t.company}</span>
                       </div>
                     </div>
                   </div>
+
                 </div>
               </SwiperSlide>
             ))}

@@ -22,23 +22,23 @@ const terminalData = [
   { key: "role", value: '"Software Engineer"' },
   { key: "status", value: '"Open to Work"', blink: true },
   { key: "loc", value: '"Dhaka, Bangladesh"' },
-  { key: "exp", value: '"2+ years"' },
+  { key: "exp", value: '"1.5+ years"' },
 ];
 
 // ── Headline words (split for GSAP stagger) ──────────────
 const headlineWords = [
-  { text: "Transforming", accent: false },
+  { text: "Turning", accent: false },
+  { text: "ambitious", accent: false },
   { text: "ideas", accent: false },
   { text: "into", accent: false },
-  { text: "scalable", accent: false },
-  { text: "digital", accent: true },
-  { text: "solutions.", accent: true },
+  { text: "production-ready", accent: true },
+  { text: "software.", accent: true },
 ];
 
 const stats = [
-  { value: 2, suffix: "+", label: "Years Experience" },
+  { value: 1.5, suffix: "+", label: "Years Experience" },
   { value: 20, suffix: "+", label: "Projects Shipped" },
-  { value: 10, suffix: "+", label: "Apps Delivered" },
+  { value: 10, suffix: "+", label: "Happy Clients" },
 ];
 
 function Home() {
@@ -115,6 +115,7 @@ function Home() {
       // 7. Counter animation
       statNums.current.forEach((el, i) => {
         if (!el) return;
+        const isFloat = stats[i].value % 1 !== 0;
         tl.fromTo(
           el,
           { textContent: "0" },
@@ -122,7 +123,7 @@ function Home() {
             textContent: String(stats[i].value),
             duration: 1.3,
             ease: "power1.out",
-            snap: { textContent: 1 },
+            snap: { textContent: isFloat ? 0.1 : 1 },
           },
           "-=1.1"
         );
@@ -310,9 +311,7 @@ function Home() {
             ref={paraRef}
             className="text-[16px] md:text-lg text-[#8B9BB4] max-w-[520px] mb-6 leading-[1.8] font-sans"
           >
-            I build <span className="text-white font-medium">full-stack web applications</span> with
-            React, Next.js & Node.js — turning complex problems into
-            elegant, high-performance solutions.
+            Bridging the gap between <span className="text-white font-medium">scalable architecture</span> and pixel-perfect user interfaces. I specialize in turning ambitious ideas into <span className="text-white font-medium">production-ready software</span>.
           </p>
 
           {/* Quick skill tags */}
