@@ -1,0 +1,13 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="#071626" />
+  
+  <!-- Subtle Border -->
+  <rect width="504" height="504" x="4" y="4" rx="108" fill="none" stroke="#2C74B3" stroke-width="8" opacity="0.6" />
+  
+  <!-- Terminal Prompt > -->
+  <path d="M 126 166 L 226 256 L 126 346" fill="none" stroke="#60A8E0" stroke-width="48" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Terminal Cursor _ -->
+  <line x1="266" y1="346" x2="386" y2="346" stroke="#60A8E0" stroke-width="48" stroke-linecap="round" />
+</svg>

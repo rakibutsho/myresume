@@ -17,8 +17,8 @@ const JobHistory = () => {
         </div>
 
         {/* Heading */}
-        <h2 className="fade-up-element text-4xl md:text-5xl lg:text-6xl tracking-tight mb-16 leading-tight font-serif">
-          <span className="">Building systems that</span> <span className="text-[#2C74B3]">scale.</span>
+        <h2 className="fade-up-element text-4xl md:text-5xl lg:text-6xl tracking-tight mb-16 leading-tight font-serif text-white">
+          <span className="">Building systems that</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A8E0] to-[#2C74B3] drop-shadow-[0_0_15px_rgba(44,116,179,0.5)]">scale.</span>
         </h2>
 
         {/* Job Cards */}

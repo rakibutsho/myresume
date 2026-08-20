@@ -6,36 +6,57 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rakibutsho.dev/"),
-  title: "Md. Rakibul Islam | Software Engineer",
+  title: "Md. Rakibul Islam | Full-Stack Software Engineer",
   description:
-    "Portfolio of Md. Rakibul Islam, a software engineer building conversion-ready SaaS interfaces with Next.js, React, TypeScript, and Node.js.",
+    "Portfolio of Md. Rakibul Islam, a Full-Stack Software Engineer turning ambitious ideas into production-ready software with React, Next.js, TypeScript, and Node.js.",
   keywords: [
-    "rakibutsho",
-    "rakib utsho",
-    "Rakibul Islam",
     "Md. Rakibul Islam",
-    "Software Engineer",
+    "rakibutsho",
+    "Rakibul Islam",
+    "Full-Stack Software Engineer",
     "Frontend Developer",
-    "React Developer",
+    "Backend Developer",
+    "React.js",
     "Next.js",
     "TypeScript",
-    "SaaS Frontend",
     "Node.js",
+    "MongoDB",
+    "PostgreSQL",
+    "System Architecture",
     "Web Performance",
-    "Core Web Vitals",
     "Dhaka",
     "Bangladesh",
   ],
+  authors: [{ name: "Md. Rakibul Islam", url: "https://rakibutsho.dev" }],
+  creator: "Md. Rakibul Islam",
   openGraph: {
-    title: "Md. Rakibul Islam | Software Engineer",
+    title: "Md. Rakibul Islam | Full-Stack Software Engineer",
     description:
-      "I build high-performance SaaS products and robust web applications using Next.js, React, TypeScript, and Node.js.",
+      "Bridging the gap between scalable architecture and pixel-perfect user interfaces. Explore my projects, skills, and experience.",
     type: "website",
     url: "https://rakibutsho.dev/",
     siteName: "Md. Rakibul Islam Portfolio",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Md. Rakibul Islam | Full-Stack Software Engineer",
+    description: "Turning ambitious ideas into production-ready software.",
+    creator: "@rakibutsho",
   },
   alternates: {
     canonical: "https://rakibutsho.dev/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

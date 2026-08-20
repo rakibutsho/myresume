@@ -89,11 +89,11 @@ function JobInstitute() {
             const isCur     = job.timeline.toLowerCase().includes("present");
 
             return (
-              <button
+              <div
                 key={job.id}
                 data-job-card
                 onClick={() => setActiveJob(job.id)}
-                className={`relative w-full text-left pl-12 pr-5 py-5 rounded-xl border transition-all duration-300 cursor-pointer group ${
+                className={`block relative w-full text-left pl-12 pr-5 py-5 rounded-xl border transition-all duration-300 cursor-pointer group ${
                   isActive
                     ? "bg-[#144272]/50 border-[#2C74B3]/60 shadow-[0_0_24px_rgba(44,116,179,0.15)]"
                     : "bg-[#0A2647]/30 border-[#1E3A5F] hover:border-[#205295]/60 hover:bg-[#0A2647]/60"
@@ -111,9 +111,9 @@ function JobInstitute() {
                 />
 
                 <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className={`text-[14px] font-bold truncate transition-colors ${isActive ? "text-white" : "text-[#8B9BB4]"}`}>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                      <span className={`text-[14px] font-bold transition-colors ${isActive ? "text-white" : "text-[#8B9BB4]"}`}>
                         {job.companyName}
                       </span>
                       {isCur && (
@@ -122,10 +122,10 @@ function JobInstitute() {
                         </span>
                       )}
                     </div>
-                    <span className={`text-[12px] font-mono transition-colors ${isActive ? "text-[#2C74B3]" : "text-[#4A6274]"}`}>
+                    <span className={`block text-[12px] font-mono transition-colors mt-0.5 ${isActive ? "text-[#2C74B3]" : "text-[#4A6274]"}`}>
                       {job.position}
                     </span>
-                    <div className={`text-[11px] font-mono mt-1.5 transition-colors ${isActive ? "text-[#8B9BB4]" : "text-[#4A6274]"}`}>
+                    <div className={`block text-[11px] font-mono mt-1.5 transition-colors ${isActive ? "text-[#8B9BB4]" : "text-[#4A6274]"}`}>
                       {job.timeline}
                     </div>
                   </div>
@@ -135,7 +135,7 @@ function JobInstitute() {
                     }`}
                   />
                 </div>
-              </button>
+              </div>
             );
           })}
         </div>
