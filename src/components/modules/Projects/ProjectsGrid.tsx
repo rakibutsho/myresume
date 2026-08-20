@@ -3,8 +3,11 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { Project } from "@/data/project";
 import ProjectCard from "./ProjectCard";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
   projects: Project[];
