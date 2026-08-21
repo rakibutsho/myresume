@@ -329,13 +329,13 @@ function Home() {
           {/* Stats row */}
           <div
             ref={statsRef}
-            className="mt-auto w-full grid grid-cols-3 gap-6 border-t border-[#1E3A5F] pt-8"
+            className="mt-auto w-full grid grid-cols-3 gap-3 md:gap-6 border-t border-[#1E3A5F] pt-8"
           >
             {stats.map((s, i) => (
-              <div key={s.label} data-stat className="flex flex-col gap-1.5 group">
-                <div className="flex items-end gap-0.5">
+              <div key={s.label} data-stat className="flex flex-col items-center lg:items-start gap-1.5 group">
+                <div className="flex items-end justify-center lg:justify-start gap-0.5">
                   <span
-                    className="text-4xl md:text-[46px] font-mono font-bold text-white group-hover:text-[#2C74B3] transition-colors duration-300"
+                    className="text-3xl sm:text-4xl md:text-[46px] font-mono font-bold text-white group-hover:text-[#2C74B3] transition-colors duration-300"
                     style={{ textShadow: "0 0 30px rgba(44,116,179,0)" }}
                   >
                     <span ref={(el) => { statNums.current[i] = el; }}>
@@ -344,7 +344,7 @@ function Home() {
                     <span className="text-[#2C74B3]">{s.suffix}</span>
                   </span>
                 </div>
-                <span className="text-[#4A6274] text-[9px] md:text-[10px] font-mono font-bold tracking-[0.2em] uppercase leading-tight">
+                <span className="text-[#4A6274] text-[9px] md:text-[10px] font-mono font-bold tracking-[0.2em] uppercase leading-tight text-center lg:text-left">
                   {s.label}
                 </span>
                 {/* Hover underline */}

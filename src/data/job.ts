@@ -6,6 +6,7 @@ export const jobs = [
   {
     id: 1,
     companyName: "SM Technology",
+    shortName: "SMT",
     logo: sm,
     position: "Frontend Engineer",
     timeline: "Apr 2025 - Present",
@@ -38,6 +39,7 @@ export const jobs = [
   {
     id: 2,
     companyName: "Trodev",
+    shortName: "TD",
     logo: trodev,
     position: "Junior Developer",
     timeline: "Feb 2024 - May 2024",
@@ -63,6 +65,7 @@ export const jobs = [
   {
     id: 3,
     companyName: "Bangladesh Computer Council (BCC)",
+    shortName: "BCC",
     logo: bcc,
     position: "Software Quality Testing",
     timeline: "Mar 2024 - Apr 2024",

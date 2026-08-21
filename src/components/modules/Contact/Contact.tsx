@@ -20,9 +20,9 @@ function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
-  const formRef    = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const terminalLogRef = useRef<HTMLDivElement>(null);
-  
+
   const [logs, setLogs] = useState<string[]>([
     "[OK] Boot sequence initiated...",
     "[OK] Loading network modules...",
@@ -41,7 +41,7 @@ function Contact() {
   });
 
   const watchName = watch("name");
-  
+
   // Add terminal logs when user types
   useEffect(() => {
     if (watchName && watchName.length > 2 && logs.length < 3) {
@@ -160,23 +160,23 @@ function Contact() {
 
         {/* Main Grid Content */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8 items-start w-full">
-          
+
           {/* Left Column: Info & Terminal */}
           <div ref={leftColRef} className="lg:col-span-2 flex flex-col gap-8 w-full">
-            
+
             {/* Social Links Panel */}
             <div className="flex flex-col gap-4 p-6 rounded-2xl bg-[#0A2647]/30 border border-[#1E3A5F] backdrop-blur-sm">
               <h3 className="font-mono text-[12px] uppercase tracking-widest text-[#4A6274] mb-2 flex items-center gap-2">
                 <TerminalIcon className="w-4 h-4 text-[#2C74B3]" /> Network Links
               </h3>
-              
-              <a href="mailto:contact@rakibutsho.com" className="group flex items-center gap-4 p-4 rounded-xl bg-[#0D1421] border border-[#1E3A5F] hover:border-[#60A8E0]/50 transition-all duration-300">
+
+              <a href="mailto:mail@rakibutsho.dev" className="group flex items-center gap-4 p-4 rounded-xl bg-[#0D1421] border border-[#1E3A5F] hover:border-[#60A8E0]/50 transition-all duration-300">
                 <div className="w-10 h-10 rounded-full bg-[#144272]/30 flex items-center justify-center text-[#60A8E0] group-hover:bg-[#60A8E0] group-hover:text-[#0A2647] transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[15px] font-semibold text-white group-hover:text-[#60A8E0] transition-colors">Email</span>
-                  <span className="font-mono text-[12px] text-[#8B9BB4]">rakib.utsho1@gmail.com</span>
+                  <span className="font-mono text-[12px] text-[#8B9BB4]">mail@rakibutsho.dev</span>
                 </div>
               </a>
 
@@ -217,9 +217,9 @@ function Contact() {
           {/* Right Column: Form */}
           <div className="lg:col-span-3 w-full">
             <div className="w-full p-6 sm:p-10 rounded-[24px] bg-[#0A2647]/60 backdrop-blur-xl border border-[#205295]/50 flex flex-col gap-8 shadow-[0_0_40px_rgba(10,38,71,0.5)]">
-              
+
               <div className="font-mono text-[13px] text-[#60A8E0] flex items-center gap-2">
-                <TerminalSquare className="w-4 h-4" /> 
+                <TerminalSquare className="w-4 h-4" />
                 <span>./init_transmission.sh</span>
               </div>
 
@@ -269,11 +269,10 @@ function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`relative overflow-hidden w-full mt-2 py-4 rounded-lg font-mono font-bold text-[14px] tracking-widest uppercase transition-all duration-300 group ${
-                    isSubmitting
-                      ? "bg-[#0A2647] border border-[#1E3A5F] text-[#4A6274] cursor-wait"
-                      : "bg-[#2C74B3] hover:bg-[#144272] border border-[#60A8E0]/30 text-white shadow-[0_0_20px_rgba(44,116,179,0.4)] hover:shadow-[0_0_30px_rgba(96,168,224,0.5)] cursor-pointer"
-                  }`}
+                  className={`relative overflow-hidden w-full mt-2 py-4 rounded-lg font-mono font-bold text-[14px] tracking-widest uppercase transition-all duration-300 group ${isSubmitting
+                    ? "bg-[#0A2647] border border-[#1E3A5F] text-[#4A6274] cursor-wait"
+                    : "bg-[#2C74B3] hover:bg-[#144272] border border-[#60A8E0]/30 text-white shadow-[0_0_20px_rgba(44,116,179,0.4)] hover:shadow-[0_0_30px_rgba(96,168,224,0.5)] cursor-pointer"
+                    }`}
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center gap-3">

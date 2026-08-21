@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronRight, Briefcase, MapPin, Clock } from "lucide-react";
+import { ChevronRight, Briefcase, Clock } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger);
 
 function JobInstitute() {
@@ -151,7 +151,7 @@ function JobInstitute() {
             <span className="terminal-dot terminal-dot-yellow" />
             <span className="terminal-dot terminal-dot-green" />
             <span className="terminal-title ml-2 truncate">
-              ~/experience/{active.companyName.toLowerCase().replace(/\s+/g, "-").replace(/[()]/g, "")} $ ls
+              ~/experience/{active?.shortName?.toLowerCase()} $ ls
             </span>
           </div>
 
