@@ -24,6 +24,48 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "spidernode",
+    title: "SpiderNode",
+    subtitle: "Open Source Uptime Monitoring Platform",
+    type: "Full Stack",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Redux Toolkit",
+      "Node.js",
+      "PostgreSQL",
+      "Prisma",
+      "NextAuth",
+      "Telegram Bot API",
+      "node-cron",
+      "System Design"
+    ],
+    isPrivate: false,
+    githubUrl: "https://github.com/rakibutsho/SPIDER_NODE-uptime-tracker",
+    liveUrl: "https://spidernode.site/",
+    problem:
+      "Engineered a production-ready SaaS uptime monitoring platform featuring a Dual-Cron architecture for resilient polling and a high-concurrency check engine. Designed an in-memory write batching pipeline to prevent database throttling and integrated real-time Telegram alerts via webhooks.",
+    solution:
+      "🚀 Built a highly scalable, free uptime monitor with sub-second accuracy and instant Telegram alerts.",
+    results: [],
+    image: [
+      {
+        cover:
+          "https://drive.google.com/file/d/1W93_ZYx-DIM-nGEGdz-N_W_-ta8PZ_IF/view?usp=sharing",
+      },
+      {
+        dashboard: [
+          {
+            id: 0,
+            link: "https://drive.google.com/file/d/1W93_ZYx-DIM-nGEGdz-N_W_-ta8PZ_IF/view?usp=sharing",
+          },
+        ],
+      },
+    ],
+  },
+  {
     id: "Pawradise",
     title: "Pawradise",
     subtitle: "Petcare Booking Platform",
