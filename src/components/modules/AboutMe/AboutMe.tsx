@@ -1,125 +1,68 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
+import profileImg from "@/assets/Profile.png";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── Terminal commands & output lines ──────────────────────
-const terminalLines = [
-  { type: "cmd",    text: "cat profile.md" },
-  { type: "output", text: "I specialize in the modern web ecosystem, primarily focusing" },
-  { type: "output", text: "on React, Next.js, TypeScript, and Node.js. Whether it’s" },
-  { type: "output", text: "architecting complex booking platforms, optimizing app" },
-  { type: "output", text: "load times by 25%, or building real-time dashboards, I" },
-  { type: "output", text: "thrive on solving complex engineering problems." },
-  { type: "blank" },
-  { type: "cmd",    text: "ls -la /career" },
-  { type: "output", text: "Software Engineer  @  SM Technology" },
-  { type: "output", text: "Ex-President       @  BUBT IT Club" },
-  { type: "blank" },
-  { type: "cmd",    text: "echo $STACK" },
-  { type: "output", text: "React · Next.js · Node.js · TypeScript · PostgreSQL" },
-  { type: "blank" },
-  { type: "cursor" },
-];
-
-// ── Info cards ─────────────────────────────────────────────
-const infoCards = [
+const skillCards = [
   {
-    label: "Currently",
-    value: "Software Engineer @ SM Technology",
-    color: "#2C74B3",
+    title: "Front-end",
+    tags: ["TypeScript", "React", "Next.js", "Redux Toolkit", "Tailwind CSS", "Framer Motion", "Shadcn UI"],
   },
   {
-    label: "Education",
-    value: "M.Sc. in CS @ Jahangirnagar University",
-    color: "#205295",
+    title: "Back-end",
+    tags: ["Node.js", "Express.js", "REST APIs", "JWT Auth", "Socket.io"],
   },
   {
-    label: "Focus",
-    value: "Full-Stack System Architecture",
-    color: "#2C74B3",
+    title: "Databases",
+    tags: ["PostgreSQL", "MongoDB", "Prisma", "Mongoose"],
   },
   {
-    label: "Leadership",
-    value: "Ex-President @ BUBT IT Club",
-    color: "#205295",
+    title: "DevOps & Tools",
+    tags: ["Git", "Docker", "VPS Hosting", "CI/CD", "Figma", "Linux"],
   },
-];
-
-// ── Skill badges ───────────────────────────────────────────
-const skills = [
-  "React.js", "Next.js", "TypeScript", "Node.js",
-  "PostgreSQL", "MongoDB", "Docker", "Linux VPS"
 ];
 
 function AboutMe() {
-  const containerRef  = useRef<HTMLDivElement>(null);
-  const terminalRef   = useRef<HTMLDivElement>(null);
-  const linesRef      = useRef<HTMLDivElement>(null);
-  const cardsRef      = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftRef      = useRef<HTMLDivElement>(null);
+  const rightRef     = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
-      // 1. Terminal window slides up
       gsap.fromTo(
-        terminalRef.current,
-        { opacity: 0, y: 50 },
+        leftRef.current,
+        { opacity: 0, y: 40 },
         {
-          opacity: 1, y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: terminalRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
+          opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+          scrollTrigger: { trigger: leftRef.current, start: "top 80%", toggleActions: "play none none none" },
         }
       );
 
-      // 2. Terminal lines stagger in
-      const lines = linesRef.current?.querySelectorAll("[data-term-line]");
-      if (lines?.length) {
-        gsap.fromTo(
-          lines,
-          { opacity: 0, x: -10 },
-          {
-            opacity: 1, x: 0,
-            stagger: 0.07,
-            duration: 0.35,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: terminalRef.current,
-              start: "top 75%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-
-      // 3. Info cards cascade from right
-      const cards = cardsRef.current?.querySelectorAll("[data-card]");
+      const cards = containerRef.current?.querySelectorAll("[data-card]");
       if (cards?.length) {
         gsap.fromTo(
           cards,
-          { opacity: 0, x: 30 },
+          { opacity: 0, y: 30 },
           {
-            opacity: 1, x: 0,
-            stagger: 0.12,
-            duration: 0.6,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
+            opacity: 1, y: 0, stagger: 0.12, duration: 0.6, ease: "power3.out",
+            scrollTrigger: { trigger: containerRef.current, start: "top 78%", toggleActions: "play none none none" },
           }
         );
       }
 
+      gsap.fromTo(
+        rightRef.current,
+        { opacity: 0, scale: 0.96 },
+        {
+          opacity: 1, scale: 1, duration: 0.9, ease: "power3.out",
+          scrollTrigger: { trigger: rightRef.current, start: "top 80%", toggleActions: "play none none none" },
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -128,120 +71,80 @@ function AboutMe() {
   return (
     <section
       id="about"
-      ref={containerRef as React.RefObject<HTMLElement>}
-      className="w-full py-24 relative font-sans text-white overflow-hidden"
+      className="w-full py-28 relative"
+      style={{ background: "#121212" }}
     >
-      {/* Ambient glow */}
-      <div className="absolute right-0 top-1/3 w-[350px] h-[350px] bg-[#0A2647]/40 rounded-full blur-[120px] pointer-events-none" />
+      <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
 
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
-
-        {/* Section identifier */}
-        <div className="flex items-center gap-4 mb-3">
-          <span className="text-sm font-mono text-[#2C74B3]">01</span>
-          <div className="w-8 h-[1px] bg-[#205295]/50" />
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#2C74B3] font-bold">About</span>
+        {/* Section row header */}
+        <div className="flex items-center justify-between mb-16">
+          <span className="breadcrumb-label">... /About me ...</span>
         </div>
 
-        {/* Section heading */}
-        <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] font-serif mb-12 lg:max-w-[55%] text-white">
-          Engineer, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A8E0] to-[#2C74B3] drop-shadow-[0_0_15px_rgba(44,116,179,0.5)]">builder,</span>
-          <br className="hidden md:block" /> and lifelong learner.
-        </h2>
+        {/* Two-column layout */}
+        <div ref={containerRef} className="grid lg:grid-cols-[55%_1fr] gap-12 lg:gap-20 items-start">
 
-        {/* Main content grid */}
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* ── Left: intro + skill cards ────────────────── */}
+          <div ref={leftRef}>
 
-          {/* ── Left: Terminal Panel ── */}
-          <div className="lg:col-span-7 order-2 lg:order-1">
-            <div ref={terminalRef} className="terminal-window">
+            {/* Intro headline */}
+            <p
+              className="text-[22px] md:text-[28px] leading-[1.45] mb-10"
+              style={{ color: "#F5F5F5", fontFamily: "var(--font-open-sans)" }}
+            >
+              Hello! I&apos;m Rakibul, I&apos;m a{" "}
+              <em className="not-italic font-bold italic" style={{ color: "#FFFFFF" }}>full-stack developer</em>.
+              <br />
+              More than{" "}
+              <em className="not-italic font-bold italic" style={{ color: "#FFFFFF" }}>1.5 years</em>{" "}
+              experience.
+            </p>
 
-              {/* Title bar */}
-              <div className="terminal-titlebar">
-                <span className="terminal-dot terminal-dot-red" />
-                <span className="terminal-dot terminal-dot-yellow" />
-                <span className="terminal-dot terminal-dot-green" />
-                <span className="terminal-title">rakib@portfolio:~/about — bash</span>
-              </div>
-
-              {/* Terminal body */}
-              <div ref={linesRef} className="p-5 md:p-6 space-y-0.5 font-mono text-[13px] leading-7">
-                {terminalLines.map((line, i) => {
-                  if (line.type === "blank") {
-                    return <div key={i} data-term-line className="h-3" />;
-                  }
-                  if (line.type === "cursor") {
-                    return (
-                      <div key={i} data-term-line className="flex items-center gap-2">
-                        <span className="terminal-prompt">$</span>
-                        <span className="terminal-cursor" />
-                      </div>
-                    );
-                  }
-                  if (line.type === "cmd") {
-                    return (
-                      <div key={i} data-term-line className="flex items-start gap-2">
-                        <span className="terminal-prompt shrink-0">$</span>
-                        <span className="terminal-cmd">{line.text}</span>
-                      </div>
-                    );
-                  }
-                  return (
-                    <div key={i} data-term-line className="flex items-start gap-2">
-                      <span className="shrink-0 w-[14px]" />
-                      <span className="terminal-output">{line.text}</span>
-                    </div>
-                  );
-                })}
-              </div>
+            {/* Skill cards grid */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {skillCards.map((card) => (
+                <div
+                  key={card.title}
+                  data-card
+                  className="skill-card p-5"
+                >
+                  <h3
+                    className="font-mono font-semibold text-[15px] mb-3 text-white"
+                    style={{ fontFamily: "var(--font-roboto)" }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p
+                    className="text-[13px] leading-[1.8]"
+                    style={{ color: "#A6A6A6", fontFamily: "var(--font-open-sans)" }}
+                  >
+                    {card.tags.join(" / ")}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* ── Right: Info Cards ── */}
-          <div ref={cardsRef} className="lg:col-span-5 space-y-4 order-1 lg:order-2">
-
-            {infoCards.map((card) => (
-              <div
-                key={card.label}
-                data-card
-                className="relative rounded-xl bg-[#0A2647]/50 border border-[#1E3A5F] p-5 flex flex-col transition-all duration-300 hover:border-[#2C74B3]/50 hover:bg-[#144272]/20 overflow-hidden group"
-                style={{
-                  boxShadow: "0 0 0 transparent",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 0 20px rgba(44,116,179,0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 transparent";
-                }}
-              >
-                {/* Left accent bar */}
-                <div
-                  className="absolute left-0 top-0 bottom-0 w-0.5 transition-all duration-300 group-hover:opacity-100 opacity-60"
-                  style={{ background: card.color }}
-                />
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#2C74B3] font-semibold mb-1.5 ml-3">
-                  {card.label}
-                </span>
-                <span className="text-white font-medium text-sm ml-3">{card.value}</span>
-              </div>
-            ))}
-
-            {/* Skill badges */}
-            <div data-card className="rounded-xl bg-[#0A2647]/50 border border-[#1E3A5F] p-5">
-              <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#2C74B3] font-semibold mb-3 block ml-0.5">
-                Tech Stack
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-2.5 py-1 rounded-md bg-[#144272]/60 border border-[#205295]/40 text-[#8B9BB4] text-[12px] font-mono hover:border-[#2C74B3]/60 hover:text-[#2C74B3] transition-all"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+          {/* ── Right: portrait ──────────────────────────── */}
+          <div ref={rightRef} className="flex items-center justify-center lg:justify-end relative">
+            {/* Large circle background */}
+            <div
+              className="absolute w-[360px] h-[360px] rounded-full"
+              style={{ background: "#1E1E1E", top: "50%", left: "50%", transform: "translate(-50%,-50%)" }}
+            />
+            {/* Photo */}
+            <div
+              className="relative w-[300px] h-[360px] rounded-[16px] overflow-hidden z-10"
+              style={{ border: "1px solid #3D3D3D" }}
+            >
+              <Image
+                src={profileImg}
+                alt="Md. Rakibul Islam"
+                fill
+                className="object-cover grayscale"
+                sizes="300px"
+                priority
+              />
             </div>
           </div>
         </div>

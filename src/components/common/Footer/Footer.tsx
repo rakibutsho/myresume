@@ -1,13 +1,7 @@
 "use client";
 
-import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  GithubIcon,
-  Linkedin02Icon,
-  Mail01FreeIcons,
-} from "@hugeicons/core-free-icons";
 import React, { useCallback } from "react";
-import { Link } from "react-aria-components";
+import Link from "next/link";
 
 export const Footer = () => {
   const handleScroll = useCallback(
@@ -17,7 +11,7 @@ export const Footer = () => {
       const id = href.replace(/.*#/, "");
       const el = document.getElementById(id);
       if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY - 80;
+        const y = el.getBoundingClientRect().top + window.scrollY - 72;
         window.scrollTo({ top: y, behavior: "smooth" });
       } else if (id === "home") {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -27,74 +21,105 @@ export const Footer = () => {
   );
 
   return (
-    <footer className="w-full flex flex-col items-center justify-center pt-16 pb-32 px-4 mt-20 relative overflow-hidden bg-[#050B14]">
-      
-      {/* Background ambient glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[300px] bg-[#2C74B3]/5 blur-[120px] rounded-full pointer-events-none" />
+    <footer
+      className="w-full pt-16 pb-10 px-6 md:px-12 relative"
+      style={{ borderTop: "1px solid #3D3D3D", background: "#121212" }}
+    >
+      <div className="w-full max-w-[1280px] mx-auto">
 
-      {/* Terminal Closing Flair */}
-      <div className="w-full max-w-[1200px] mb-12 flex justify-center">
-        <div className="font-mono text-[13px] text-[#4A6274] bg-[#071626] px-6 py-2 rounded-full border border-[#1E3A5F]">
-          <span className="text-[#2C74B3] mr-2">$</span>
-          <span>exit_session --status=success</span>
-        </div>
-      </div>
+        {/* Top row */}
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 pb-10 mb-10" style={{ borderBottom: "1px solid #3D3D3D" }}>
 
-      <div className="w-full max-w-[1200px] flex flex-col lg:flex-row items-center lg:items-end justify-between gap-12 pb-12 border-b border-[#1E3A5F]/50 relative z-10">
+          {/* Brand */}
+          <div>
+            <a
+              href="/#home"
+              onClick={(e) => handleScroll(e, "/#home")}
+              className="font-mono font-bold text-white text-[20px] tracking-tight block mb-2"
+              style={{ fontFamily: "var(--font-roboto)", letterSpacing: "-0.02em" }}
+            >
+              Rakibul Islam
+            </a>
+            <p className="font-sans text-[13px]" style={{ color: "#A6A6A6" }}>
+              Full-Stack Software Engineer · Dhaka, Bangladesh
+            </p>
+            <div className="flex items-center gap-1.5 mt-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ boxShadow: "0 0 6px rgba(52,211,153,0.8)" }} />
+              <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#A6A6A6" }}>
+                Open to work
+              </span>
+            </div>
+          </div>
 
-        {/* Name & Title */}
-        <div className="flex flex-col items-center lg:items-start gap-2 text-center lg:text-left">
-          <h3 className="text-2xl md:text-3xl font-serif text-white font-bold tracking-wide flex items-center gap-1">
-            Rakibul Islam<span className="text-[#60A8E0] animate-pulse">_</span>
-          </h3>
-          <p className="text-[#8B9BB4] text-[14px] font-mono tracking-wide">
-            Full-Stack Software Engineer
-          </p>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse" />
-            <span className="text-[#4A6274] font-mono text-[11px] uppercase tracking-widest">Dhaka, BD (Online)</span>
+          {/* Nav links */}
+          <nav className="flex flex-wrap gap-x-8 gap-y-4">
+            {[
+              { name: "About",      href: "/#about"       },
+              { name: "Skills",     href: "/#skills"      },
+              { name: "Experience", href: "/#experience"  },
+              { name: "Projects",   href: "/#projects"    },
+              { name: "Contact",    href: "/#contact"     },
+            ].map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleScroll(e, link.href)}
+                className="font-sans text-[13px] transition-colors hover:text-white"
+                style={{ color: "#A6A6A6" }}
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Social icons */}
+          <div className="flex gap-3">
+            {[
+              { label: "GitHub",   href: "https://github.com/rakibutsho",             char: "⌥" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/rakibutsho",    char: "in" },
+              { label: "Email",    href: "mailto:mail@rakibutsho.dev",                char: "@"  },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target={s.href.startsWith("mailto") ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-10 h-10 flex items-center justify-center font-mono text-[12px] rounded-[8px] transition-all"
+                style={{
+                  border: "1px solid #3D3D3D",
+                  color: "#A6A6A6",
+                  background: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = "#FFFFFF";
+                  el.style.color = "#121212";
+                  el.style.borderColor = "#FFFFFF";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  el.style.background = "transparent";
+                  el.style.color = "#A6A6A6";
+                  el.style.borderColor = "#3D3D3D";
+                }}
+              >
+                {s.char}
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Social Icons */}
-        <div className="flex items-center justify-center lg:justify-end gap-4">
-          <Link
-            href="https://github.com/rakibutsho"
-            target="_blank"
-            className="group relative w-10 h-10 rounded-lg bg-[#071626] border border-[#1E3A5F] flex items-center justify-center text-[#4A6274] hover:text-[#0A2647] hover:bg-[#60A8E0] hover:border-[#60A8E0] transition-all duration-300 shadow-[0_0_10px_rgba(10,38,71,0)] hover:shadow-[0_0_20px_rgba(96,168,224,0.4)]"
-            aria-label="GitHub"
-          >
-            <HugeiconsIcon aria-hidden icon={GithubIcon} className="w-4 h-4" />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/rakibutsho"
-            target="_blank"
-            className="group relative w-10 h-10 rounded-lg bg-[#071626] border border-[#1E3A5F] flex items-center justify-center text-[#4A6274] hover:text-[#0A2647] hover:bg-[#60A8E0] hover:border-[#60A8E0] transition-all duration-300 shadow-[0_0_10px_rgba(10,38,71,0)] hover:shadow-[0_0_20px_rgba(96,168,224,0.4)]"
-            aria-label="LinkedIn"
-          >
-            <HugeiconsIcon aria-hidden icon={Linkedin02Icon} className="w-4 h-4 fill-current" />
-          </Link>
-          <Link
-            href="mailto:mail@rakibutsho.dev"
-            className="group relative w-10 h-10 rounded-lg bg-[#071626] border border-[#1E3A5F] flex items-center justify-center text-[#4A6274] hover:text-[#0A2647] hover:bg-[#60A8E0] hover:border-[#60A8E0] transition-all duration-300 shadow-[0_0_10px_rgba(10,38,71,0)] hover:shadow-[0_0_20px_rgba(96,168,224,0.4)]"
-            aria-label="Email"
-          >
-            <HugeiconsIcon aria-hidden icon={Mail01FreeIcons} className="w-4 h-4" />
-          </Link>
+        {/* Bottom row */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-sans text-[12px]" style={{ color: "#A6A6A6" }}>
+            © {new Date().getFullYear()}{" "}
+            <span className="text-white">Rakibul Islam</span>. All rights reserved.
+          </p>
+          <p className="font-sans text-[12px]" style={{ color: "#A6A6A6" }}>
+            Built with Next.js · Tailwind CSS · GSAP
+          </p>
         </div>
-      </div>
-
-      {/* Bottom bar */}
-      <div className="w-full max-w-[1200px] pt-8 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-        
-        <p className="text-[12px] text-[#4A6274] font-mono tracking-wider text-center md:text-left">
-          © {new Date().getFullYear()} <span className="text-white">Rakibul Islam</span>. All systems operational.
-        </p>
-
-        <p className="flex items-center gap-1.5 text-[12px] text-[#4A6274] font-mono tracking-wider">
-          Crafted with <span className="text-[#60A8E0] text-sm animate-pulse">⚡</span> in BD
-        </p>
-
       </div>
     </footer>
   );

@@ -7,30 +7,28 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="w-full py-24 relative overflow-hidden font-sans text-white"
+      className="w-full py-28 relative"
+      style={{ background: "#121212" }}
     >
-      {/* Modern Background Glows */}
-
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 relative z-10">
-        {/* Section Identifier */}
-        <div className="fade-up-element flex items-center gap-4 mb-2">
-          <span className="text-sm font-mono text-[#2C74B3]">05</span>
-          <div className="w-8 h-[1px] bg-[#205295]/50" />
-          <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#2C74B3] font-bold">
-            Projects
-          </span>
+      <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
+        {/* Section header */}
+        <div className="flex items-end justify-between mb-16 gap-6">
+          <div>
+            <span className="breadcrumb-label block mb-4">... /Projects ...</span>
+            <h2
+              className="font-mono font-bold text-white leading-tight"
+              style={{
+                fontFamily: "var(--font-roboto)",
+                fontSize: "clamp(28px, 4vw, 48px)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Selected case studies.
+            </h2>
+          </div>
+          <div className="chapter-word hidden md:block">Work</div>
         </div>
 
-        {/* Heading */}
-        <div className="fade-up-element max-w-[1000px] mb-16 relative">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight font-serif text-white">
-            Selected Case <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#60A8E0] to-[#2C74B3] drop-shadow-[0_0_15px_rgba(44,116,179,0.5)]">Studies.</span>
-          </h2>
-          {/* Subtle glow behind heading */}
-          <div className="absolute -inset-4 bg-[#2C74B3]/5 blur-3xl -z-10 rounded-full" />
-        </div>
-
-        {/* Vertical List of Projects */}
         <ProjectsGrid projects={projects} />
       </div>
     </section>

@@ -1,122 +1,66 @@
 "use client";
 
-import { Tooltip } from "@/components/base/tooltip/tooltip";
-import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Home01Icon,
-  IdCardLanyardIcon,
-  Wrench01Icon,
-  Mail01Icon,
-  Backpack02Icon,
-  BookOpen02Icon,
-  ModernTvIcon,
-  Mortarboard01Icon,
-} from "@hugeicons/core-free-icons";
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 
 const navigationLinks = [
-  { name: "Home", href: "/#home", icon: Home01Icon },
-  { name: "About", href: "/#about", icon: IdCardLanyardIcon },
-  { name: "Skills", href: "/#skills", icon: Wrench01Icon },
-  { name: "Education", href: "/#education", icon: Mortarboard01Icon },
-  { name: "Experience", href: "/#experience", icon: Backpack02Icon },
-  { name: "Projects", href: "/#projects", icon: ModernTvIcon },
-  { name: "Testimonials", href: "/#testimonials", icon: BookOpen02Icon },
-  { name: "Contact", href: "/#contact", icon: Mail01Icon },
+  { name: "About",      href: "/#about"       },
+  { name: "Skills",     href: "/#skills"      },
+  { name: "Experience", href: "/#experience"  },
+  { name: "Projects",   href: "/#projects"    },
+  { name: "Contact",    href: "/#contact"     },
 ];
 
 export const Navbar = () => {
   const [activeSection, setActiveSection] = useState("/#home");
-  const glowRef = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
 
+  // Entrance animation
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (glowRef.current) {
-        // Color shifting effect
-        gsap.to(glowRef.current, {
-          keyframes: [
-            { backgroundColor: "rgba(44, 116, 179, 0.25)", duration: 3 },  // brand blue
-            { backgroundColor: "rgba(32, 82, 149, 0.25)", duration: 3 },   // mid blue
-            { backgroundColor: "rgba(20, 66, 114, 0.25)", duration: 3 },   // dark blue
-            { backgroundColor: "rgba(10, 38, 71, 0.25)",  duration: 3 },   // deep navy
-            { backgroundColor: "rgba(44, 116, 179, 0.25)", duration: 3 },  // back to blue
-          ],
-          repeat: -1,
-          ease: "linear",
-        });
-
-        // Pulsing scale and opacity
-        gsap.to(glowRef.current, {
-          scale: 1.25,
-          opacity: 0.6,
-          duration: 2.5,
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }
+      gsap.fromTo(
+        navRef.current,
+        { y: -60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", delay: 0.1 }
+      );
     });
-
     return () => ctx.revert();
   }, []);
 
+  // Active section tracker
   useEffect(() => {
     const handleScroll = () => {
       if (window.location.pathname !== "/") return;
-
-      const sectionIds = [
-        "home",
-        ...navigationLinks
-          .map((l) => l.href.replace("/#", ""))
-          .filter((id) => id !== "home"),
-      ];
-
-      let currentActive = "/#home";
-      // Dynamic threshold: 30% of the viewport height.
+      const sectionIds = ["home", "about", "skills", "education", "experience", "projects", "testimonials", "contact"];
+      let current = "/#home";
       const threshold = window.innerHeight * 0.3;
-
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= threshold) {
-            currentActive = `/#${sectionIds[i]}`;
-            break;
-          }
+        if (el && el.getBoundingClientRect().top <= threshold) {
+          current = `/#${sectionIds[i]}`;
+          break;
         }
       }
-
-      // If we've scrolled to the absolute bottom, activate the last section
-      if (
-        window.innerHeight + Math.round(window.scrollY) >=
-        document.body.offsetHeight - 50
-      ) {
-        currentActive = "/#contact";
+      if (window.innerHeight + Math.round(window.scrollY) >= document.body.offsetHeight - 50) {
+        current = "/#contact";
       }
-
-      setActiveSection(currentActive);
+      setActiveSection(current);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initial check
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-  ) => {
-    if (window.location.pathname !== "/") {
-      return;
-    }
-
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (window.location.pathname !== "/") return;
     e.preventDefault();
+    setMenuOpen(false);
     const id = href.replace(/.*#/, "");
     const el = document.getElementById(id);
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      const y = el.getBoundingClientRect().top + window.scrollY - 72;
       window.scrollTo({ top: y, behavior: "smooth" });
     } else if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -124,44 +68,125 @@ export const Navbar = () => {
   };
 
   return (
-    <header className="fixed bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-50">
-      {/* GSAP animated glowing shadow behind the navbar */}
-      <div 
-        ref={glowRef}
-        className="absolute inset-0 blur-[24px] rounded-full -z-10 bg-[#2C74B3]/20" 
-      />
-      <nav className="relative flex items-center gap-1 sm:gap-1.5 p-1.5 bg-[#071626]/70 backdrop-blur-xl border border-[#205295]/30 rounded-full shadow-[0_8px_32px_rgba(10,38,71,0.8)]">
-        {navigationLinks.map((link) => {
-          const isActive = activeSection === link.href;
-          const Icon = link.icon;
-          return (
-            <div key={link.name} className="relative group">
-              <Tooltip title={link.name} placement="top" delay={150} arrow>
+    <header
+      ref={navRef}
+      className="fixed top-0 left-0 right-0 z-50 opacity-0"
+      style={{ borderBottom: "1px solid #3D3D3D" }}
+    >
+      <div
+        className="w-full backdrop-blur-md"
+        style={{ background: "rgba(18,18,18,0.85)" }}
+      >
+        <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+
+          {/* Brand */}
+          <a
+            href="/#home"
+            onClick={(e) => handleClick(e, "/#home")}
+            className="font-mono text-base font-semibold tracking-tight transition-colors"
+            style={{ color: "#FFFFFF", fontFamily: "var(--font-roboto)" }}
+          >
+            Rakibul Islam
+            <span className="cursor-blink ml-0.5" style={{ color: "#A6A6A6" }}>_</span>
+          </a>
+
+          {/* Desktop nav links */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navigationLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
                 <a
+                  key={link.name}
                   href={link.href}
                   onClick={(e) => handleClick(e, link.href)}
-                  className={`relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full transition-all duration-300 ease-out focus:outline-none ${
-                    isActive
-                      ? "bg-gradient-to-tr from-[#144272] to-[#2C74B3] text-white shadow-[0_0_15px_rgba(44,116,179,0.4)] border border-[#60A8E0]/20"
-                    : "text-[#8B9BB4] hover:text-white hover:bg-[#144272]/40"
-                  }`}
-                  aria-label={link.name}
+                  className="relative text-[14px] font-sans transition-colors duration-200 group"
+                  style={{ color: isActive ? "#FFFFFF" : "#A6A6A6" }}
                 >
-                  <HugeiconsIcon
-                    icon={Icon}
-                    className={`w-[18px] h-[18px] sm:w-[20px] sm:h-[20px] transition-transform duration-300 ease-out ${
-                      isActive
-                        ? "scale-100"
-                        : "group-hover:scale-110 group-hover:-translate-y-0.5"
-                    }`}
-                    strokeWidth={isActive ? 2 : 1.5}
+                  {link.name}
+                  {/* Underline slide */}
+                  <span
+                    className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
+                    style={{
+                      background: "#FFFFFF",
+                      width: isActive ? "100%" : "0%",
+                    }}
+                  />
+                  <span
+                    className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
+                    style={{ background: "#A6A6A6" }}
                   />
                 </a>
-              </Tooltip>
-            </div>
-          );
-        })}
-      </nav>
+              );
+            })}
+          </nav>
+
+          {/* Right: Resume CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill-btn pill-btn-outline text-[13px] py-2 px-5"
+            >
+              Résumé ↗
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                className="block h-px w-6 transition-all duration-300"
+                style={{
+                  background: "#F5F5F5",
+                  transform:
+                    menuOpen && i === 0 ? "rotate(45deg) translate(4px, 4px)"
+                    : menuOpen && i === 1 ? "scaleX(0)"
+                    : menuOpen && i === 2 ? "rotate(-45deg) translate(4px, -4px)"
+                    : "none",
+                  opacity: menuOpen && i === 1 ? 0 : 1,
+                }}
+              />
+            ))}
+          </button>
+        </div>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div
+            className="md:hidden flex flex-col px-6 pb-6 gap-5"
+            style={{ borderTop: "1px solid #3D3D3D" }}
+          >
+            {navigationLinks.map((link) => {
+              const isActive = activeSection === link.href;
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleClick(e, link.href)}
+                  className="text-[15px] font-sans py-1 transition-colors"
+                  style={{ color: isActive ? "#FFFFFF" : "#A6A6A6" }}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
+            <a
+              href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pill-btn pill-btn-outline text-[13px] self-start"
+            >
+              Résumé ↗
+            </a>
+          </div>
+        )}
+      </div>
     </header>
   );
 };
