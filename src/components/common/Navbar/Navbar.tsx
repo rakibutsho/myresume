@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
+import { Button } from "@/components/ui/button";
 import gsap from "gsap";
 
 const navigationLinks = [
@@ -17,34 +17,29 @@ export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
-  // Entrance animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         navRef.current,
-        { y: -60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, ease: "power3.out", delay: 0.1 }
+        { y: -50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
       );
     });
     return () => ctx.revert();
   }, []);
 
-  // Active section tracker
   useEffect(() => {
     const handleScroll = () => {
-      if (window.location.pathname !== "/") return;
-      const sectionIds = ["home", "about", "skills", "education", "experience", "projects", "testimonials", "contact"];
+      if (typeof window === "undefined" || window.location.pathname !== "/") return;
+      const sectionIds = ["home", "about", "skills", "experience", "projects", "contact"];
       let current = "/#home";
-      const threshold = window.innerHeight * 0.3;
+      const threshold = window.innerHeight * 0.35;
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
         if (el && el.getBoundingClientRect().top <= threshold) {
           current = `/#${sectionIds[i]}`;
           break;
         }
-      }
-      if (window.innerHeight + Math.round(window.scrollY) >= document.body.offsetHeight - 50) {
-        current = "/#contact";
       }
       setActiveSection(current);
     };
@@ -70,123 +65,108 @@ export const Navbar = () => {
   return (
     <header
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 opacity-0"
-      style={{ borderBottom: "1px solid #3D3D3D" }}
+      className="fixed top-0 left-0 right-0 z-50 border-b border-border/80 bg-background/85 backdrop-blur-md transition-all"
     >
-      <div
-        className="w-full backdrop-blur-md"
-        style={{ background: "rgba(18,18,18,0.85)" }}
-      >
-        <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+      <div className="max-w-[1340px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+        
+        {/* Brand */}
+        <a
+          href="/#home"
+          onClick={(e) => handleClick(e, "/#home")}
+          className="flex items-baseline gap-2.5 text-foreground group"
+        >
+          <span className="font-display text-sm tracking-tight font-bold group-hover:text-accent transition-colors">
+            RAKIBUL ISLAM
+          </span>
+          <span className="text-border text-xs">/</span>
+          <span className="font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+            EDITION 2026
+          </span>
+        </a>
 
-          {/* Brand */}
-          <a
-            href="/#home"
-            onClick={(e) => handleClick(e, "/#home")}
-            className="font-mono text-base font-semibold tracking-tight transition-colors"
-            style={{ color: "#FFFFFF", fontFamily: "var(--font-roboto)" }}
+        {/* Desktop Links */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navigationLinks.map((link) => {
+            const isActive = activeSection === link.href;
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleClick(e, link.href)}
+                className={`relative text-xs uppercase tracking-widest font-semibold transition-colors py-1 ${
+                  isActive ? "text-foreground" : "text-fg-subtle hover:text-foreground"
+                }`}
+              >
+                {link.name}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent" />
+                )}
+              </a>
+            );
+          })}
+        </nav>
+
+        {/* Right CTA */}
+        <div className="hidden md:flex items-center gap-5">
+          <div className="flex items-center gap-2 text-2xs font-medium text-fg-subtle">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="hidden lg:inline uppercase tracking-wider">Available</span>
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-2xs uppercase tracking-widest font-bold border-border hover:border-accent hover:text-accent h-8 px-4"
+            asChild
           >
-            Rakibul Islam
-            <span className="cursor-blink ml-0.5" style={{ color: "#A6A6A6" }}>_</span>
-          </a>
-
-          {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navigationLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
-                  className="relative text-[14px] font-sans transition-colors duration-200 group"
-                  style={{ color: isActive ? "#FFFFFF" : "#A6A6A6" }}
-                >
-                  {link.name}
-                  {/* Underline slide */}
-                  <span
-                    className="absolute -bottom-0.5 left-0 h-px transition-all duration-300"
-                    style={{
-                      background: "#FFFFFF",
-                      width: isActive ? "100%" : "0%",
-                    }}
-                  />
-                  <span
-                    className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
-                    style={{ background: "#A6A6A6" }}
-                  />
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Right: Resume CTA */}
-          <div className="hidden md:flex items-center gap-4">
             <a
               href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="pill-btn pill-btn-outline text-[13px] py-2 px-5"
             >
               Résumé ↗
             </a>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {[0, 1, 2].map((i) => (
-              <span
-                key={i}
-                className="block h-px w-6 transition-all duration-300"
-                style={{
-                  background: "#F5F5F5",
-                  transform:
-                    menuOpen && i === 0 ? "rotate(45deg) translate(4px, 4px)"
-                    : menuOpen && i === 1 ? "scaleX(0)"
-                    : menuOpen && i === 2 ? "rotate(-45deg) translate(4px, -4px)"
-                    : "none",
-                  opacity: menuOpen && i === 1 ? 0 : 1,
-                }}
-              />
-            ))}
-          </button>
+          </Button>
         </div>
 
-        {/* Mobile dropdown */}
-        {menuOpen && (
-          <div
-            className="md:hidden flex flex-col px-6 pb-6 gap-5"
-            style={{ borderTop: "1px solid #3D3D3D" }}
-          >
-            {navigationLinks.map((link) => {
-              const isActive = activeSection === link.href;
-              return (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleClick(e, link.href)}
-                  className="text-[15px] font-sans py-1 transition-colors"
-                  style={{ color: isActive ? "#FFFFFF" : "#A6A6A6" }}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
-            <a
-              href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pill-btn pill-btn-outline text-[13px] self-start"
-            >
-              Résumé ↗
-            </a>
-          </div>
-        )}
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden flex flex-col gap-1.5 p-2 text-foreground"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          <span className={`block w-5 h-[1.5px] bg-foreground transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block w-5 h-[1.5px] bg-foreground transition-all ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-5 h-[1.5px] bg-foreground transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      {menuOpen && (
+        <div className="md:hidden border-t border-border bg-background px-6 py-6 space-y-4">
+          {navigationLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(e) => handleClick(e, link.href)}
+              className="block text-sm uppercase tracking-wider font-semibold text-fg-muted hover:text-accent py-1"
+            >
+              {link.name}
+            </a>
+          ))}
+          <div className="pt-4 border-t border-border">
+            <Button variant="outline" size="sm" className="w-full text-xs uppercase tracking-widest" asChild>
+              <a
+                href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Download Résumé ↗
+              </a>
+            </Button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useCallback } from "react";
-import Link from "next/link";
+import { useCallback } from "react";
+import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
   const handleScroll = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      if (window.location.pathname !== "/") return;
+      if (typeof window === "undefined" || window.location.pathname !== "/") return;
       e.preventDefault();
       const id = href.replace(/.*#/, "");
       const el = document.getElementById(id);
@@ -21,105 +21,94 @@ export const Footer = () => {
   );
 
   return (
-    <footer
-      className="w-full pt-16 pb-10 px-6 md:px-12 relative"
-      style={{ borderTop: "1px solid #3D3D3D", background: "#121212" }}
-    >
-      <div className="w-full max-w-[1280px] mx-auto">
-
-        {/* Top row */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-10 pb-10 mb-10" style={{ borderBottom: "1px solid #3D3D3D" }}>
-
-          {/* Brand */}
-          <div>
+    <footer className="w-full pt-20 pb-12 bg-background border-t border-border">
+      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
+        
+        {/* Top Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16 border-b border-border">
+          
+          <div className="md:col-span-6 space-y-3">
             <a
               href="/#home"
               onClick={(e) => handleScroll(e, "/#home")}
-              className="font-mono font-bold text-white text-[20px] tracking-tight block mb-2"
-              style={{ fontFamily: "var(--font-roboto)", letterSpacing: "-0.02em" }}
+              className="font-display text-xl font-bold uppercase tracking-tight text-foreground hover:text-accent transition-colors block"
             >
-              Rakibul Islam
+              Md. Rakibul Islam
             </a>
-            <p className="font-sans text-[13px]" style={{ color: "#A6A6A6" }}>
-              Full-Stack Software Engineer · Dhaka, Bangladesh
+            <p className="text-sm text-fg-subtle font-normal max-w-md leading-relaxed">
+              Full-Stack Software Engineer building resilient client architectures, distributed backend APIs, and performant web products.
             </p>
-            <div className="flex items-center gap-1.5 mt-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" style={{ boxShadow: "0 0 6px rgba(52,211,153,0.8)" }} />
-              <span className="font-mono text-[11px] uppercase tracking-widest" style={{ color: "#A6A6A6" }}>
-                Open to work
+            <div className="flex items-center gap-2 pt-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+                Available for Q1 / Q2 Engagements
               </span>
             </div>
           </div>
 
-          {/* Nav links */}
-          <nav className="flex flex-wrap gap-x-8 gap-y-4">
-            {[
-              { name: "About",      href: "/#about"       },
-              { name: "Skills",     href: "/#skills"      },
-              { name: "Experience", href: "/#experience"  },
-              { name: "Projects",   href: "/#projects"    },
-              { name: "Contact",    href: "/#contact"     },
-            ].map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleScroll(e, link.href)}
-                className="font-sans text-[13px] transition-colors hover:text-white"
-                style={{ color: "#A6A6A6" }}
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
+          <div className="md:col-span-3 space-y-3">
+            <span className="font-mono text-2xs uppercase tracking-widest text-fg-subtle block font-bold">
+              Navigation
+            </span>
+            <ul className="space-y-2 text-xs uppercase tracking-wider font-semibold">
+              {[
+                { name: "About",      href: "/#about"       },
+                { name: "Skills",     href: "/#skills"      },
+                { name: "Experience", href: "/#experience"  },
+                { name: "Projects",   href: "/#projects"    },
+                { name: "Contact",    href: "/#contact"     },
+              ].map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => handleScroll(e, link.href)}
+                    className="text-fg-muted hover:text-accent transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Social icons */}
-          <div className="flex gap-3">
-            {[
-              { label: "GitHub",   href: "https://github.com/rakibutsho",             char: "⌥" },
-              { label: "LinkedIn", href: "https://www.linkedin.com/in/rakibutsho",    char: "in" },
-              { label: "Email",    href: "mailto:mail@rakibutsho.dev",                char: "@"  },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target={s.href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="w-10 h-10 flex items-center justify-center font-mono text-[12px] rounded-[8px] transition-all"
-                style={{
-                  border: "1px solid #3D3D3D",
-                  color: "#A6A6A6",
-                  background: "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.background = "#FFFFFF";
-                  el.style.color = "#121212";
-                  el.style.borderColor = "#FFFFFF";
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.background = "transparent";
-                  el.style.color = "#A6A6A6";
-                  el.style.borderColor = "#3D3D3D";
-                }}
-              >
-                {s.char}
-              </a>
-            ))}
+          <div className="md:col-span-3 space-y-3">
+            <span className="font-mono text-2xs uppercase tracking-widest text-fg-subtle block font-bold">
+              Connect
+            </span>
+            <ul className="space-y-2 text-xs uppercase tracking-wider font-semibold">
+              {[
+                { label: "GitHub",   href: "https://github.com/rakibutsho"          },
+                { label: "LinkedIn", href: "https://www.linkedin.com/in/rakibutsho" },
+                { label: "Email",    href: "mailto:mail@rakibutsho.dev"             },
+              ].map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target={s.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="text-fg-muted hover:text-accent transition-colors flex items-center gap-1"
+                  >
+                    {s.label} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Bottom Colophon */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+          <div>
+            © {new Date().getFullYear()} RAKIBUL ISLAM. ALL RIGHTS RESERVED.
+          </div>
+          <div className="flex items-center gap-4">
+            <span>DHAKA [23.8103° N]</span>
+            <span className="text-border">/</span>
+            <span>NEXT.JS · TAILWIND · SHADCN</span>
           </div>
         </div>
 
-        {/* Bottom row */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-sans text-[12px]" style={{ color: "#A6A6A6" }}>
-            © {new Date().getFullYear()}{" "}
-            <span className="text-white">Rakibul Islam</span>. All rights reserved.
-          </p>
-          <p className="font-sans text-[12px]" style={{ color: "#A6A6A6" }}>
-            Built with Next.js · Tailwind CSS · GSAP
-          </p>
-        </div>
       </div>
     </footer>
   );

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SKILL_CATEGORIES = [
   {
-    title: "Frontend",
+    title: "Client-Side Engineering",
     skills: [
       { name: "React",          icon: "https://api.iconify.design/logos:react.svg" },
       { name: "Next.js",        icon: "https://api.iconify.design/logos:nextjs-icon.svg" },
@@ -22,82 +23,93 @@ const SKILL_CATEGORIES = [
     ],
   },
   {
-    title: "Backend",
+    title: "Backend & Distributed APIs",
     skills: [
       { name: "Node.js",    icon: "https://api.iconify.design/logos:nodejs-icon.svg" },
       { name: "Express.js", icon: "https://api.iconify.design/simple-icons:express.svg?color=white" },
-      { name: "REST APIs",  icon: "https://api.iconify.design/carbon:api.svg?color=%23A6A6A6" },
+      { name: "REST APIs",  icon: "https://api.iconify.design/carbon:api.svg?color=%238E909B" },
       { name: "Socket.io",  icon: "https://api.iconify.design/logos:socket-io.svg" },
       { name: "JWT Auth",   icon: "https://api.iconify.design/logos:jwt-icon.svg" },
     ],
   },
   {
-    title: "Databases",
+    title: "Database Architecture",
     skills: [
       { name: "PostgreSQL", icon: "https://api.iconify.design/logos:postgresql.svg" },
       { name: "MongoDB",    icon: "https://api.iconify.design/logos:mongodb-icon.svg" },
-      { name: "Prisma",     icon: "https://api.iconify.design/logos:prisma.svg" },
+      { name: "Prisma ORM", icon: "https://api.iconify.design/logos:prisma.svg" },
       { name: "Mongoose",   icon: "https://api.iconify.design/devicon:mongoose.svg" },
       { name: "MySQL",      icon: "https://api.iconify.design/logos:mysql.svg" },
     ],
   },
   {
-    title: "Languages",
+    title: "Programming Languages",
     skills: [
       { name: "JavaScript", icon: "https://api.iconify.design/logos:javascript.svg" },
       { name: "TypeScript", icon: "https://api.iconify.design/logos:typescript-icon.svg" },
-      { name: "Go",         icon: "https://api.iconify.design/logos:go.svg" },
+      { name: "Go Lang",    icon: "https://api.iconify.design/logos:go.svg" },
       { name: "SQL",        icon: "https://api.iconify.design/vscode-icons:file-type-sql.svg" },
     ],
   },
   {
-    title: "DevOps & Cloud",
+    title: "DevOps & Cloud Infrastructure",
     skills: [
-      { name: "Git",       icon: "https://api.iconify.design/logos:git-icon.svg" },
-      { name: "Docker",    icon: "https://api.iconify.design/logos:docker-icon.svg" },
-      { name: "CI/CD",     icon: "https://api.iconify.design/logos:github-actions.svg" },
-      { name: "VPS",       icon: "https://api.iconify.design/mdi:server.svg?color=%23A6A6A6" },
-      { name: "AWS",       icon: "https://api.iconify.design/logos:aws.svg" },
-      { name: "Linux",     icon: "https://api.iconify.design/logos:linux-tux.svg" },
+      { name: "Git",        icon: "https://api.iconify.design/logos:git-icon.svg" },
+      { name: "Docker",     icon: "https://api.iconify.design/logos:docker-icon.svg" },
+      { name: "CI/CD",      icon: "https://api.iconify.design/logos:github-actions.svg" },
+      { name: "Linux VPS",  icon: "https://api.iconify.design/mdi:server.svg?color=%238E909B" },
+      { name: "AWS Basics", icon: "https://api.iconify.design/logos:aws.svg" },
     ],
   },
   {
-    title: "Tools & Design",
+    title: "Tooling & Design Standards",
     skills: [
-      { name: "Figma",   icon: "https://api.iconify.design/logos:figma.svg" },
-      { name: "Postman", icon: "https://api.iconify.design/logos:postman-icon.svg" },
-      { name: "Agile",   icon: "https://api.iconify.design/logos:jira.svg" },
-      { name: "System Design", icon: "https://api.iconify.design/carbon:chart-network.svg?color=%23A6A6A6" },
+      { name: "Figma",         icon: "https://api.iconify.design/logos:figma.svg" },
+      { name: "Postman",       icon: "https://api.iconify.design/logos:postman-icon.svg" },
+      { name: "System Design", icon: "https://api.iconify.design/carbon:chart-network.svg?color=%238E909B" },
+      { name: "Agile / Scrum", icon: "https://api.iconify.design/logos:jira.svg" },
     ],
   },
 ];
 
-function Skills() {
+export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef    = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30 },
+        ".hybrid-skills-header",
+        { opacity: 0, y: 20 },
         {
-          opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
-          scrollTrigger: { trigger: headingRef.current, start: "top 80%", toggleActions: "play none none none" },
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
         }
       );
-      if (gridRef.current) {
-        gsap.fromTo(
-          gridRef.current.children,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power3.out",
-            scrollTrigger: { trigger: gridRef.current, start: "top 80%", toggleActions: "play none none none" },
-          }
-        );
-      }
+      gsap.fromTo(
+        ".hybrid-skill-card",
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.08,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
@@ -105,72 +117,72 @@ function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="w-full py-28 relative"
-      style={{ background: "#121212" }}
+      className="w-full py-28 bg-background border-t border-border"
     >
-      <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
-
-        {/* Section header row: breadcrumb left, chapter word right */}
-        <div ref={headingRef} className="flex items-end justify-between mb-16 gap-6">
+      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
+        
+        {/* Section Header Indicator */}
+        <div className="hybrid-skills-header flex flex-wrap items-end justify-between gap-6 pb-6 border-b border-border mb-16 opacity-0">
           <div>
-            <span className="breadcrumb-label block mb-4">... /Skills ...</span>
-            <h2
-              className="font-sans text-[16px] max-w-[360px] leading-relaxed"
-              style={{ color: "#A6A6A6" }}
-            >
-              What I bring to the table — from pixel-perfect UIs to scalable backend systems.
+            <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle mb-3">
+              <span className="text-accent font-bold">02</span>
+              <span className="text-border">/</span>
+              <span>TECHNICAL ECOSYSTEM & TOOLING</span>
+            </div>
+            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-tight text-foreground">
+              Production Capabilities
             </h2>
           </div>
-          <div className="chapter-word hidden md:block">Skills</div>
+          <span className="text-xs text-fg-subtle font-mono uppercase tracking-widest">
+            ENGINEERED FOR RESILIENCE
+          </span>
         </div>
 
-        {/* Cards grid */}
-        <div
-          ref={gridRef}
-          className="columns-1 sm:columns-2 lg:columns-3 gap-5"
-        >
+        {/* 3-Column Architectural Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SKILL_CATEGORIES.map((category) => (
-            <div
+            <Card
               key={category.title}
-              className="skill-card break-inside-avoid mb-5 p-6 group"
+              className="hybrid-skill-card rounded-xl border border-border bg-surface p-6 opacity-0 hover:border-accent/40 transition-all duration-300 flex flex-col justify-between"
             >
-              {/* Category title */}
-              <h3
-                className="font-mono font-semibold text-[14px] mb-4"
-                style={{ fontFamily: "var(--font-roboto)", color: "#FFFFFF" }}
-              >
-                {category.title}
-              </h3>
+              <div>
+                <CardHeader className="p-0 pb-4 border-b border-border/80 flex flex-row items-center justify-between space-y-0">
+                  <CardTitle className="text-xs font-mono uppercase tracking-wider text-foreground font-bold">
+                    {category.title}
+                  </CardTitle>
+                  <span className="text-accent text-2xs font-mono">●</span>
+                </CardHeader>
+                
+                <CardContent className="p-0 pt-5">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2.5 font-mono text-2xs text-fg-muted uppercase tracking-wider">
+                    {category.skills.map((skill, idx) => (
+                      <span key={skill.name} className="inline-flex items-center gap-2 group/tag">
+                        {idx > 0 && <span className="text-border select-none">/</span>}
+                        <Image
+                          src={skill.icon}
+                          alt={skill.name}
+                          width={14}
+                          height={14}
+                          className="w-3.5 h-3.5 object-contain opacity-70 group-hover/tag:opacity-100 transition-opacity"
+                        />
+                        <span className="group-hover/tag:text-accent transition-colors">
+                          {skill.name}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+                </CardContent>
+              </div>
 
-              {/* Skills as slash-separated tags */}
-              <p
-                className="text-[13px] leading-[2]"
-                style={{ color: "#A6A6A6", fontFamily: "var(--font-open-sans)" }}
-              >
-                {category.skills.map((skill, idx) => (
-                  <span key={skill.name}>
-                    <span className="inline-flex items-center gap-1.5 group/tag">
-                      <Image
-                        src={skill.icon}
-                        alt={skill.name}
-                        width={14}
-                        height={14}
-                        className="w-[14px] h-[14px] object-contain opacity-60 group-hover/tag:opacity-100 transition-opacity"
-                      />
-                      <span className="group-hover/tag:text-white transition-colors">{skill.name}</span>
-                    </span>
-                    {idx < category.skills.length - 1 && (
-                      <span className="mx-2" style={{ color: "#3D3D3D" }}>/</span>
-                    )}
-                  </span>
-                ))}
-              </p>
-            </div>
+              <div className="mt-8 pt-3 border-t border-border/60 flex items-center justify-between font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+                <span>Verified</span>
+                <span>Active</span>
+              </div>
+            </Card>
           ))}
         </div>
+
       </div>
     </section>
   );
 }
-
-export default Skills;

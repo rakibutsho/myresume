@@ -2,36 +2,31 @@
 
 import Institute from "./Institute";
 
-const Education = () => {
+export default function Education() {
   return (
     <section
       id="education"
-      className="w-full py-28 relative"
-      style={{ background: "#121212" }}
+      className="w-full py-28 bg-background border-t border-border"
     >
-      <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
-        {/* Section header */}
-        <div className="flex items-end justify-between mb-12 gap-6">
+      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
+        <div className="flex flex-wrap items-end justify-between gap-6 pb-6 border-b border-border mb-16">
           <div>
-            <span className="breadcrumb-label block mb-4">... /Education ...</span>
-            <h2
-              className="font-mono font-bold text-white leading-tight"
-              style={{
-                fontFamily: "var(--font-roboto)",
-                fontSize: "clamp(28px, 4vw, 48px)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Academic foundation.
+            <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle mb-3">
+              <span className="text-accent font-bold">06</span>
+              <span className="text-border">/</span>
+              <span>ACADEMIC FOUNDATION & DEGREES</span>
+            </div>
+            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-tight text-foreground">
+              Formal Education
             </h2>
           </div>
-          <div className="chapter-word hidden md:block">Study</div>
+          <span className="text-xs text-fg-subtle font-mono uppercase tracking-widest">
+            ACADEMIC CREDENTIALS
+          </span>
         </div>
 
         <Institute />
       </div>
     </section>
   );
-};
-
-export default Education;
+}

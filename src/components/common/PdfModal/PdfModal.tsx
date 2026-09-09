@@ -1,7 +1,14 @@
 "use client";
 
-import { X, Download } from "lucide-react";
-import { useEffect } from "react";
+import { Download, ExternalLink } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 interface PdfModalProps {
   isOpen: boolean;
@@ -20,73 +27,64 @@ const getDownloadUrl = (url: string) => {
 };
 
 export const PdfModal = ({ isOpen, onClose, pdfUrl }: PdfModalProps) => {
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
-
-  if (!isOpen) return null;
+  const previewUrl = pdfUrl.includes("drive.google.com")
+    ? pdfUrl.replace(/\/view.*$/, "/preview")
+    : `${pdfUrl}#toolbar=0&view=FitH`;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0A2647]/80 backdrop-blur-md p-4 sm:p-6 md:p-8">
-      {/* Backdrop click to close */}
-      <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
-
-      <div className="relative w-full max-w-5xl h-full flex flex-col bg-[#0A2647] rounded-xl overflow-hidden border border-[#205295] shadow-[0_0_40px_rgba(10,38,71,0.8)]">
-        {/* Terminal Header */}
-        <div className="relative flex items-center justify-between px-4 py-3 border-b border-[#205295] bg-gradient-to-r from-[#144272] to-[#0A2647]">
-          {/* Left: Traffic light dots */}
-          <div className="flex items-center gap-2 relative z-10">
-            <button
-              onClick={onClose}
-              aria-label="Close Resume Modal"
-              className="w-3.5 h-3.5 rounded-full bg-red-500/90 hover:bg-red-400 shadow-[0_0_10px_rgba(239,68,68,0.6)] flex items-center justify-center group cursor-pointer"
-            >
-              <X className="w-2.5 h-2.5 text-red-900 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={3} />
-            </button>
-            <div className="w-3.5 h-3.5 rounded-full bg-yellow-500/90 shadow-[0_0_10px_rgba(234,179,8,0.6)]" />
-            <div className="w-3.5 h-3.5 rounded-full bg-green-500/90 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
-          </div>
-
-          {/* Center: Title */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="text-[#8B9BB4] font-mono text-[13px] tracking-wider">
-              bash - view_resume.pdf
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-w-5xl h-[85vh] flex flex-col p-0 gap-0 border-border bg-background">
+        <DialogHeader className="p-4 border-b border-border flex flex-row items-center justify-between space-y-0 pr-12">
+          <div className="flex items-center gap-3">
+            <span className="text-2xs font-bold uppercase tracking-widest text-accent">
+              DOC
             </span>
+            <span className="text-border">|</span>
+            <DialogTitle className="text-sm font-semibold tracking-wider normal-case">
+              Curriculum Vitae — Md. Rakibul Islam
+            </DialogTitle>
           </div>
-
-          {/* Right: Actions */}
-          <div className="flex items-center gap-3 relative z-10">
-            <a
-              href={getDownloadUrl(pdfUrl)}
-              download
-              className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#205295]/30 text-[#60A8E0] hover:bg-[#205295]/60 hover:text-white transition-colors text-[13px] font-mono border border-[#205295]/50 group"
+          <DialogDescription className="sr-only">
+            PDF Preview of Rakibul Islam&apos;s Curriculum Vitae
+          </DialogDescription>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs uppercase tracking-wider gap-2 h-8"
+              asChild
             >
-              <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
-              <span className="hidden sm:inline">download_file</span>
-            </a>
+              <a
+                href={getDownloadUrl(pdfUrl)}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Download</span>
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs uppercase tracking-wider gap-2 h-8"
+              asChild
+            >
+              <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Open Drive</span>
+              </a>
+            </Button>
           </div>
-        </div>
-
-        {/* Modal Body / PDF Viewer */}
-        <div className="flex-1 w-full bg-black/40 relative">
+        </DialogHeader>
+        <div className="flex-1 w-full bg-surface relative">
           <iframe
-            src={
-              pdfUrl.includes("drive.google.com")
-                ? pdfUrl.replace(/\/view.*$/, "/preview")
-                : `${pdfUrl}#toolbar=0&view=FitH`
-            }
+            src={previewUrl}
             className="w-full h-full border-none absolute inset-0"
             title="Resume PDF"
           />
         </div>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };

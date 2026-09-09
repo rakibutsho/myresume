@@ -1,58 +1,70 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { PdfModal } from "../common/PdfModal/PdfModal";
-import { useState } from "react";
 import gsap from "gsap";
 
-const stats = [
-  { value: 1.5, suffix: "+", label: "Years Experience" },
-  { value: 20,  suffix: "+", label: "Projects Shipped" },
-  { value: 10,  suffix: "+", label: "Happy Clients"    },
+const metrics = [
+  { value: 1.5, suffix: "+", label: "Years Experience", sub: "Production Full-Stack" },
+  { value: 20,  suffix: "+", label: "Deployed Builds",  sub: "Client & SaaS Systems" },
+  { value: 10,  suffix: "+", label: "Client Partners",  sub: "International Delivery" },
 ];
 
-const socialLinks = [
-  { label: "GitHub",   href: "https://github.com/rakibutsho",              icon: "⌥" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/rakibutsho",     icon: "in" },
-  { label: "Email",    href: "mailto:mail@rakibutsho.dev",                 icon: "@"  },
+const SOCIAL_LINKS = [
+  { label: "GitHub",   href: "https://github.com/rakibutsho"          },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/rakibutsho" },
+  { label: "Email",    href: "mailto:mail@rakibutsho.dev"             },
 ];
 
-function Home() {
+export default function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
-  const sectionRef   = useRef<HTMLElement>(null);
-  const breadcrumbRef = useRef<HTMLDivElement>(null);
-  const line1Ref     = useRef<HTMLDivElement>(null);
-  const line2Ref     = useRef<HTMLDivElement>(null);
-  const paraRef      = useRef<HTMLParagraphElement>(null);
-  const socialRef    = useRef<HTMLDivElement>(null);
-  const statsRef     = useRef<HTMLDivElement>(null);
-  const statNums     = useRef<(HTMLSpanElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const metricValues = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.fromTo(breadcrumbRef.current, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.5 });
-      tl.fromTo(line1Ref.current,      { opacity: 0, y: 40  }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.2");
-      tl.fromTo(line2Ref.current,      { opacity: 0, y: 40  }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5");
-      tl.fromTo(paraRef.current,       { opacity: 0, y: 20  }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.4");
-      tl.fromTo(socialRef.current,     { opacity: 0, y: 16  }, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3");
+      tl.fromTo(
+        ".hybrid-meta-top",
+        { opacity: 0, y: -16 },
+        { opacity: 1, y: 0, duration: 0.6 }
+      );
+      tl.fromTo(
+        ".hybrid-hero-headline",
+        { opacity: 0, y: 36 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        "-=0.2"
+      );
+      tl.fromTo(
+        ".hybrid-editorial-body",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        "-=0.4"
+      );
+      tl.fromTo(
+        ".hybrid-dispatch-card",
+        { opacity: 0, scale: 0.97 },
+        { opacity: 1, scale: 1, duration: 0.7 },
+        "-=0.5"
+      );
+      tl.fromTo(
+        ".hybrid-metrics-shelf",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        "-=0.3"
+      );
 
-      const statItems = statsRef.current?.querySelectorAll("[data-stat]");
-      if (statItems?.length) {
-        tl.fromTo(statItems, { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.1, duration: 0.5 }, "-=0.2");
-      }
-
-      // Counter animation
-      statNums.current.forEach((el, i) => {
+      metricValues.current.forEach((el, i) => {
         if (!el) return;
-        const isFloat = stats[i].value % 1 !== 0;
+        const isFloat = metrics[i].value % 1 !== 0;
         tl.fromTo(
           el,
           { textContent: "0" },
           {
-            textContent: String(stats[i].value),
+            textContent: String(metrics[i].value),
             duration: 1.3,
             ease: "power1.out",
             snap: { textContent: isFloat ? 0.1 : 1 },
@@ -69,137 +81,168 @@ function Home() {
     <section
       id="home"
       ref={sectionRef}
-      className="w-full pt-36 pb-20 min-h-screen flex flex-col justify-center relative overflow-hidden"
-      style={{ background: "#121212" }}
+      className="relative w-full min-h-screen bg-background pt-28 pb-20 overflow-hidden"
     >
-      <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
-
-        {/* Breadcrumb */}
-        <div
-          ref={breadcrumbRef}
-          className="breadcrumb-label mb-10 opacity-0"
-        >
-          ... /home ...
-        </div>
-
-        {/* ── H1 block ──────────────────────────────────────── */}
-        <div className="relative">
-
-          {/* Line 1: "Full-stack" + CTA pill */}
-          <div ref={line1Ref} className="flex flex-wrap items-center gap-x-6 gap-y-4 mb-2 opacity-0">
-            <h1
-              className="font-mono font-bold leading-none tracking-tight text-white"
-              style={{
-                fontFamily: "var(--font-roboto)",
-                fontSize: "clamp(56px, 9vw, 112px)",
-                letterSpacing: "-0.03em",
-              }}
-            >
-              Full-stack
-            </h1>
-
-            {/* Inline CTA pill */}
-            <a
-              href="/#projects"
-              onClick={(e) => {
-                if (window.location.pathname !== "/") return;
-                e.preventDefault();
-                const el = document.getElementById("projects");
-                if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 72, behavior: "smooth" });
-              }}
-              className="pill-btn pill-btn-solid text-[15px] font-mono"
-              style={{ fontFamily: "var(--font-roboto)" }}
-            >
-              Projects
-              <span className="text-[#3D3D3D] font-bold">→</span>
-            </a>
+      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
+        
+        {/* ── TOP EDITORIAL SUB-BAR (Direction A + B Masthead) ───── */}
+        <div className="hybrid-meta-top pb-6 border-b border-border flex flex-wrap items-center justify-between gap-4 font-mono text-2xs uppercase tracking-widest text-fg-subtle opacity-0">
+          <div className="flex items-center gap-3">
+            <span className="text-accent font-bold">VOL. 04</span>
+            <span className="text-border">/</span>
+            <span>FOLIO 2026</span>
+            <span className="text-border">/</span>
+            <span>DHAKA, BD [23.8103° N]</span>
           </div>
-
-          {/* Line 2: "Developer" */}
-          <div ref={line2Ref} className="opacity-0">
-            <h1
-              className="font-mono font-bold leading-none tracking-tight text-white"
-              style={{
-                fontFamily: "var(--font-roboto)",
-                fontSize: "clamp(56px, 9vw, 112px)",
-                letterSpacing: "-0.03em",
-              }}
-            >
-              Developer
-            </h1>
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+            <span className="text-foreground font-semibold">ENGINEERING PRODUCTION SYSTEMS</span>
           </div>
         </div>
 
-        {/* ── Body paragraph ────────────────────────────────── */}
-        <p
-          ref={paraRef}
-          className="mt-10 max-w-[520px] text-[16px] leading-[1.8] opacity-0"
-          style={{ color: "#F5F5F5", fontFamily: "var(--font-open-sans)" }}
-        >
-          My goal is to write{" "}
-          <em className="font-bold not-italic" style={{ color: "#FFFFFF" }}>maintainable, clean</em>{" "}
-          and{" "}
-          <em className="font-bold not-italic" style={{ color: "#FFFFFF" }}>understandable code</em>{" "}
-          — turning ambitious ideas into production-ready software with React, Next.js, and Node.js.
-        </p>
-
-        {/* ── Social Pills ──────────────────────────────────── */}
-        <div ref={socialRef} className="flex flex-wrap gap-3 mt-8 opacity-0">
-          {socialLinks.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target={s.href.startsWith("mailto") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              className="pill-btn pill-btn-outline text-[13px] gap-2"
-              style={{ fontFamily: "var(--font-open-sans)" }}
-            >
-              <span className="font-mono text-[11px]" style={{ color: "#A6A6A6" }}>{s.icon}</span>
-              {s.label}
-            </a>
-          ))}
-          <button
-            onClick={() => setIsPdfModalOpen(true)}
-            className="pill-btn pill-btn-outline text-[13px]"
-            style={{ fontFamily: "var(--font-open-sans)" }}
-          >
-            <span className="font-mono text-[11px]" style={{ color: "#A6A6A6" }}>↗</span>
-            Résumé
-          </button>
-        </div>
-
-        {/* ── Stats row ─────────────────────────────────────── */}
-        <div
-          ref={statsRef}
-          className="mt-16 pt-10 grid grid-cols-3 max-w-[480px] gap-6"
-          style={{ borderTop: "1px solid #3D3D3D" }}
-        >
-          {stats.map((s, i) => (
-            <div key={s.label} data-stat className="flex flex-col gap-1 opacity-0">
-              <div className="flex items-end gap-0.5">
-                <span
-                  className="font-mono font-bold text-white"
-                  style={{
-                    fontFamily: "var(--font-roboto)",
-                    fontSize: "clamp(32px, 4vw, 46px)",
-                    lineHeight: 1,
-                  }}
-                >
-                  <span ref={(el) => { statNums.current[i] = el; }}>{s.value}</span>
-                  <span style={{ color: "#A6A6A6" }}>{s.suffix}</span>
-                </span>
+        {/* ── MAIN HERO GRID: ASYMMETRIC 12-COLUMN BROADSHEET ────── */}
+        <div className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          {/* Left 8 Cols: Monumental Display Headline + Cashmere Lead */}
+          <div className="lg:col-span-8 space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-surface text-2xs font-semibold uppercase tracking-wider text-fg-subtle">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Selected Works · Full-Stack Craft</span>
               </div>
-              <span
-                className="text-[11px] uppercase tracking-[0.15em] font-sans"
-                style={{ color: "#A6A6A6" }}
+
+              <h1 className="hybrid-hero-headline font-display text-hero uppercase tracking-tighter text-foreground leading-none opacity-0">
+                SOFTWARE<br />
+                <span className="text-accent">ENGINEER</span><br />
+                CRAFTED.
+              </h1>
+            </div>
+
+            <p className="hybrid-editorial-body text-base md:text-lg text-fg-muted font-normal leading-relaxed max-w-2xl opacity-0">
+              Transforming ambitious product requirements into dependable, pixel-surgical software. Specialized in scalable React & Next.js client systems, low-latency Node API backends, and robust TypeScript architectures.
+            </p>
+
+            {/* Social & Action Links */}
+            <div className="pt-2 flex flex-wrap items-center gap-6 text-xs uppercase tracking-widest font-semibold">
+              {SOCIAL_LINKS.map((item, idx) => (
+                <div key={item.label} className="flex items-center gap-6">
+                  {idx > 0 && <span className="text-border select-none">—</span>}
+                  <Button variant="swiss" size="none" asChild>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                      rel="noopener noreferrer"
+                    >
+                      {item.label}
+                    </a>
+                  </Button>
+                </div>
+              ))}
+              <span className="text-border select-none">—</span>
+              <Button
+                variant="swiss"
+                size="none"
+                onClick={() => setIsPdfModalOpen(true)}
               >
-                {s.label}
-              </span>
+                Curriculum Vitae ↗
+              </Button>
+            </div>
+          </div>
+
+          {/* Right 4 Cols: Live Dispatch Log Box (shadcn Card) ── */}
+          <div className="hybrid-dispatch-card lg:col-span-4 lg:border-l lg:border-border lg:pl-8 space-y-6 opacity-0">
+            <Card className="rounded-xl border border-border bg-surface p-6">
+              <CardHeader className="p-0 pb-4 border-b border-border flex flex-row items-center justify-between space-y-0">
+                <CardTitle className="text-2xs font-mono font-bold uppercase tracking-widest text-accent">
+                  DISPATCH_LOG // LIVE
+                </CardTitle>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              </CardHeader>
+              
+              <CardContent className="p-0 pt-4 space-y-4 font-mono text-xs text-fg-muted leading-relaxed">
+                <div>
+                  <span className="text-foreground block font-bold text-2xs uppercase tracking-wider mb-0.5">
+                    Current Engagement:
+                  </span>
+                  <span className="text-fg-subtle">Frontend Engineer @ SM Technology</span>
+                </div>
+                <div className="border-t border-border/70 pt-3">
+                  <span className="text-foreground block font-bold text-2xs uppercase tracking-wider mb-0.5">
+                    Primary Domain:
+                  </span>
+                  <span className="text-fg-subtle">Scalable Next.js UI, High-Concurrency APIs</span>
+                </div>
+                <div className="border-t border-border/70 pt-3">
+                  <span className="text-foreground block font-bold text-2xs uppercase tracking-wider mb-0.5">
+                    Availability:
+                  </span>
+                  <span className="text-accent font-bold">Open for Full-Stack & Engineering Roles</span>
+                </div>
+
+                <div className="pt-4 border-t border-border flex gap-3">
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="flex-1 rounded-lg text-2xs uppercase tracking-wider font-bold h-9"
+                    asChild
+                  >
+                    <a href="#projects">View Works ↗</a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="rounded-lg text-2xs uppercase tracking-wider font-bold h-9 px-4"
+                    onClick={() => setIsPdfModalOpen(true)}
+                  >
+                    Preview CV
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Micro Metadata Shelf */}
+            <div className="p-4 rounded-xl border border-border/60 bg-surface/50 space-y-2 font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+              <div className="flex justify-between">
+                <span>Core Frameworks</span>
+                <span className="text-foreground font-semibold">Next.js · React · Node</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Data Infrastructure</span>
+                <span className="text-foreground font-semibold">PostgreSQL · MongoDB</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ── HORIZONTAL METRIC SHELF (Direction B Quiet Craft) ────── */}
+        <div className="hybrid-metrics-shelf mt-6 pt-10 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-6 opacity-0">
+          {metrics.map((m, i) => (
+            <div
+              key={m.label}
+              className="p-6 rounded-xl border border-border bg-surface/40 flex flex-col justify-between space-y-2"
+            >
+              <div className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                <span ref={(el) => { metricValues.current[i] = el; }}>
+                  {m.value}
+                </span>
+                <span className="text-accent ml-0.5">{m.suffix}</span>
+              </div>
+              <div>
+                <div className="text-xs uppercase tracking-widest font-bold text-foreground">
+                  {m.label}
+                </div>
+                <div className="text-2xs text-fg-subtle uppercase tracking-wider mt-0.5 font-mono">
+                  {m.sub}
+                </div>
+              </div>
             </div>
           ))}
         </div>
+
       </div>
 
+      {/* Accessible shadcn Dialog CV Modal */}
       <PdfModal
         isOpen={isPdfModalOpen}
         onClose={() => setIsPdfModalOpen(false)}
@@ -208,5 +251,3 @@ function Home() {
     </section>
   );
 }
-
-export default Home;

@@ -4,6 +4,7 @@ import { Project } from "@/data/project";
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Props = { project: Project; index: number };
 
@@ -32,122 +33,97 @@ export default function ProjectCard({ project, index }: Props) {
   return (
     <div
       data-project-card
-      className="w-full group"
-      style={{
-        border: "1px solid #3D3D3D",
-        borderRadius: "14px",
-        background: "#1E1E1E",
-        overflow: "hidden",
-        transition: "border-color 0.2s ease",
-      }}
-      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#A6A6A6"; }}
-      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#3D3D3D"; }}
+      className="w-full group rounded-2xl border border-border bg-surface overflow-hidden hover:border-accent/40 transition-all duration-300"
     >
       <div className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} w-full`}>
-
-        {/* ── Image side ───────────────────────────────────── */}
-        <div className="flex-[1.1] relative" style={{ borderRight: isEven ? "1px solid #3D3D3D" : undefined, borderLeft: !isEven ? "1px solid #3D3D3D" : undefined }}>
+        
+        {/* Preview Frame */}
+        <div className="flex-[1.1] relative min-h-[260px] lg:min-h-[340px] bg-background border-b lg:border-b-0 border-border overflow-hidden">
           <Link
             href={project.liveUrl || project.githubUrl || "#"}
             target="_blank"
-            className="block relative w-full h-full min-h-[220px] lg:min-h-[280px] overflow-hidden"
-            style={{ background: "#121212" }}
+            className="block relative w-full h-full"
           >
             {finalImageSrc ? (
               <Image
                 src={finalImageSrc}
                 alt={project.title}
                 fill
-                className="object-cover opacity-80 group-hover:opacity-95 transition-all duration-500"
+                className="object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-700"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             ) : (
-              <div
-                className="w-full h-full flex items-center justify-center font-mono text-sm"
-                style={{ color: "#3D3D3D", minHeight: "220px" }}
-              >
-                [ No preview ]
+              <div className="w-full h-full flex items-center justify-center font-mono text-xs text-fg-subtle uppercase tracking-widest">
+                [ No visual preview ]
               </div>
             )}
+            <div className="absolute inset-0 bg-gradient-to-t from-surface/60 via-transparent to-transparent pointer-events-none" />
           </Link>
         </div>
 
-        {/* ── Text side ────────────────────────────────────── */}
-        <div className="flex-[1] flex flex-col p-7 lg:p-10 justify-center">
+        {/* Text & Specification Panel */}
+        <div className="flex-[1] flex flex-col p-8 lg:p-10 justify-between space-y-6">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-2xs uppercase tracking-widest text-accent font-bold px-2 py-0.5 rounded bg-accent/10 border border-accent/20">
+                {project.type || "Full-Stack System"}
+              </span>
+              <span className="font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+                CASE STUDY
+              </span>
+            </div>
 
-          {/* Type badge */}
-          <span
-            className="font-mono text-[11px] uppercase tracking-[0.15em] mb-4 self-start px-2.5 py-1"
-            style={{
-              color: "#A6A6A6",
-              border: "1px solid #3D3D3D",
-              borderRadius: "4px",
-              fontFamily: "var(--font-roboto)",
-            }}
-          >
-            {project.type || "Full Stack"}
-          </span>
+            <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight text-foreground group-hover:text-accent transition-colors">
+              {project.title}
+            </h3>
 
-          {/* Title */}
-          <h3
-            className="font-mono font-bold text-white mb-2 leading-tight"
-            style={{
-              fontFamily: "var(--font-roboto)",
-              fontSize: "clamp(22px, 3vw, 32px)",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            {project.title}
-          </h3>
+            <p className="text-sm text-fg-muted font-normal leading-relaxed">
+              {project.problem || project.subtitle}
+            </p>
 
-          {/* Subtitle */}
-          <p
-            className="font-sans text-[13px] mb-5"
-            style={{ color: "#A6A6A6" }}
-          >
-            {project.subtitle}
-          </p>
+            <div className="pt-2 flex flex-wrap gap-2 font-mono text-2xs uppercase tracking-wider text-fg-subtle">
+              {project.tech?.map((t) => (
+                <span
+                  key={t}
+                  className="px-2 py-1 rounded bg-background border border-border"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
 
-          {/* Description */}
-          <p
-            className="font-sans text-[14px] leading-[1.75] mb-6"
-            style={{ color: "#F5F5F5" }}
-          >
-            {project.problem || ""}
-          </p>
-
-          {/* Tech stack — slash separated */}
-          <p
-            className="font-mono text-[12px] mb-8"
-            style={{ color: "#A6A6A6", fontFamily: "var(--font-roboto)" }}
-          >
-            {project.tech?.join(" / ")}
-          </p>
-
-          {/* CTA buttons */}
-          <div className="flex flex-wrap gap-3 mt-auto">
+          {/* Action CTAs */}
+          <div className="pt-4 border-t border-border/80 flex flex-wrap gap-3">
             {project.liveUrl && (
-              <Link
-                href={project.liveUrl}
-                target="_blank"
-                className="pill-btn pill-btn-solid text-[13px]"
+              <Button
+                variant="default"
+                size="sm"
+                className="rounded-lg text-2xs uppercase tracking-wider font-bold gap-2 h-9 px-4"
+                asChild
               >
-                <ExternalLink className="w-3.5 h-3.5" />
-                Live App
-              </Link>
+                <Link href={project.liveUrl} target="_blank">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  Live App
+                </Link>
+              </Button>
             )}
             {!project.isPrivate && project.githubUrl && (
-              <Link
-                href={project.githubUrl}
-                target="_blank"
-                className="pill-btn pill-btn-outline text-[13px]"
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-lg text-2xs uppercase tracking-wider font-bold gap-2 h-9 px-4 border-border hover:border-foreground"
+                asChild
               >
-                <Github className="w-3.5 h-3.5" />
-                Source
-              </Link>
+                <Link href={project.githubUrl} target="_blank">
+                  <Github className="w-3.5 h-3.5" />
+                  Source Code
+                </Link>
+              </Button>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );

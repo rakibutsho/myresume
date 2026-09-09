@@ -1,10 +1,13 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,11 +18,8 @@ interface ContactFormInputs {
   message: string;
 }
 
-function Contact() {
+export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
-  const leftColRef = useRef<HTMLDivElement>(null);
-  const formRef    = useRef<HTMLFormElement>(null);
-
   const {
     register,
     handleSubmit,
@@ -31,27 +31,23 @@ function Contact() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (leftColRef.current) {
-        gsap.fromTo(
-          leftColRef.current,
-          { opacity: 0, x: -40 },
-          {
-            opacity: 1, x: 0, duration: 0.8, ease: "power3.out",
-            scrollTrigger: { trigger: leftColRef.current, start: "top 80%", toggleActions: "play none none none" },
-          }
-        );
-      }
-      if (formRef.current) {
-        gsap.fromTo(
-          formRef.current,
-          { opacity: 0, x: 40 },
-          {
-            opacity: 1, x: 0, duration: 0.8, ease: "power3.out", delay: 0.15,
-            scrollTrigger: { trigger: formRef.current, start: "top 80%", toggleActions: "play none none none" },
-          }
-        );
-      }
+      gsap.fromTo(
+        ".hybrid-contact-content",
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
@@ -64,198 +60,147 @@ function Contact() {
       });
       const resData = await response.json();
       if (resData.success) {
-        toast.success("Message sent successfully! I'll get back to you soon.");
+        toast.success("Dispatch delivered successfully! I will be in touch shortly.");
         reset();
       } else {
-        toast.error(resData.error || "Something went wrong. Please try again.");
+        toast.error(resData.error || "Failed to deliver message. Please retry.");
       }
     } catch (error: any) {
-      toast.error(error.message || "Failed to send message. Please try again.");
+      toast.error(error.message || "Failed to deliver message. Please retry.");
     }
-  };
-
-  const inputStyle = {
-    background: "#1E1E1E",
-    border: "1px solid #3D3D3D",
-    borderRadius: "8px",
-    color: "#F5F5F5",
-    fontFamily: "var(--font-open-sans)",
-    fontSize: "14px",
-    width: "100%",
-    padding: "14px 16px",
-    outline: "none",
-    transition: "border-color 0.2s ease",
-  } as React.CSSProperties;
-
-  const labelStyle = {
-    display: "block",
-    fontFamily: "var(--font-roboto)",
-    fontSize: "11px",
-    textTransform: "uppercase" as const,
-    letterSpacing: "0.12em",
-    color: "#A6A6A6",
-    marginBottom: "8px",
   };
 
   return (
     <section
       id="contact"
       ref={sectionRef}
-      className="w-full py-28 relative"
-      style={{ background: "#121212" }}
+      className="w-full py-28 bg-background border-t border-border"
     >
-      <div className="w-full max-w-[1280px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
+        
+        {/* Section Header Indicator */}
+        <div className="flex flex-wrap items-end justify-between gap-6 pb-6 border-b border-border mb-16">
+          <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+            <span className="text-accent font-bold">05</span>
+            <span className="text-border">/</span>
+            <span>COMMISSION & DIRECT INQUIRY</span>
+          </div>
+          <span className="text-xs text-fg-subtle font-mono uppercase tracking-widest">
+            ACTIVE TRANSMISSION
+          </span>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 items-start">
+        {/* Two-Column Grid */}
+        <div className="hybrid-contact-content grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start opacity-0">
+          
+          {/* Left Column (5 cols): Editorial Inquiry */}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="space-y-4">
+              <h2 className="font-display text-4xl sm:text-5xl uppercase tracking-tight text-foreground leading-[0.95]">
+                Let&apos;s build<br />
+                <span className="text-accent">something</span><br />
+                lasting.
+              </h2>
+              <p className="text-base text-fg-muted font-normal leading-relaxed">
+                Whether you have an ambitious greenfield product to architect or need high-concurrency engineering firepower on an existing team, my inbox is open.
+              </p>
+            </div>
 
-          {/* ── Left: heading + contacts ───────────────── */}
-          <div ref={leftColRef}>
-            <span className="breadcrumb-label block mb-8">... /Contact ...</span>
-
-            <h2
-              className="font-mono font-bold text-white leading-tight mb-6"
-              style={{
-                fontFamily: "var(--font-roboto)",
-                fontSize: "clamp(32px, 5vw, 60px)",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Let&apos;s build<br />something.
-            </h2>
-
-            <p
-              className="font-sans text-[15px] leading-[1.8] mb-12 max-w-[380px]"
-              style={{ color: "#A6A6A6" }}
-            >
-              Have a project or a role in mind? Reach out and I&apos;ll get back to you as quickly as possible.
-            </p>
-
-            {/* Contact links */}
-            <div className="flex flex-col gap-4">
+            {/* Direct Channels */}
+            <div className="space-y-4 border-t border-border pt-6">
               {[
-                { label: "Email", value: "mail@rakibutsho.dev", href: "mailto:mail@rakibutsho.dev" },
-                { label: "LinkedIn", value: "/in/rakibutsho", href: "https://www.linkedin.com/in/rakibutsho" },
-                { label: "GitHub", value: "github.com/rakibutsho", href: "https://github.com/rakibutsho" },
-              ].map((item) => (
+                { label: "Direct Mail", val: "mail@rakibutsho.dev", href: "mailto:mail@rakibutsho.dev" },
+                { label: "LinkedIn", val: "in/rakibutsho", href: "https://www.linkedin.com/in/rakibutsho" },
+                { label: "GitHub", val: "github.com/rakibutsho", href: "https://github.com/rakibutsho" },
+              ].map((c) => (
                 <a
-                  key={item.label}
-                  href={item.href}
-                  target={item.href.startsWith("mailto") ? undefined : "_blank"}
+                  key={c.label}
+                  href={c.href}
+                  target={c.href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 py-4 transition-colors"
-                  style={{ borderBottom: "1px solid #3D3D3D" }}
+                  className="flex items-center justify-between py-3 border-b border-border group hover:border-accent transition-colors"
                 >
-                  <span
-                    className="font-mono text-[11px] uppercase tracking-[0.15em] w-20 shrink-0"
-                    style={{ color: "#A6A6A6", fontFamily: "var(--font-roboto)" }}
-                  >
-                    {item.label}
+                  <span className="font-mono text-2xs uppercase tracking-widest text-fg-subtle">
+                    {c.label}
                   </span>
-                  <span
-                    className="font-sans text-[14px] transition-colors group-hover:text-white"
-                    style={{ color: "#F5F5F5" }}
-                  >
-                    {item.value}
-                  </span>
-                  <span
-                    className="ml-auto font-mono text-[16px] transition-transform group-hover:translate-x-1"
-                    style={{ color: "#A6A6A6" }}
-                  >
-                    →
+                  <span className="text-sm text-foreground group-hover:text-accent font-medium transition-colors">
+                    {c.val} ↗
                   </span>
                 </a>
               ))}
             </div>
           </div>
 
-          {/* ── Right: form ───────────────────────────── */}
-          <div
-            className="p-8 md:p-10"
-            style={{
-              background: "#1E1E1E",
-              border: "1px solid #3D3D3D",
-              borderRadius: "14px",
-            }}
-          >
-            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-
-              {/* Name + Email row */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label style={labelStyle}>Name</label>
-                  <input
-                    type="text"
-                    placeholder="John Doe"
-                    {...register("name", { required: true })}
-                    style={inputStyle}
-                    onFocus={(e) => { e.target.style.borderColor = "#FFFFFF"; }}
-                    onBlur={(e)  => { e.target.style.borderColor = errors.name ? "#F87171" : "#3D3D3D"; }}
-                  />
-                </div>
-                <div>
-                  <label style={labelStyle}>Email</label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    {...register("email", { required: true })}
-                    style={inputStyle}
-                    onFocus={(e) => { e.target.style.borderColor = "#FFFFFF"; }}
-                    onBlur={(e)  => { e.target.style.borderColor = errors.email ? "#F87171" : "#3D3D3D"; }}
-                  />
-                </div>
-              </div>
-
-              {/* Subject */}
-              <div>
-                <label style={labelStyle}>Subject</label>
-                <input
-                  type="text"
-                  placeholder="Project idea, job offer, collaboration..."
-                  {...register("subject")}
-                  style={inputStyle}
-                  onFocus={(e) => { e.target.style.borderColor = "#FFFFFF"; }}
-                  onBlur={(e)  => { e.target.style.borderColor = "#3D3D3D"; }}
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label style={labelStyle}>Message</label>
-                <textarea
-                  placeholder="Hello, I'd like to discuss..."
-                  {...register("message", { required: true })}
-                  rows={5}
-                  style={{ ...inputStyle, resize: "none" }}
-                  onFocus={(e) => { e.target.style.borderColor = "#FFFFFF"; }}
-                  onBlur={(e)  => { e.target.style.borderColor = errors.message ? "#F87171" : "#3D3D3D"; }}
-                />
-              </div>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="pill-btn pill-btn-solid w-full justify-center text-[14px] mt-2 py-4 font-semibold disabled:opacity-50 disabled:cursor-wait"
-                style={{ fontFamily: "var(--font-open-sans)" }}
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-3">
-                    <span
-                      className="w-4 h-4 rounded-full border-2 border-t-transparent animate-spin"
-                      style={{ borderColor: "#A6A6A6", borderTopColor: "transparent" }}
+          {/* Right Column (7 cols): Contact Form with shadcn Input & Card */}
+          <div className="lg:col-span-7">
+            <Card className="rounded-2xl border border-border bg-surface p-8 sm:p-10">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="block font-mono text-2xs uppercase tracking-widest text-fg-subtle font-bold">
+                      Full Name *
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="e.g. Elena Rostova"
+                      {...register("name", { required: true })}
+                      className={`h-11 rounded-lg bg-background border-border text-sm ${errors.name ? "border-destructive" : ""}`}
                     />
-                    Sending...
-                  </span>
-                ) : (
-                  "Send Message →"
-                )}
-              </button>
-            </form>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block font-mono text-2xs uppercase tracking-widest text-fg-subtle font-bold">
+                      Email Address *
+                    </label>
+                    <Input
+                      type="email"
+                      placeholder="e.g. elena@domain.com"
+                      {...register("email", { required: true })}
+                      className={`h-11 rounded-lg bg-background border-border text-sm ${errors.email ? "border-destructive" : ""}`}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block font-mono text-2xs uppercase tracking-widest text-fg-subtle font-bold">
+                    Project Scope / Subject
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="Architecture advisory, full-time opportunity, SaaS build..."
+                    {...register("subject")}
+                    className="h-11 rounded-lg bg-background border-border text-sm"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block font-mono text-2xs uppercase tracking-widest text-fg-subtle font-bold">
+                    Dispatch Narrative *
+                  </label>
+                  <textarea
+                    rows={5}
+                    placeholder="Outline your timeline, goals, and technical requirements..."
+                    {...register("message", { required: true })}
+                    className={`w-full rounded-lg bg-background border border-border px-4 py-3 text-sm text-foreground placeholder:text-fg-subtle focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent focus-visible:border-accent resize-none transition-colors ${
+                      errors.message ? "border-destructive" : ""
+                    }`}
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full h-12 rounded-lg font-mono text-xs uppercase tracking-widest font-bold bg-foreground text-background hover:bg-accent hover:text-white transition-colors"
+                >
+                  {isSubmitting ? "TRANSMITTING..." : "SEND INQUIRY DISPATCH →"}
+                </Button>
+              </form>
+            </Card>
           </div>
+
         </div>
+
       </div>
     </section>
   );
 }
-
-export default Contact;
