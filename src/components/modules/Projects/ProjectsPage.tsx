@@ -1,33 +1,42 @@
 "use client";
 
 import { projects } from "@/data/project";
-import ProjectsGrid from "./ProjectsGrid";
+import { FeaturedProjectsGrid } from "./FeaturedProjectsGrid";
+import { BlurText } from "@/components/common/BlurText";
+import { Terminal as TerminalIcon } from "lucide-react";
 
 export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="w-full py-28 bg-background border-t border-border"
+      className="w-full py-24 px-6 border-t border-white/[0.06]"
     >
-      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
-        {/* Section Header Indicator */}
-        <div className="flex flex-wrap items-end justify-between gap-6 pb-6 border-b border-border mb-16">
-          <div>
-            <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle mb-3">
-              <span className="text-accent font-bold">04</span>
-              <span className="text-border">/</span>
-              <span>SELECTED WORKS & CASE STUDIES</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-tight text-foreground">
-              Featured Systems
-            </h2>
+      <div className="max-w-6xl mx-auto space-y-12">
+        {/* Section Header */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/5 text-sky-400 text-xs font-mono">
+            <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+            <span>$ ls ~/projects --featured --top</span>
+            <span className="text-white/20">•</span>
+            <span className="text-slate-400">flagship.systems</span>
           </div>
-          <span className="text-xs text-fg-subtle font-mono uppercase tracking-widest">
-            PRODUCTION ARTIFACTS
-          </span>
+
+          <BlurText
+            text="Selected Software Engineering Projects"
+            highlightWords={["Engineering", "Projects"]}
+            highlightClass="text-shimmer"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
+            as="h2"
+          />
+
+          <p className="text-base text-slate-400 max-w-2xl font-normal leading-relaxed">
+            Featured production platforms and open-source engines engineered for
+            reliability, responsiveness, and clean maintainability.
+          </p>
         </div>
 
-        <ProjectsGrid projects={projects} />
+        {/* Top & Flagship Projects Bento Showcase */}
+        <FeaturedProjectsGrid projects={projects} />
       </div>
     </section>
   );

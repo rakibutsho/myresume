@@ -1,7 +1,13 @@
 import { Project, ProjectImageObj } from "@/data/project";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Github, CheckCircle2, ArrowUpRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ExternalLink,
+  CheckCircle2,
+  ArrowUpRight,
+} from "lucide-react";
+import { Github } from "@/components/common/Icons";
 
 type Props = { project: Project };
 
@@ -30,7 +36,7 @@ const renderImage = (src: string, alt: string, className?: string) => {
 
 export default function ProjectDetails({ project }: Props) {
   const isArray = Array.isArray(project.image);
-  
+
   let coverImage = "";
   let responsiveImage = "";
   let dashboardImages: { id: number; link: string }[] = [];
@@ -84,24 +90,29 @@ export default function ProjectDetails({ project }: Props) {
         {coverImage && (
           <div className="relative w-full h-[500px] md:h-[700px] rounded-[2rem] overflow-hidden bg-[#121214] border border-white/10 shadow-[0_30px_100px_-20px_rgba(0,0,0,1)] mb-32 flex items-end justify-center group">
             {/* Grid Background */}
-            <div 
+            <div
               className="absolute inset-0 opacity-[0.2]"
-              style={{ 
-                backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', 
-                backgroundSize: '32px 32px' 
-              }} 
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+                backgroundSize: "32px 32px",
+              }}
             />
-            
+
             {/* The Image Window */}
             <div className="relative w-[90%] h-[90%] rounded-t-2xl overflow-hidden border-t border-l border-r border-white/10 shadow-2xl bg-[#09090b] z-10 transform transition-transform duration-1000 group-hover:-translate-y-4">
-               {/* Browser Header */}
-               <div className="absolute top-0 left-0 w-full h-10 bg-white/5 border-b border-white/10 flex items-center px-6 gap-2 z-20 backdrop-blur-md">
+              {/* Browser Header */}
+              <div className="absolute top-0 left-0 w-full h-10 bg-white/5 border-b border-white/10 flex items-center px-6 gap-2 z-20 backdrop-blur-md">
                 <div className="w-3 h-3 rounded-full bg-white/20"></div>
                 <div className="w-3 h-3 rounded-full bg-white/20"></div>
                 <div className="w-3 h-3 rounded-full bg-white/20"></div>
               </div>
               <div className="relative w-full h-full pt-10">
-                {renderImage(coverImage, `${project.title} Cover`, "transition-transform duration-1000")}
+                {renderImage(
+                  coverImage,
+                  `${project.title} Cover`,
+                  "transition-transform duration-1000",
+                )}
               </div>
             </div>
           </div>
@@ -111,11 +122,14 @@ export default function ProjectDetails({ project }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
           {/* Left Column: Context */}
           <div className="lg:col-span-8 space-y-24">
-            
             {/* Problem section */}
             <section className="relative">
-              <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">01</div>
-              <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">The Challenge</h2>
+              <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">
+                01
+              </div>
+              <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">
+                The Challenge
+              </h2>
               <div className="text-lg md:text-xl text-[#a1a1aa] font-light leading-relaxed space-y-6">
                 <p>{project.problem}</p>
               </div>
@@ -123,8 +137,12 @@ export default function ProjectDetails({ project }: Props) {
 
             {/* Solution section */}
             <section className="relative">
-              <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">02</div>
-              <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">The Solution</h2>
+              <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">
+                02
+              </div>
+              <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">
+                The Solution
+              </h2>
               <div className="text-lg md:text-xl text-[#a1a1aa] font-light leading-relaxed space-y-6">
                 <p>{project.solution}</p>
               </div>
@@ -133,8 +151,12 @@ export default function ProjectDetails({ project }: Props) {
             {/* Additional Images Section */}
             {(responsiveImage || dashboardImages.length > 0) && (
               <section className="relative">
-                <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">03</div>
-                <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">Interface & Details</h2>
+                <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">
+                  03
+                </div>
+                <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">
+                  Interface & Details
+                </h2>
                 <div className="space-y-8">
                   {responsiveImage && (
                     <div className="relative w-full h-[400px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 bg-[#121214]">
@@ -144,8 +166,15 @@ export default function ProjectDetails({ project }: Props) {
                   {dashboardImages.length > 0 && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       {dashboardImages.map((img) => (
-                        <div key={img.id} className="relative w-full h-[300px] rounded-3xl overflow-hidden border border-white/10 bg-[#121214] group">
-                           {renderImage(img.link, `Dashboard View ${img.id + 1}`, "group-hover:scale-105 transition-transform duration-700")}
+                        <div
+                          key={img.id}
+                          className="relative w-full h-[300px] rounded-3xl overflow-hidden border border-white/10 bg-[#121214] group"
+                        >
+                          {renderImage(
+                            img.link,
+                            `Dashboard View ${img.id + 1}`,
+                            "group-hover:scale-105 transition-transform duration-700",
+                          )}
                         </div>
                       ))}
                     </div>
@@ -159,7 +188,9 @@ export default function ProjectDetails({ project }: Props) {
               <div className="absolute -left-8 top-2 text-6xl font-bold text-white/5 select-none hidden md:block">
                 {responsiveImage || dashboardImages.length > 0 ? "04" : "03"}
               </div>
-              <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">Impact & Results</h2>
+              <h2 className="text-3xl font-semibold text-white mb-8 tracking-tight">
+                Impact & Results
+              </h2>
               <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-10">
                 <ul className="space-y-6">
                   {project.results.map((result, idx) => (
@@ -180,11 +211,15 @@ export default function ProjectDetails({ project }: Props) {
           {/* Right Column: Meta & Links Sidebar */}
           <aside className="lg:col-span-4">
             <div className="sticky top-32 space-y-8">
-              
               {/* Tech Stack Bento Box */}
               <div className="p-8 rounded-[2rem] bg-[#121214] border border-white/5 shadow-2xl relative overflow-hidden group">
-                <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
-                  style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '16px 16px' }} 
+                <div
+                  className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 2px 2px, white 1px, transparent 0)",
+                    backgroundSize: "16px 16px",
+                  }}
                 />
                 <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#a1a1aa] mb-8 relative z-10">
                   Technologies
@@ -193,7 +228,9 @@ export default function ProjectDetails({ project }: Props) {
                   {project.tech.map((t) => (
                     <div key={t} className="flex items-center gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/50"></span>
-                      <span className="text-sm font-medium tracking-wider text-white uppercase">{t}</span>
+                      <span className="text-sm font-medium tracking-wider text-white uppercase">
+                        {t}
+                      </span>
                     </div>
                   ))}
                 </div>

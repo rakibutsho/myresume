@@ -1,28 +1,37 @@
 "use client";
 
 import Institute from "./Institute";
+import { BlurText } from "@/components/common/BlurText";
+import { Terminal as TerminalIcon } from "lucide-react";
 
 export default function Education() {
   return (
     <section
       id="education"
-      className="w-full py-28 bg-background border-t border-border"
+      className="w-full py-24 px-6 border-t border-white/[0.06]"
     >
-      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
-        <div className="flex flex-wrap items-end justify-between gap-6 pb-6 border-b border-border mb-16">
-          <div>
-            <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle mb-3">
-              <span className="text-accent font-bold">06</span>
-              <span className="text-border">/</span>
-              <span>ACADEMIC FOUNDATION & DEGREES</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-tight text-foreground">
-              Formal Education
-            </h2>
+      <div className="max-w-6xl mx-auto space-y-16">
+        {/* Section Header */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/5 text-sky-400 text-xs font-mono">
+            <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+            <span>$ cat education.json</span>
+            <span className="text-white/20">•</span>
+            <span className="text-slate-400">academic.degrees</span>
           </div>
-          <span className="text-xs text-fg-subtle font-mono uppercase tracking-widest">
-            ACADEMIC CREDENTIALS
-          </span>
+
+          <BlurText
+            text="Computer Science Foundation"
+            highlightWords={["Foundation"]}
+            highlightClass="text-shimmer"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
+            as="h2"
+          />
+
+          <p className="text-base text-slate-400 max-w-2xl font-normal leading-relaxed">
+            Formal computational education in advanced algorithms, distributed
+            databases, software quality assurance, and system design.
+          </p>
         </div>
 
         <Institute />

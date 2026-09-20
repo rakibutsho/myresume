@@ -1,125 +1,121 @@
 "use client";
 
 import { testimonials } from "@/data/testimonials";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import { Card } from "@/components/ui/card";
-import "swiper/css";
+import { Quote, Terminal as TerminalIcon, CheckCircle2 } from "lucide-react";
+import { BlurText } from "@/components/common/BlurText";
 
-gsap.registerPlugin(ScrollTrigger);
+const ENDORSEMENT_TAGS: Record<number, string[]> = {
+  1: ["#ProductionDelivery", "#DesignEngineeringHandoff"],
+  2: ["#CleanReact", "#QualityPRs"],
+  3: ["#PixelPrecision", "#UIInteraction"],
+  4: ["#SystemTesting", "#DefectResolution"],
+};
 
 export default function Testimonials() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const cardsRef   = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-      if (cardsRef.current) {
-        gsap.fromTo(
-          cardsRef.current,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty("--mouse-x", `${x}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${y}px`);
+  };
 
   return (
     <section
       id="testimonials"
-      ref={sectionRef}
-      className="w-full py-28 bg-background border-t border-border overflow-hidden"
+      className="w-full py-24 px-6 border-t border-white/[0.06]"
     >
-      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
-        
-        {/* Section Header Indicator */}
-        <div ref={headingRef} className="flex flex-wrap items-end justify-between gap-6 pb-6 border-b border-border mb-16 opacity-0">
-          <div>
-            <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle mb-3">
-              <span className="text-accent font-bold">07</span>
-              <span className="text-border">/</span>
-              <span>TESTIMONIALS & PEER ENDORSEMENTS</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl uppercase tracking-tight text-foreground">
-              Client & Peer Verdicts
-            </h2>
+      <div className="max-w-6xl mx-auto space-y-16">
+        {/* Section Header */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/5 text-sky-400 text-xs font-mono">
+            <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+            <span>$ cat recommendations.log</span>
+            <span className="text-white/20">•</span>
+            <span className="text-slate-400">peer.endorsements</span>
           </div>
-          <span className="text-xs text-fg-subtle font-mono uppercase tracking-widest">
-            VERIFIED FEEDBACK
-          </span>
+
+          <BlurText
+            text="Feedback from team leads, designers & engineers."
+            highlightWords={["engineers.", "leads,"]}
+            highlightClass="text-shimmer"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
+            as="h2"
+          />
+
+          <p className="text-base text-slate-400 max-w-2xl font-normal leading-relaxed">
+            Direct endorsements from colleagues I&apos;ve collaborated with on
+            production releases, design-to-code handoffs, and QA lifecycles.
+          </p>
         </div>
 
-        {/* Swiper Carousel */}
-        <div ref={cardsRef} className="opacity-0">
-          <Swiper
-            modules={[Autoplay]}
-            spaceBetween={24}
-            slidesPerView={1.1}
-            loop={true}
-            speed={5000}
-            autoplay={{ delay: 0, disableOnInteraction: false, pauseOnMouseEnter: true }}
-            breakpoints={{
-              640:  { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            className="pb-4"
-          >
-            {testimonials.map((t) => (
-              <SwiperSlide key={t.id} className="h-auto">
-                <Card className="h-full flex flex-col justify-between p-8 rounded-2xl border border-border bg-surface hover:border-accent/40 transition-colors min-h-[260px]">
-                  <p className="text-sm text-fg-muted font-normal leading-relaxed mb-8">
+        {/* 2x2 Interactive Terminal Review Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {testimonials.map((t) => {
+            const tags = ENDORSEMENT_TAGS[t.id] || [];
+
+            return (
+              <div
+                key={t.id}
+                onMouseMove={handleMouseMove}
+                className="spotlight-card glow-card p-7 sm:p-8 rounded-2xl border border-white/[0.08] bg-[#0F1117] flex flex-col justify-between space-y-6 group transition-all duration-300"
+              >
+                {/* Card Terminal Header Bar */}
+                <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] relative z-10">
+                  <div className="flex items-center gap-2 font-mono text-[11px] text-slate-400">
+                    <span className="text-sky-400">&gt;_</span>
+                    <span className="text-slate-300 font-medium">
+                      review_0{t.id}.md
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-[10px] font-mono text-emerald-400 font-medium">
+                    <CheckCircle2 className="w-3 h-3 text-emerald-400" />
+                    <span>Verified Colleague</span>
+                  </div>
+                </div>
+
+                {/* Quote Content */}
+                <div className="space-y-4 relative z-10">
+                  <Quote className="w-6 h-6 text-sky-400/50 group-hover:text-sky-400 transition-colors" />
+                  <p className="text-sm text-slate-300 font-normal leading-relaxed">
                     &ldquo;{t.message}&rdquo;
                   </p>
 
-                  <div className="flex items-center gap-4 pt-5 border-t border-border/80">
-                    <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center font-mono text-xs font-bold text-foreground shrink-0">
-                      {t.avatar}
+                  {/* Skill/Contribution Tags */}
+                  {tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-0.5 rounded-md text-[10px] font-mono border border-white/[0.06] bg-white/[0.02] text-slate-400 group-hover:text-sky-300 group-hover:border-sky-400/20 transition-colors"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
-                    <div className="min-w-0">
-                      <div className="font-semibold text-sm text-foreground truncate">
-                        {t.name}
-                      </div>
-                      <div className="font-mono text-2xs uppercase tracking-wider text-fg-subtle truncate">
-                        {t.role} · {t.company}
-                      </div>
+                  )}
+                </div>
+
+                {/* Author Footer */}
+                <div className="pt-5 border-t border-white/[0.06] flex items-center gap-3.5 relative z-10">
+                  <div className="w-10 h-10 rounded-full bg-white/[0.04] border border-white/[0.1] group-hover:border-sky-500/40 flex items-center justify-center font-mono text-xs font-bold text-sky-400 transition-colors shrink-0">
+                    {t.avatar}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-sm font-semibold text-white tracking-tight group-hover:text-sky-300 transition-colors">
+                      {t.name}
+                    </div>
+                    <div className="text-xs text-slate-400 font-mono truncate">
+                      {t.role} <span className="text-white/20">•</span>{" "}
+                      {t.company}
                     </div>
                   </div>
-                </Card>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                </div>
+              </div>
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

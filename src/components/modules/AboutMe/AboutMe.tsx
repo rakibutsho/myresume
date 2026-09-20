@@ -1,181 +1,180 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
 import profileImg from "@/assets/Profile.png";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { BlurText } from "@/components/common/BlurText";
+import {
+  Code2,
+  Server,
+  Database,
+  GitBranch,
+  MapPin,
+  GraduationCap,
+  Terminal as TerminalIcon,
+} from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const skillDomains = [
+const PILLARS = [
   {
-    title: "Client-Side Engineering",
-    tags: ["TypeScript", "Next.js", "React 19", "Redux Toolkit", "Tailwind CSS", "Framer Motion", "Shadcn UI"],
+    icon: Code2,
+    title: "Frontend & Design Systems",
+    desc: "Crafting modular, reusable component systems in Next.js, React, and TypeScript with fluid interactions and strict performance budgets.",
   },
   {
-    title: "Server & Micro-Services",
-    tags: ["Node.js", "Express.js", "RESTful APIs", "JWT Authentication", "Socket.io", "System Design"],
+    icon: Server,
+    title: "Backend & Distributed APIs",
+    desc: "Engineering scalable REST APIs, WebSocket channels, and authentication flows with Node.js, Express, and microservice principles.",
   },
   {
-    title: "Databases & Storage",
-    tags: ["PostgreSQL", "MongoDB", "Prisma ORM", "Mongoose", "MySQL", "Redis Caching"],
+    icon: Database,
+    title: "Database Modeling & Caching",
+    desc: "Structuring clean relational & document schemas in PostgreSQL and MongoDB, optimized with Prisma and Redis caching layers.",
   },
   {
-    title: "DevOps & Infrastructure",
-    tags: ["Docker", "Git", "GitHub Actions CI/CD", "Linux VPS Hosting", "Vercel", "AWS Basics"],
+    icon: GitBranch,
+    title: "DevOps & Production Delivery",
+    desc: "Containerizing deployments with Docker, automating CI/CD pipelines, and maintaining high uptime on Linux VPS instances.",
   },
 ];
 
 export default function AboutMe() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".hybrid-about-left",
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-      gsap.fromTo(
-        ".hybrid-about-card",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.6,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-      gsap.fromTo(
-        ".hybrid-about-portrait",
-        { opacity: 0, scale: 0.96 },
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="about"
-      ref={containerRef}
-      className="w-full py-28 bg-background border-t border-border"
+      className="w-full py-24 px-6 border-t border-white/[0.06]"
     >
-      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
-
-        {/* Section Header Indicator */}
-        <div className="flex items-center justify-between pb-6 border-b border-border mb-16">
-          <div className="flex items-center gap-3 font-mono text-2xs uppercase tracking-widest text-fg-subtle">
-            <span className="text-accent font-bold">01</span>
-            <span className="text-border">/</span>
-            <span>BACKGROUND & ENGINEERING PHILOSOPHY</span>
+      <div className="max-w-6xl mx-auto space-y-16">
+        {/* Section Header */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/5 text-sky-400 text-xs font-mono">
+            <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+            <span>$ cat about.md</span>
+            <span className="text-white/20">•</span>
+            <span className="text-slate-400">profile.dossier</span>
           </div>
-          <span className="hidden sm:inline font-mono text-2xs uppercase tracking-widest text-fg-subtle">
-            DHAKA, BANGLADESH
-          </span>
+
+          <BlurText
+            text="Driven by curiosity, rigor, and software craft."
+            highlightWords={["curiosity,", "craft."]}
+            highlightClass="text-shimmer"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white"
+            as="h2"
+          />
         </div>
 
-        {/* Two-Column Asymmetric Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* Left Column (7 cols): Editorial Narrative + Domain Cards */}
-          <div className="lg:col-span-7 space-y-10 hybrid-about-left opacity-0">
-            <div className="space-y-4">
-              <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-foreground leading-tight">
-                Architecting interfaces with <span className="text-accent">surgical precision</span>.
-              </h2>
-              <p className="text-base md:text-lg text-fg-muted font-normal leading-relaxed">
-                Hello! I&apos;m Rakibul Islam, a full-stack engineer driven by a passion for clean code architecture, resilient distributed backends, and responsive, accessible user interfaces.
-              </p>
-              <p className="text-sm md:text-base text-fg-subtle leading-relaxed">
-                Over 1.5+ years of shipping enterprise web software, I have focused on closing the feedback loop between design mockups and production deployment — building scalable component libraries, optimizing render pipelines, and designing secure, predictable REST services.
-              </p>
-            </div>
+        {/* 2-Column Split: Narrative + Portrait */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left 7 Cols: Engineering Story */}
+          <div className="lg:col-span-7 space-y-6 text-base text-slate-300 font-normal leading-relaxed">
+            <p>
+              I am a{" "}
+              <strong className="text-white font-semibold">
+                Full-Stack Software Engineer
+              </strong>{" "}
+              based in Dhaka, Bangladesh. Currently, I build production
+              dashboard workflows and performance-critical interfaces at{" "}
+              <strong className="text-white font-semibold">
+                SM Technology
+              </strong>
+              , while pursuing an{" "}
+              <strong className="text-white font-semibold">
+                M.Sc. in Computer Science & Engineering at Jahangirnagar
+                University
+              </strong>{" "}
+              (CGPA 3.75/4.0).
+            </p>
 
-            {/* Core Competencies Grid */}
-            <div className="grid sm:grid-cols-2 gap-4 pt-4">
-              {skillDomains.map((domain) => (
-                <Card
-                  key={domain.title}
-                  className="hybrid-about-card rounded-xl border border-border bg-surface p-5 opacity-0 hover:border-accent/40 transition-colors"
-                >
-                  <CardHeader className="p-0 pb-3">
-                    <CardTitle className="text-xs font-mono uppercase tracking-wider text-foreground font-bold flex items-center justify-between">
-                      <span>{domain.title}</span>
-                      <span className="text-accent text-2xs">●</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <p className="text-2xs font-mono leading-relaxed text-fg-subtle uppercase tracking-wider">
-                      {domain.tags.join(" / ")}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+            <p>
+              My engineering philosophy revolves around{" "}
+              <strong className="text-white font-semibold">
+                predictability, maintainability, and user delight
+              </strong>
+              . I don&apos;t just build features to check tickets; I obsess over
+              state management boundaries, network request caching, bundle size
+              reduction, and smooth 60fps micro-interactions.
+            </p>
 
-          {/* Right Column (5 cols): Portrait & Verified Dossier */}
-          <div className="lg:col-span-5 flex flex-col items-center lg:items-end space-y-6 hybrid-about-portrait opacity-0">
-            <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-surface shadow-md group">
-              <Image
-                src={profileImg}
-                alt="Md. Rakibul Islam — Full-Stack Engineer"
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                sizes="(max-width: 1024px) 100vw, 380px"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl border border-border/80 bg-background/80 backdrop-blur-md flex items-center justify-between font-mono text-2xs uppercase tracking-wider">
-                <div>
-                  <span className="text-foreground font-bold block">Md. Rakibul Islam</span>
-                  <span className="text-fg-subtle">Full-Stack Engineer</span>
-                </div>
-                <span className="px-2 py-1 rounded bg-accent/10 border border-accent/30 text-accent font-bold">
-                  VERIFIED
-                </span>
+            <p>
+              Whether designing an open-source uptime monitoring engine with
+              sub-second polling (
+              <em className="text-sky-300 not-italic font-mono text-xs">
+                SpiderNode
+              </em>
+              ) or optimizing enterprise healthcare platforms (
+              <em className="text-sky-300 not-italic font-mono text-xs">
+                Anesthelink
+              </em>
+              ), I focus on clean abstractions that scale smoothly as teams and
+              workloads grow.
+            </p>
+
+            {/* Quick Badges */}
+            <div className="pt-2 flex flex-wrap gap-4 text-xs font-mono text-slate-400">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]">
+                <MapPin className="w-3.5 h-3.5 text-sky-400" />
+                <span>Dhaka, Bangladesh</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02]">
+                <GraduationCap className="w-3.5 h-3.5 text-emerald-400" />
+                <span>M.Sc. in CSE (Ongoing)</span>
               </div>
             </div>
-
-            {/* Quick Stats Capsule */}
-            <div className="w-full max-w-[380px] p-4 rounded-xl border border-border bg-surface/60 font-mono text-2xs uppercase tracking-widest text-fg-subtle flex justify-between">
-              <span>Location: Dhaka, BD</span>
-              <span className="text-accent">Available Worldwide</span>
-            </div>
           </div>
 
+          {/* Right 5 Cols: Refined Portrait Card */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="glow-card relative w-full max-w-[360px] aspect-[4/5] rounded-2xl overflow-hidden border border-white/[0.1] bg-[#0F1117] p-2 group">
+              <div className="relative w-full h-full rounded-xl overflow-hidden">
+                <Image
+                  src={profileImg}
+                  alt="Rakibul Islam — Full-Stack Engineer"
+                  fill
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                  sizes="(max-width: 1024px) 100vw, 360px"
+                  priority
+                />
+
+                {/* Subtle vignette gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F1117] via-transparent to-transparent opacity-80 pointer-events-none" />
+
+                {/* Floating Bottom Card Label */}
+                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl border border-white/[0.1] bg-[#08090D]/80 backdrop-blur-md flex items-center justify-between">
+                  <div>
+                    <div className="text-xs font-semibold text-white">
+                      Md. Rakibul Islam
+                    </div>
+                    <div className="text-[10px] font-mono text-slate-400">
+                      Full-Stack Software Engineer
+                    </div>
+                  </div>
+                  <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
+        {/* 4 Pillars Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+          {PILLARS.map((pillar) => {
+            const Icon = pillar.icon;
+            return (
+              <div
+                key={pillar.title}
+                className="glow-card p-6 rounded-2xl border border-white/[0.08] bg-[#0F1117] space-y-3"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-sky-400">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <h3 className="font-semibold text-sm text-white">
+                  {pillar.title}
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed font-normal">
+                  {pillar.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

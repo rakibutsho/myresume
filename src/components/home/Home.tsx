@@ -1,248 +1,252 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { PdfModal } from "../common/PdfModal/PdfModal";
-import gsap from "gsap";
+import {
+  Copy,
+  Check,
+  ArrowDown,
+  FileText,
+  Mail,
+  Terminal as TerminalIcon,
+} from "lucide-react";
+import { Github, Linkedin } from "@/components/common/Icons";
+import { motion } from "motion/react";
+import { BlurText } from "@/components/common/BlurText";
+import { TerminalHeroCard } from "./TerminalHeroCard";
+import { TechMarquee } from "@/components/modules/TechMarquee";
 
-const metrics = [
-  { value: 1.5, suffix: "+", label: "Years Experience", sub: "Production Full-Stack" },
-  { value: 20,  suffix: "+", label: "Deployed Builds",  sub: "Client & SaaS Systems" },
-  { value: 10,  suffix: "+", label: "Client Partners",  sub: "International Delivery" },
-];
-
-const SOCIAL_LINKS = [
-  { label: "GitHub",   href: "https://github.com/rakibutsho"          },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/rakibutsho" },
-  { label: "Email",    href: "mailto:mail@rakibutsho.dev"             },
+const METRICS = [
+  {
+    value: "1.5+",
+    label: "Years Experience",
+    desc: "Production software delivery",
+  },
+  {
+    value: "20+",
+    label: "Projects Shipped",
+    desc: "SaaS & full-stack platforms",
+  },
+  {
+    value: "3.75",
+    label: "M.Sc. in CSE CGPA",
+    desc: "Jahangirnagar University",
+  },
 ];
 
 export default function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const metricValues = useRef<(HTMLSpanElement | null)[]>([]);
+  const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("mail@rakibutsho.dev");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2200);
+  };
 
-      tl.fromTo(
-        ".hybrid-meta-top",
-        { opacity: 0, y: -16 },
-        { opacity: 1, y: 0, duration: 0.6 }
-      );
-      tl.fromTo(
-        ".hybrid-hero-headline",
-        { opacity: 0, y: 36 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.2"
-      );
-      tl.fromTo(
-        ".hybrid-editorial-body",
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6 },
-        "-=0.4"
-      );
-      tl.fromTo(
-        ".hybrid-dispatch-card",
-        { opacity: 0, scale: 0.97 },
-        { opacity: 1, scale: 1, duration: 0.7 },
-        "-=0.5"
-      );
-      tl.fromTo(
-        ".hybrid-metrics-shelf",
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.6 },
-        "-=0.3"
-      );
-
-      metricValues.current.forEach((el, i) => {
-        if (!el) return;
-        const isFloat = metrics[i].value % 1 !== 0;
-        tl.fromTo(
-          el,
-          { textContent: "0" },
-          {
-            textContent: String(metrics[i].value),
-            duration: 1.3,
-            ease: "power1.out",
-            snap: { textContent: isFloat ? 0.1 : 1 },
-          },
-          "-=1.1"
-        );
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const scrollToProjects = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("projects");
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
 
   return (
     <section
       id="home"
-      ref={sectionRef}
-      className="relative w-full min-h-screen bg-background pt-28 pb-20 overflow-hidden"
+      className="relative w-full pt-28 sm:pt-36 pb-12 overflow-hidden"
     >
-      <div className="max-w-[1340px] mx-auto px-6 md:px-12">
-        
-        {/* ── TOP EDITORIAL SUB-BAR (Direction A + B Masthead) ───── */}
-        <div className="hybrid-meta-top pb-6 border-b border-border flex flex-wrap items-center justify-between gap-4 font-mono text-2xs uppercase tracking-widest text-fg-subtle opacity-0">
-          <div className="flex items-center gap-3">
-            <span className="text-accent font-bold">VOL. 04</span>
-            <span className="text-border">/</span>
-            <span>FOLIO 2026</span>
-            <span className="text-border">/</span>
-            <span>DHAKA, BD [23.8103° N]</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-foreground font-semibold">ENGINEERING PRODUCTION SYSTEMS</span>
-          </div>
-        </div>
-
-        {/* ── MAIN HERO GRID: ASYMMETRIC 12-COLUMN BROADSHEET ────── */}
-        <div className="py-12 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
-          {/* Left 8 Cols: Monumental Display Headline + Cashmere Lead */}
-          <div className="lg:col-span-8 space-y-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-surface text-2xs font-semibold uppercase tracking-wider text-fg-subtle">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>Selected Works · Full-Stack Craft</span>
+      <div className="max-w-7xl mx-auto px-6 space-y-16">
+        {/* Main 2-Column Hero: Kinetic Copy Left, Interactive 3D Terminal Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column (7 cols) */}
+          <div className="lg:col-span-7 space-y-8 text-center sm:text-left">
+            {/* Terminal Command Status Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-3"
+            >
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/[0.06] text-sky-400 font-mono text-xs backdrop-blur-md">
+                <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+                <span>$ whoami --role</span>
               </div>
 
-              <h1 className="hybrid-hero-headline font-display text-hero uppercase tracking-tighter text-foreground leading-none opacity-0">
-                SOFTWARE<br />
-                <span className="text-accent">ENGINEER</span><br />
-                CRAFTED.
-              </h1>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] text-emerald-400 text-xs font-medium backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                </span>
+                <span>Available for Full-time Roles</span>
+              </div>
+            </motion.div>
+
+            {/* Kinetic Typography Blur-Reveal Headline */}
+            <div className="space-y-2">
+              <BlurText
+                text="Engineering scalable web systems with craft and clarity."
+                highlightWords={["craft", "clarity."]}
+                highlightClass="text-shimmer font-black"
+                className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]"
+                as="h1"
+              />
             </div>
 
-            <p className="hybrid-editorial-body text-base md:text-lg text-fg-muted font-normal leading-relaxed max-w-2xl opacity-0">
-              Transforming ambitious product requirements into dependable, pixel-surgical software. Specialized in scalable React & Next.js client systems, low-latency Node API backends, and robust TypeScript architectures.
-            </p>
+            {/* Narrative Dossier */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.25,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl"
+            >
+              Hi, I&apos;m{" "}
+              <span className="text-white font-semibold">Rakibul Islam</span>.
+              Full-Stack Software Engineer building high-throughput frontend
+              dashboards at{" "}
+              <span className="text-white font-semibold">SM Technology</span>{" "}
+              and pursuing an{" "}
+              <span className="text-white font-semibold">
+                M.Sc. in CSE at Jahangirnagar University
+              </span>
+              . Specialized in Next.js, TypeScript, and distributed Node
+              architectures.
+            </motion.p>
 
-            {/* Social & Action Links */}
-            <div className="pt-2 flex flex-wrap items-center gap-6 text-xs uppercase tracking-widest font-semibold">
-              {SOCIAL_LINKS.map((item, idx) => (
-                <div key={item.label} className="flex items-center gap-6">
-                  {idx > 0 && <span className="text-border select-none">—</span>}
-                  <Button variant="swiss" size="none" asChild>
-                    <a
-                      href={item.href}
-                      target={item.href.startsWith("mailto") ? undefined : "_blank"}
-                      rel="noopener noreferrer"
-                    >
-                      {item.label}
-                    </a>
-                  </Button>
+            {/* Interactive Action Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2"
+            >
+              <Button
+                onClick={scrollToProjects}
+                className="rounded-full bg-white text-black font-semibold hover:bg-slate-200 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 h-11 px-6 gap-2 text-sm shadow-[0_4px_24px_rgba(255,255,255,0.2)] cursor-pointer"
+              >
+                <span>Explore Projects</span>
+                <ArrowDown className="w-4 h-4 animate-bounce" />
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={() => setIsPdfModalOpen(true)}
+                className="rounded-full border-white/[0.12] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.25] hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 h-11 px-5 gap-2 text-sm cursor-pointer"
+              >
+                <FileText className="w-4 h-4 text-sky-400" />
+                <span>View Resume</span>
+              </Button>
+
+              {/* Copy Email Button */}
+              <button
+                onClick={handleCopyEmail}
+                className={`inline-flex items-center gap-2 h-11 px-4 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer hover:scale-[1.03] active:scale-[0.98] ${
+                  copied
+                    ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-300"
+                    : "border-white/[0.08] bg-white/[0.02] text-slate-300 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05]"
+                }`}
+                aria-label="Copy email address"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Copied to clipboard!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5 text-slate-400" />
+                    <span>mail@rakibutsho.dev</span>
+                  </>
+                )}
+              </button>
+            </motion.div>
+
+            {/* Social Links */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.45 }}
+              className="flex items-center justify-center sm:justify-start gap-4 pt-1 text-slate-400 text-xs font-mono"
+            >
+              <a
+                href="https://github.com/rakibutsho"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-white transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                <span>github.com/rakibutsho</span>
+              </a>
+              <span className="text-white/20">•</span>
+              <a
+                href="https://www.linkedin.com/in/rakibutsho"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-white transition-colors"
+              >
+                <Linkedin className="w-4 h-4" />
+                <span>linkedin</span>
+              </a>
+              <span className="text-white/20">•</span>
+              <a
+                href="mailto:mail@rakibutsho.dev"
+                className="flex items-center gap-1.5 hover:text-white transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                <span>email</span>
+              </a>
+            </motion.div>
+
+            {/* Metrics Ribbon */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3.5"
+            >
+              {METRICS.map((m) => (
+                <div
+                  key={m.label}
+                  className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] hover:bg-white/[0.04] transition-all duration-200"
+                >
+                  <div className="text-2xl font-bold tracking-tight text-white font-mono">
+                    {m.value}
+                  </div>
+                  <div className="text-xs font-semibold text-slate-200 mt-0.5">
+                    {m.label}
+                  </div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    {m.desc}
+                  </div>
                 </div>
               ))}
-              <span className="text-border select-none">—</span>
-              <Button
-                variant="swiss"
-                size="none"
-                onClick={() => setIsPdfModalOpen(true)}
-              >
-                Curriculum Vitae ↗
-              </Button>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right 4 Cols: Live Dispatch Log Box (shadcn Card) ── */}
-          <div className="hybrid-dispatch-card lg:col-span-4 lg:border-l lg:border-border lg:pl-8 space-y-6 opacity-0">
-            <Card className="rounded-xl border border-border bg-surface p-6">
-              <CardHeader className="p-0 pb-4 border-b border-border flex flex-row items-center justify-between space-y-0">
-                <CardTitle className="text-2xs font-mono font-bold uppercase tracking-widest text-accent">
-                  DISPATCH_LOG // LIVE
-                </CardTitle>
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              </CardHeader>
-              
-              <CardContent className="p-0 pt-4 space-y-4 font-mono text-xs text-fg-muted leading-relaxed">
-                <div>
-                  <span className="text-foreground block font-bold text-2xs uppercase tracking-wider mb-0.5">
-                    Current Engagement:
-                  </span>
-                  <span className="text-fg-subtle">Frontend Engineer @ SM Technology</span>
-                </div>
-                <div className="border-t border-border/70 pt-3">
-                  <span className="text-foreground block font-bold text-2xs uppercase tracking-wider mb-0.5">
-                    Primary Domain:
-                  </span>
-                  <span className="text-fg-subtle">Scalable Next.js UI, High-Concurrency APIs</span>
-                </div>
-                <div className="border-t border-border/70 pt-3">
-                  <span className="text-foreground block font-bold text-2xs uppercase tracking-wider mb-0.5">
-                    Availability:
-                  </span>
-                  <span className="text-accent font-bold">Open for Full-Stack & Engineering Roles</span>
-                </div>
-
-                <div className="pt-4 border-t border-border flex gap-3">
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className="flex-1 rounded-lg text-2xs uppercase tracking-wider font-bold h-9"
-                    asChild
-                  >
-                    <a href="#projects">View Works ↗</a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="rounded-lg text-2xs uppercase tracking-wider font-bold h-9 px-4"
-                    onClick={() => setIsPdfModalOpen(true)}
-                  >
-                    Preview CV
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Micro Metadata Shelf */}
-            <div className="p-4 rounded-xl border border-border/60 bg-surface/50 space-y-2 font-mono text-2xs uppercase tracking-widest text-fg-subtle">
-              <div className="flex justify-between">
-                <span>Core Frameworks</span>
-                <span className="text-foreground font-semibold">Next.js · React · Node</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Data Infrastructure</span>
-                <span className="text-foreground font-semibold">PostgreSQL · MongoDB</span>
-              </div>
-            </div>
+          {/* Right Column (5 cols): Interactive 3D Perspective Terminal Window */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <TerminalHeroCard />
           </div>
-
         </div>
-
-        {/* ── HORIZONTAL METRIC SHELF (Direction B Quiet Craft) ────── */}
-        <div className="hybrid-metrics-shelf mt-6 pt-10 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-6 opacity-0">
-          {metrics.map((m, i) => (
-            <div
-              key={m.label}
-              className="p-6 rounded-xl border border-border bg-surface/40 flex flex-col justify-between space-y-2"
-            >
-              <div className="font-display text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-                <span ref={(el) => { metricValues.current[i] = el; }}>
-                  {m.value}
-                </span>
-                <span className="text-accent ml-0.5">{m.suffix}</span>
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-widest font-bold text-foreground">
-                  {m.label}
-                </div>
-                <div className="text-2xs text-fg-subtle uppercase tracking-wider mt-0.5 font-mono">
-                  {m.sub}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
       </div>
 
-      {/* Accessible shadcn Dialog CV Modal */}
+      {/* Infinite Tech Stack Marquee */}
+      <div className="mt-16">
+        <TechMarquee />
+      </div>
+
+      {/* CV Preview Modal */}
       <PdfModal
         isOpen={isPdfModalOpen}
         onClose={() => setIsPdfModalOpen(false)}

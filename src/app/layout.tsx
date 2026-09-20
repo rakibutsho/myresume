@@ -66,15 +66,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <body
         suppressHydrationWarning
         className={`${openSans.variable} ${playfair.variable} ${roboto.variable} antialiased bg-textured text-white`}
       >
         <ReduxProvider>
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
           <ClientToast />
         </ReduxProvider>
       </body>

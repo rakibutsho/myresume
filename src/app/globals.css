@@ -1,11 +1,10 @@
 /* ============================================================
-   DESIGN TOKEN SYSTEM — Hybrid: Calm Editorial
-   Canvas: Obsidian (#0A0B0E) · Surface: Basalt (#121318)
-   Accent: Vermilion (#FF3B00) · Text: Cashmere / Alabaster
+   MINIMALIST DEVELOPER DESIGN SYSTEM
+   Canvas: Obsidian (#08090D) · Card: Slate Basalt (#0F1117)
+   Accents: Sky (#38BDF8) & Emerald (#34D399) · Text: Crisp White / Slate
    ============================================================ */
 
-/* Google Fonts — runtime loading */
-@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -13,94 +12,62 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* ── Color Palette: Obsidian, Basalt, Cashmere & Vermilion ── */
-  --color-bg:                  #0A0B0E;   /* Deep obsidian velvet canvas             */
-  --color-bg-subtle:           #060709;   /* Inset areas, darker zones               */
+  /* ── Canvas & Surface Tokens ──────────────────────────── */
+  --color-bg: #08090d;
+  --color-bg-subtle: #050608;
+  --color-surface: #0f1117;
+  --color-surface-raised: #161922;
+  --color-surface-hover: #1b1f2b;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.18);
+  --color-border-active: rgba(56, 189, 248, 0.4);
 
-  --color-surface:             #121318;   /* Smoked basalt card & panel surface      */
-  --color-surface-raised:      #1A1B22;   /* Elevated card on hover                  */
-  --color-border:              #262730;   /* Hairline architectural dividing rules   */
-  --color-border-subtle:       rgba(255, 255, 255, 0.06); /* Feathered dividers       */
-  --color-fg-subtle:           #8E909B;   /* Cashmere slate metadata, labels, dates  */
+  /* ── Typography Colors ────────────────────────────────── */
+  --color-fg: #f8fafc;
+  --color-fg-muted: #94a3b8;
+  --color-fg-subtle: #64748b;
+  --color-primary: #f8fafc;
+  --color-primary-fg: #08090d;
 
-  --color-fg:                  #F2F2F5;   /* Soft milk white for headlines           */
-  --color-fg-muted:            #C5C6D0;   /* High-legibility cashmere body copy      */
-  --color-primary:             #F2F2F5;   /* Primary button background               */
-  --color-primary-fg:          #0A0B0E;   /* Text on primary buttons                 */
+  /* ── Developer Accents ────────────────────────────────── */
+  --color-accent: #38bdf8; /* Sky cyan — links, focus, tags */
+  --color-accent-fg: #08090d;
+  --color-success: #34d399; /* Emerald — available status */
+  --color-warning: #fbbf24;
+  --color-destructive: #f87171;
 
-  /* Single bold surgical accent (Direction A Vermilion) */
-  --color-accent:              #FF3B00;   /* Vermilion Red — section stamps & tags   */
-  --color-accent-fg:           #FFFFFF;   /* Text on accent fills                    */
+  /* ── shadcn Compatibility Bridge ──────────────────────── */
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-fg);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-fg);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-fg);
+  --color-primary-foreground: var(--color-primary-fg);
+  --color-secondary: var(--color-surface-raised);
+  --color-secondary-foreground: var(--color-fg);
+  --color-muted: var(--color-surface);
+  --color-muted-foreground: var(--color-fg-muted);
+  --color-input: rgba(255, 255, 255, 0.1);
+  --color-ring: var(--color-accent);
 
-  --color-success:             #4ADE80;   /* Online / available indicator            */
-  --color-warning:             #FBBF24;
-  --color-destructive:         #F87171;
+  /* ── Typography Scale & Families ──────────────────────── */
+  --font-sans:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "Fira Code", monospace;
 
-  /* shadcn-ui bridge tokens */
-  --color-background:          var(--color-bg);
-  --color-foreground:          var(--color-fg-muted);
-  --color-card:                var(--color-surface);
-  --color-card-foreground:     var(--color-fg-muted);
-  --color-popover:             var(--color-surface);
-  --color-popover-foreground:  var(--color-fg-muted);
-  --color-primary-foreground:  var(--color-primary-fg);
-  --color-secondary:           var(--color-surface-raised);
-  --color-secondary-foreground:var(--color-fg);
-  --color-muted:               var(--color-surface);
-  --color-muted-foreground:    var(--color-fg-subtle);
-  --color-input:               var(--color-border);
-  --color-ring:                var(--color-accent);
-
-  /* ── Typography Families ───────────────────────────────── */
-  --font-display: "Archivo Black", "Work Sans", sans-serif;
-  --font-body:    "Plus Jakarta Sans", "Work Sans", system-ui, sans-serif;
-  --font-sans:    "Plus Jakarta Sans", "Work Sans", system-ui, sans-serif;
-  --font-serif:   "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-mono:    "Space Mono", "Fira Code", monospace;
-
-  /* ── Type Scale ────────────────────────────────────────── */
-  --text-2xs:      0.68rem;
-  --text-xs:       0.82rem;
-  --text-sm:       0.96rem;
-  --text-md:       1.2rem;
-  --text-lg:       1.5rem;
-  --text-xl:       1.9rem;
-  --text-2xl:      2.4rem;
-  --text-3xl:      3.2rem;
-  --text-hero:     clamp(3.2rem, 8.5vw, 7.5rem);
-
-  /* ── Letter-Spacing ────────────────────────────────────── */
-  --tracking-tighter: -0.04em;
-  --tracking-tight:   -0.02em;
-  --tracking-normal:   0em;
-  --tracking-wide:     0.06em;
-  --tracking-widest:   0.16em;
-
-  /* ── Line-Height ───────────────────────────────────────── */
-  --leading-none:    0.92;
-  --leading-tight:   1.15;
-  --leading-snug:    1.4;
-  --leading-normal:  1.65;
-  --leading-relaxed: 1.85;
-
-  /* ── Radius Scale ──────────────────────────────────────── */
-  --radius-none: 0px;
-  --radius-sm:   4px;
-  --radius-md:   8px;
-  --radius-lg:   16px;
-  --radius-xl:   24px;
+  /* ── Radii ────────────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-pill: 9999px;
-  --radius:      8px;
-
-  /* ── Shadows ───────────────────────────────────────────── */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.7);
+  --radius: 12px;
 }
-
-/* ============================================================
-   Base Layer
-   ============================================================ */
 
 html {
   scroll-behavior: smooth;
@@ -119,20 +86,148 @@ html {
     background-color: var(--color-bg);
     color: var(--color-fg-muted);
     font-family: var(--font-body);
-    font-size: var(--text-sm);
-    line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     color: var(--color-fg);
-    letter-spacing: var(--tracking-tight);
+    letter-spacing: -0.025em;
   }
 }
 
+/* ── Interactive Utilities ──────────────────────────────── */
 .bg-textured {
   background-color: var(--color-bg);
   min-height: 100vh;
+}
+
+.text-gradient {
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-card {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #0f1117;
+}
+.glow-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 12px 32px -8px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+/* ── Motion & Ambient Lighting Utilities ────────────────── */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(24px, -18px) scale(1.06);
+  }
+}
+
+@keyframes float-slow-reverse {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-20px, 16px) scale(0.94);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 16s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-slow-reverse 20s ease-in-out infinite;
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f8fafc 0%,
+    #38bdf8 50%,
+    #34d399 75%,
+    #f8fafc 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  animation: shimmer 8s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+/* Spotlight container */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  top: var(--mouse-y, -1000px);
+  left: var(--mouse-x, -1000px);
+  width: 360px;
+  height: 360px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.12) 0%,
+    rgba(52, 211, 153, 0.04) 40%,
+    transparent 70%
+  );
+  border-radius: 9999px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
 }
