@@ -35,6 +35,7 @@ export function FeaturedProjectsGrid({ projects }: FeaturedProjectsGridProps) {
     } else if (typeof url === "string") {
       raw = url;
     }
+    if (raw.startsWith("/")) return raw;
     const match = raw.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
     if (match && match[1])
       return `https://drive.google.com/uc?export=view&id=${match[1]}`;
@@ -60,10 +61,9 @@ export function FeaturedProjectsGrid({ projects }: FeaturedProjectsGridProps) {
           {/* Card Top Chrome */}
           <div className="flex items-center justify-between px-6 py-3.5 border-b border-white/[0.08] bg-white/[0.02]">
             <div className="flex items-center gap-3 font-mono text-xs text-slate-400">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]/80" />
+              <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-[10px] text-slate-300 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>active</span>
               </div>
               <span className="text-white/20">|</span>
               <span className="text-sky-400 font-semibold">&gt;_</span>

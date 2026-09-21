@@ -10,8 +10,30 @@ interface Particle {
   vy: number;
   size: number;
   alpha: number;
-  targetAlpha: number;
 }
+
+interface Glyph {
+  text: string;
+  x: number;
+  y: number;
+  vy: number;
+  alpha: number;
+  size: number;
+}
+
+const GLYPH_CHARS = [
+  "{ }",
+  "</>",
+  "=>",
+  "01",
+  "git",
+  "async",
+  "const",
+  "fn()",
+  "&&",
+  "[]",
+  "/>",
+];
 
 export function BackgroundAnimation() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -40,19 +62,32 @@ export function BackgroundAnimation() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Responsive particle count
-    const particleCount = Math.min(Math.floor((width * height) / 14000), 90);
+    // Particles count
+    const particleCount = Math.min(Math.floor((width * height) / 12000), 95);
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        size: Math.random() * 1.6 + 0.6,
-        alpha: Math.random() * 0.5 + 0.15,
-        targetAlpha: Math.random() * 0.5 + 0.15,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 1.8 + 0.6,
+        alpha: Math.random() * 0.45 + 0.15,
+      });
+    }
+
+    // Floating Code Glyphs
+    const glyphCount = Math.min(Math.floor(width / 110), 16);
+    const glyphs: Glyph[] = [];
+    for (let i = 0; i < glyphCount; i++) {
+      glyphs.push({
+        text: GLYPH_CHARS[Math.floor(Math.random() * GLYPH_CHARS.length)],
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vy: -(Math.random() * 0.35 + 0.15),
+        alpha: Math.random() * 0.2 + 0.08,
+        size: Math.floor(Math.random() * 3) + 11,
       });
     }
 
@@ -82,42 +117,54 @@ export function BackgroundAnimation() {
       ctx.clearRect(0, 0, width, height);
 
       const mouse = mouseRef.current;
-      const maxConnectDist = 130;
-      const mouseRadius = 160;
+      const maxConnectDist = 135;
+      const mouseRadius = 170;
 
-      // Update & draw particles
+      // 1. Render Floating Code Glyphs
+      ctx.font = "500 12px 'Fira Code', monospace";
+      for (let i = 0; i < glyphs.length; i++) {
+        const g = glyphs[i];
+        g.y += g.vy;
+        if (g.y < -20) {
+          g.y = height + 20;
+          g.x = Math.random() * width;
+          g.text = GLYPH_CHARS[Math.floor(Math.random() * GLYPH_CHARS.length)];
+        }
+        ctx.fillStyle = `rgba(56, 189, 248, ${g.alpha})`;
+        ctx.fillText(g.text, g.x, g.y);
+      }
+
+      // 2. Update & Draw Constellation Particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
-        // Move
         p.x += p.vx;
         p.y += p.vy;
 
-        // Bounce at boundaries
         if (p.x < 0) p.x = width;
         else if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         else if (p.y > height) p.y = 0;
 
-        // Subtle mouse interaction
+        // Subtle mouse push
         if (mouse.active) {
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < mouseRadius) {
-            const force = (1 - dist / mouseRadius) * 0.04;
+            const force = (1 - dist / mouseRadius) * 0.045;
             p.x += dx * force;
             p.y += dy * force;
           }
         }
 
-        // Draw particle with soft glow
+        // Particle dot
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(148, 163, 184, ${p.alpha})`;
         ctx.fill();
 
-        // Connect nearby particles with subtle lines
+        // Connect nearby particles
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
@@ -125,28 +172,28 @@ export function BackgroundAnimation() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxConnectDist) {
-            const lineAlpha = (1 - dist / maxConnectDist) * 0.14;
+            const lineAlpha = (1 - dist / maxConnectDist) * 0.15;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
             ctx.strokeStyle = `rgba(56, 189, 248, ${lineAlpha})`;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = 0.65;
             ctx.stroke();
           }
         }
 
-        // Connect particle to mouse if nearby
+        // Connect particle to mouse with amber laser lines
         if (mouse.active) {
           const mdx = p.x - mouse.x;
           const mdy = p.y - mouse.y;
           const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
           if (mdist < mouseRadius) {
-            const mLineAlpha = (1 - mdist / mouseRadius) * 0.22;
+            const mLineAlpha = (1 - mdist / mouseRadius) * 0.28;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = `rgba(255, 180, 84, ${mLineAlpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(251, 191, 36, ${mLineAlpha})`;
+            ctx.lineWidth = 0.9;
             ctx.stroke();
           }
         }
@@ -173,14 +220,14 @@ export function BackgroundAnimation() {
         style={{ scaleX }}
       />
 
-      {/* Ambient Top Glow Orbs */}
+      {/* Atmospheric Ambient Glowing Orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-20">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] sm:w-[980px] h-[480px] bg-gradient-to-b from-sky-500/12 via-amber-500/6 to-transparent blur-[140px]" />
-        <div className="absolute top-1/3 -left-48 w-[450px] h-[360px] bg-purple-600/5 blur-[130px]" />
-        <div className="absolute top-2/3 -right-48 w-[450px] h-[360px] bg-emerald-500/5 blur-[130px]" />
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] sm:w-[980px] h-[480px] bg-gradient-to-b from-sky-500/12 via-amber-500/8 to-transparent blur-[140px] animate-pulse" />
+        <div className="absolute top-1/3 -left-48 w-[450px] h-[360px] bg-purple-600/6 blur-[130px]" />
+        <div className="absolute top-2/3 -right-48 w-[450px] h-[360px] bg-emerald-500/6 blur-[130px]" />
       </div>
 
-      {/* Particle Canvas */}
+      {/* Particle & Code Glyphs Canvas */}
       <canvas
         ref={canvasRef}
         className="fixed inset-0 pointer-events-none -z-10 w-full h-full"

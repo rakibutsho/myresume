@@ -40,7 +40,7 @@ export const projects: Project[] = [
       "NextAuth",
       "Telegram Bot API",
       "node-cron",
-      "System Design"
+      "System Design",
     ],
     isPrivate: false,
     githubUrl: "https://github.com/rakibutsho/SPIDER_NODE-uptime-tracker",
@@ -52,14 +52,13 @@ export const projects: Project[] = [
     results: [],
     image: [
       {
-        cover:
-          "https://drive.google.com/file/d/1W93_ZYx-DIM-nGEGdz-N_W_-ta8PZ_IF/view?usp=sharing",
+        cover: "/projects/spidernode.png",
       },
       {
         dashboard: [
           {
             id: 0,
-            link: "https://drive.google.com/file/d/1W93_ZYx-DIM-nGEGdz-N_W_-ta8PZ_IF/view?usp=sharing",
+            link: "/projects/spidernode.png",
           },
         ],
       },
@@ -99,28 +98,10 @@ export const projects: Project[] = [
     results: [],
     image: [
       {
-        cover:
-          "https://drive.google.com/file/d/1b2sKpGiw-m34veedTsmHZQxKbzFnYZ6I/view?usp=drive_link",
+        cover: "/projects/pawradise.webp",
       },
       {
-        responsive:
-          "https://drive.google.com/file/d/1Y9udRx6WSgBy9WUDZJM3ut_pAXzsnf3H/view?usp=drive_link",
-      },
-      {
-        dashboard: [
-          {
-            id: 0,
-            link: "https://drive.google.com/file/d/1VBgRi2QM5BCy-qXhaPR1BI0ZPYy-EoYZ/view?usp=drive_link",
-          },
-          {
-            id: 1,
-            link: "https://drive.google.com/file/d/1bit-RLSZyLYE08QYnA1qFMWJZkCw40ZC/view?usp=drive_link",
-          },
-          {
-            id: 2,
-            link: "https://drive.google.com/file/d/13mO06Ex1FSCbuo-C9ZQQUe0F5Evs6LIa/view?usp=drive_link",
-          },
-        ],
+        responsive: "/projects/pawradise.webp",
       },
     ],
   },
@@ -156,22 +137,13 @@ export const projects: Project[] = [
     results: [],
     image: [
       {
-        cover:
-          "https://drive.google.com/file/d/1QDeyr_gWZmRNW3bRsIGlQdeTp9uITW_D/view?usp=drive_link",
-      },
-      {
-        responsive:
-          "https://drive.google.com/file/d/1Bme4DwKKw7ZfsdY_yDKzPZgmtLsYP3zh/view?usp=drive_link",
+        cover: "/projects/anesthelink.png",
       },
       {
         dashboard: [
           {
             id: 0,
-            link: "https://drive.google.com/file/d/1e7veyberra6GHQgsEYKDIt674pANFesj/view?usp=drive_link",
-          },
-          {
-            id: 1,
-            link: "https://drive.google.com/file/d/1YanjYArQxK5M3Cvl-d3UCOTiocWaANYG/view?usp=sharing",
+            link: "/projects/anesthelink.png",
           },
         ],
       },
@@ -208,12 +180,10 @@ export const projects: Project[] = [
     results: [],
     image: [
       {
-        cover:
-          "https://drive.google.com/file/d/13xRQX0eCQewWLroC0dAYxWAurhmliDEF/view?usp=drive_link",
+        cover: "/projects/farmadirect.png",
       },
       {
-        responsive:
-          "https://drive.google.com/file/d/1vDbfplt20v6603JA6B9DDOUJjVFmu0JB/view?usp=drive_link",
+        responsive: "/projects/farmadirect.png",
       },
     ],
   },
@@ -246,22 +216,20 @@ export const projects: Project[] = [
     results: [],
     image: [
       {
-        cover:
-          "https://drive.google.com/file/d/1J7ssR12g2koNcTGwouDEUFRz-pVdYNEf/view?usp=drive_link",
+        cover: "/projects/crown-pitch.png",
       },
       {
-        responsive:
-          "https://drive.google.com/file/d/1pnyWE-sn2W51TCLMbYdFCx9Tss3HCXoq/view?usp=drive_link",
+        responsive: "/projects/crown-pitch.png",
       },
       {
         dashboard: [
           {
             id: 0,
-            link: "https://drive.google.com/file/d/1UVG8oW5yMaNjb0caGJiAlzgf-o8vwfP2/view?usp=drive_link",
+            link: "/projects/crown-pitch.png",
           },
           {
             id: 1,
-            link: "https://drive.google.com/file/d/1BIvTRDQBcKsT1IH1ia5l1YqryX4gN8si/view?usp=drive_link",
+            link: "/projects/crown-pitch.png",
           },
         ],
       },

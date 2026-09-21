@@ -8,9 +8,9 @@ export default function JobHistory() {
   return (
     <section
       id="experience"
-      className="w-full py-24 px-6 border-t border-white/[0.06]"
+      className="w-full py-16 sm:py-20 px-6 border-t border-white/[0.06]"
     >
-      <div className="max-w-6xl mx-auto space-y-16">
+      <div className="max-w-6xl mx-auto space-y-10">
         {/* Section Header */}
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/5 text-sky-400 text-xs font-mono">

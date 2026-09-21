@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Project } from "@/data/project";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Lock, CheckCircle2 } from "lucide-react";
+import { ExternalLink, Lock, CheckCircle2, Terminal } from "lucide-react";
 import { Github } from "@/components/common/Icons";
 import { Button } from "@/components/ui/button";
 
@@ -13,6 +14,8 @@ type Props = {
 };
 
 export default function ProjectCard({ project, index }: Props) {
+  const [imgError, setImgError] = useState(false);
+
   if (!project) return null;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -27,15 +30,19 @@ export default function ProjectCard({ project, index }: Props) {
   let coverImage = "";
   if (isArray) {
     (project.image as any[]).forEach((img) => {
-      if ("cover" in img) coverImage = img.cover;
+      if ("cover" in img && img.cover) coverImage = img.cover;
+      else if (!coverImage && "responsive" in img && img.responsive)
+        coverImage = img.responsive;
     });
   } else if (typeof project.image === "string") {
     coverImage = project.image;
   }
 
   const getImageUrl = (url: string) => {
+    if (url.startsWith("/")) return url;
     const match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-    if (match && match[1]) return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    if (match && match[1])
+      return `https://drive.google.com/uc?export=view&id=${match[1]}`;
     return url;
   };
 
@@ -47,8 +54,9 @@ export default function ProjectCard({ project, index }: Props) {
       onMouseMove={handleMouseMove}
       className="spotlight-card glow-card rounded-2xl border border-white/[0.08] bg-[#0F1117] overflow-hidden group transition-all duration-300"
     >
-      <div className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} w-full relative z-10`}>
-        
+      <div
+        className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} w-full relative z-10`}
+      >
         {/* Visual Preview Frame */}
         <div className="flex-[1.15] relative min-h-[260px] sm:min-h-[320px] lg:min-h-[380px] bg-[#08090D] overflow-hidden border-b lg:border-b-0 border-white/[0.06]">
           <Link
@@ -56,20 +64,29 @@ export default function ProjectCard({ project, index }: Props) {
             target="_blank"
             className="block relative w-full h-full overflow-hidden"
           >
-            {finalImageSrc ? (
+            {finalImageSrc && !imgError ? (
               <Image
                 src={finalImageSrc}
                 alt={project.title}
                 fill
+                onError={() => setImgError(true)}
                 className="object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.04] transition-all duration-700 ease-out"
                 sizes="(max-width: 1024px) 100vw, 55vw"
               />
             ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-slate-500 font-mono text-xs">
-                <span>[ Live Project Preview ]</span>
+              <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-6 text-slate-500 font-mono text-xs text-center bg-gradient-to-br from-white/[0.02] to-white/[0.005]">
+                <Terminal className="w-8 h-8 text-sky-400/40" />
+                <div className="space-y-1">
+                  <p className="text-slate-300 font-semibold">
+                    {project.title}
+                  </p>
+                  <p className="text-[11px] text-slate-500">
+                    [ Architecture & Telemetry Preview ]
+                  </p>
+                </div>
               </div>
             )}
-            
+
             {/* Ambient vignette overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#0F1117] via-transparent to-transparent opacity-80 pointer-events-none" />
           </Link>
@@ -77,9 +94,7 @@ export default function ProjectCard({ project, index }: Props) {
 
         {/* Technical Narrative & Details */}
         <div className="flex-[1] flex flex-col justify-between p-7 sm:p-9 space-y-6">
-          
           <div className="space-y-4">
-            
             {/* Meta Row: Type & Access Status */}
             <div className="flex items-center justify-between gap-2">
               <span className="px-3 py-1 rounded-full text-xs font-mono font-medium border border-sky-500/20 bg-sky-500/10 text-sky-300">
@@ -132,7 +147,6 @@ export default function ProjectCard({ project, index }: Props) {
                 </span>
               ))}
             </div>
-
           </div>
 
           {/* Action Links Row */}
@@ -162,9 +176,7 @@ export default function ProjectCard({ project, index }: Props) {
               </Button>
             )}
           </div>
-
         </div>
-
       </div>
     </div>
   );
