@@ -235,8 +235,9 @@ export default function JobInstitute() {
 
               {/* Core Technical Stack Chips */}
               <div className="pt-4 border-t border-white/[0.08] relative z-10 space-y-2.5">
-                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-                  Technology Arsenal
+                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+                  <span>Role-Specific Stack &amp; Production Tools</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {activeJob.stack.map((tech) => (

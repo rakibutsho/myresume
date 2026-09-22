@@ -10,6 +10,7 @@ interface BlurTextProps {
   highlightWords?: string[];
   highlightClass?: string;
   as?: "h1" | "h2" | "h3" | "p" | "span";
+  showCursor?: boolean;
 }
 
 export function BlurText({
@@ -19,6 +20,7 @@ export function BlurText({
   highlightWords = [],
   highlightClass = "text-shimmer",
   as = "h1",
+  showCursor = false,
 }: BlurTextProps) {
   const words = text.split(" ");
 
@@ -79,6 +81,13 @@ export function BlurText({
           </motion.span>
         );
       })}
+
+      {showCursor && (
+        <span
+          className="inline-block w-2 sm:w-2.5 h-[1.1em] bg-emerald-400 align-middle ml-1 terminal-cursor-sync"
+          aria-hidden="true"
+        />
+      )}
     </Tag>
   );
 }

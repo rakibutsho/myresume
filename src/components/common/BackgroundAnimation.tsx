@@ -238,6 +238,12 @@ export function BackgroundAnimation() {
         className="fixed inset-0 pointer-events-none -z-10 opacity-[0.035] mix-blend-overlay bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]"
         aria-hidden="true"
       />
+
+      {/* Ultra-subtle CRT Scanline Texture (2.5% opacity, behind all text) */}
+      <div
+        className="fixed inset-0 pointer-events-none -z-10 opacity-[0.025] [background:linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.45)_50%)] [background-size:100%_4px]"
+        aria-hidden="true"
+      />
     </>
   );
 }

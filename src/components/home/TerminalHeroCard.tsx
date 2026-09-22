@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Terminal,
@@ -9,7 +9,6 @@ import {
   RotateCcw,
   Check,
   Copy,
-  Sparkles,
   Cpu,
   GitBranch,
   Radio,
@@ -17,169 +16,64 @@ import {
   Minus,
   Square,
   X,
+  Activity,
+  Server,
+  Clock,
+  ShieldCheck,
 } from "lucide-react";
-
-interface ScriptStep {
-  command: string;
-  output: React.ReactNode;
-  duration?: number; // pause after output in ms
-}
-
-const TERMINAL_SCRIPTS: ScriptStep[] = [
-  {
-    command: "whoami",
-    output: (
-      <div className="space-y-1 text-slate-200">
-        <div className="flex items-center gap-2">
-          <span className="text-amber-400 font-bold text-[13px]">
-            Md. Rakibul Islam
-          </span>
-          <span className="px-2 py-0.2 rounded-full text-[10px] font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-            Full-Stack Engineer
-          </span>
-        </div>
-        <p className="text-xs text-slate-400">
-          Building high-throughput frontend workflows @{" "}
-          <span className="text-white font-medium">SM Technology</span>
-        </p>
-        <p className="text-xs text-slate-400">
-          M.Sc. in CSE @{" "}
-          <span className="text-white font-medium">
-            Jahangirnagar University
-          </span>{" "}
-          (CGPA 3.75/4.0)
-        </p>
-        <div className="flex items-center gap-2 pt-1 text-[11px] text-emerald-400 font-medium">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Status: Open for High-Impact Software Engineering Roles</span>
-        </div>
-      </div>
-    ),
-    duration: 3200,
-  },
-  {
-    command: "cat tech-stack.json",
-    output: (
-      <div className="font-mono text-xs leading-relaxed overflow-x-auto text-slate-300">
-        <span className="text-slate-500">{"{"}</span>
-        <div className="pl-4 space-y-0.5">
-          <div>
-            <span className="text-sky-300">&quot;frontend&quot;</span>
-            <span className="text-slate-500">: </span>
-            <span className="text-emerald-300">
-              [&quot;Next.js 15&quot;, &quot;React 19&quot;,
-              &quot;TypeScript&quot;, &quot;Tailwind CSS&quot;]
-            </span>
-            <span className="text-slate-500">,</span>
-          </div>
-          <div>
-            <span className="text-sky-300">&quot;backend&quot;</span>
-            <span className="text-slate-500">: </span>
-            <span className="text-emerald-300">
-              [&quot;Node.js&quot;, &quot;Express&quot;, &quot;Socket.io&quot;,
-              &quot;REST APIs&quot;]
-            </span>
-            <span className="text-slate-500">,</span>
-          </div>
-          <div>
-            <span className="text-sky-300">&quot;database&quot;</span>
-            <span className="text-slate-500">: </span>
-            <span className="text-emerald-300">
-              [&quot;PostgreSQL&quot;, &quot;MongoDB&quot;, &quot;Prisma
-              ORM&quot;, &quot;Redis&quot;]
-            </span>
-            <span className="text-slate-500">,</span>
-          </div>
-          <div>
-            <span className="text-sky-300">&quot;devops&quot;</span>
-            <span className="text-slate-500">: </span>
-            <span className="text-emerald-300">
-              [&quot;Docker&quot;, &quot;CI/CD&quot;, &quot;Linux VPS&quot;,
-              &quot;Vercel&quot;]
-            </span>
-          </div>
-        </div>
-        <span className="text-slate-500">{"}"}</span>
-      </div>
-    ),
-    duration: 3400,
-  },
-  {
-    command: "git log --oneline -n 2",
-    output: (
-      <div className="space-y-1.5 text-xs font-mono">
-        <div className="flex items-center gap-2">
-          <span className="text-amber-400 font-bold bg-amber-400/10 px-1.5 py-0.5 rounded">
-            4f8a1e2
-          </span>
-          <span className="text-slate-200">
-            feat(spider-node): implement sub-second dual-cron check engine
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-amber-400 font-bold bg-amber-400/10 px-1.5 py-0.5 rounded">
-            9c3b7d1
-          </span>
-          <span className="text-slate-200">
-            perf(dashboard): cut initial payload by 42% via SSR & streaming
-          </span>
-        </div>
-      </div>
-    ),
-    duration: 3000,
-  },
-  {
-    command: "curl -I https://spidernode.site",
-    output: (
-      <div className="space-y-1 font-mono text-xs text-slate-300">
-        <div className="flex items-center gap-2">
-          <span className="text-emerald-400 font-bold">HTTP/2 200 OK</span>
-          <span className="text-slate-500">|</span>
-          <span className="text-sky-400">Response: 11ms</span>
-          <span className="text-slate-500">|</span>
-          <span className="text-amber-400">SSL: Valid (TLS 1.3)</span>
-        </div>
-        <p className="text-[11px] text-slate-400">
-          Uptime Engine: Dual-cron scheduler active • Zero dropped healthchecks
-        </p>
-      </div>
-    ),
-    duration: 3000,
-  },
-  {
-    command: "uptime --stats",
-    output: (
-      <div className="font-mono text-xs text-emerald-300 bg-emerald-500/[0.06] border border-emerald-500/20 p-2.5 rounded-lg flex items-center justify-between">
-        <span>
-          up 1.5+ years production • 20+ shipped platforms • 100% commit
-          diligence
-        </span>
-        <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0 ml-2" />
-      </div>
-    ),
-    duration: 3500,
-  },
-];
+import { useTypewriter } from "@/hooks/useTypewriter";
 
 interface LogEntry {
   command: string;
   output: React.ReactNode;
 }
 
-export function TerminalHeroCard() {
-  const [activeTab, setActiveTab] = useState<"terminal" | "system" | "about">(
-    "terminal",
-  );
+interface TerminalHeroCardProps {
+  onTerminalReady?: () => void;
+}
+
+// Calculate dynamic uptime relative to site launch milestone
+function getDynamicUptime() {
+  const launchDate = new Date("2024-01-15T00:00:00Z");
+  const now = new Date();
+  const diffMs = Math.max(0, now.getTime() - launchDate.getTime());
+  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  const timeStr = `${hours}:${minutes}:${seconds}`;
+  return {
+    timeStr,
+    days,
+    summary: `${timeStr} up ${days} days, ${hours}:${minutes}, 1 user, load average: 0.09, 0.04, 0.01`,
+  };
+}
+
+export function TerminalHeroCard({ onTerminalReady }: TerminalHeroCardProps) {
+  const [activeTab, setActiveTab] = useState<"terminal" | "system">("terminal");
   const [history, setHistory] = useState<LogEntry[]>([]);
-  const [currentTypedCommand, setCurrentTypedCommand] = useState("");
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isTyping, setIsTyping] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [userCustomInput, setUserCustomInput] = useState("");
-  const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [activeRunChip, setActiveRunChip] = useState<string>("tech-stack");
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [copied, setCopied] = useState<boolean>(false);
+  const [bootReady, setBootReady] = useState<boolean>(false);
+
+  // Live Sys-Metrics State
+  const [sessionSeconds, setSessionSeconds] = useState<number>(0);
+  const [simulatedCpu, setSimulatedCpu] = useState<number>(18);
+  const [simulatedRam, setSimulatedRam] = useState<number>(2148);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const terminalBodyRef = useRef<HTMLDivElement>(null);
+  const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Shared Typewriter Hook for command prompt input
+  const {
+    displayText: typedCommand,
+    isTyping,
+    typeText,
+    setTextImmediate,
+    cancel: cancelTyping,
+  } = useTypewriter();
 
   // 3D Perspective Tilt state
   const [tilt, setTilt] = useState({ rotateX: 2, rotateY: -4 });
@@ -190,8 +84,8 @@ export function TerminalHeroCard() {
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
     setTilt({
-      rotateX: -(y / rect.height) * 12,
-      rotateY: (x / rect.width) * 12,
+      rotateX: -(y / rect.height) * 10,
+      rotateY: (x / rect.width) * 10,
     });
   };
 
@@ -199,124 +93,311 @@ export function TerminalHeroCard() {
     setTilt({ rotateX: 2, rotateY: -4 });
   };
 
-  // Auto-scroll terminal to bottom
+  // Auto-scroll terminal body to bottom whenever history or typed input changes
   useEffect(() => {
     if (terminalBodyRef.current) {
       terminalBodyRef.current.scrollTop = terminalBodyRef.current.scrollHeight;
     }
-  }, [history, currentTypedCommand]);
+  }, [history, typedCommand]);
 
-  // Continuous automated typewriter engine
-  useEffect(() => {
-    if (!isPlaying) return;
+  // Command Output Builder (Data-driven and authentic)
+  const buildCommandOutput = useCallback((cmd: string): React.ReactNode => {
+    switch (cmd) {
+      case "whoami":
+        return (
+          <div className="space-y-1 text-slate-200 text-xs font-mono">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-amber-400 font-bold text-[13px]">
+                Md. Rakibul Islam
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold">
+                Full-Stack Software Engineer
+              </span>
+            </div>
+            <p className="text-slate-400 text-xs">
+              Frontend workflows &amp; high-scale client dashboards @{" "}
+              <span className="text-white font-medium">SM Technology</span>
+            </p>
+            <p className="text-slate-400 text-xs">
+              M.Sc. in CSE @{" "}
+              <span className="text-white font-medium">
+                Jahangirnagar University
+              </span>{" "}
+              (CGPA 3.75/4.0)
+            </p>
+            <div className="flex items-center gap-2 pt-1 text-[11px] text-emerald-400 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Status: Available for Full-Time Engineering Roles</span>
+            </div>
+          </div>
+        );
 
-    let timeoutId: NodeJS.Timeout;
-    const currentStep = TERMINAL_SCRIPTS[activeStepIndex];
-    const fullCommand = currentStep.command;
-    let charIndex = 0;
+      case "tech-stack":
+      case "cat tech-stack.json":
+        return (
+          <div className="font-mono text-xs leading-relaxed overflow-x-auto text-slate-300">
+            <span className="text-slate-500">{"{"}</span>
+            <div className="pl-4 space-y-0.5">
+              <div>
+                <span className="text-sky-300">&quot;frontend&quot;</span>
+                <span className="text-slate-500">: </span>
+                <span className="text-emerald-300">
+                  [&quot;Next.js 15&quot;, &quot;React 19&quot;,
+                  &quot;TypeScript&quot;, &quot;Tailwind CSS&quot;]
+                </span>
+                <span className="text-slate-500">,</span>
+              </div>
+              <div>
+                <span className="text-sky-300">&quot;backend&quot;</span>
+                <span className="text-slate-500">: </span>
+                <span className="text-emerald-300">
+                  [&quot;Node.js&quot;, &quot;Express&quot;,
+                  &quot;Socket.io&quot;, &quot;REST APIs&quot;]
+                </span>
+                <span className="text-slate-500">,</span>
+              </div>
+              <div>
+                <span className="text-sky-300">&quot;database&quot;</span>
+                <span className="text-slate-500">: </span>
+                <span className="text-emerald-300">
+                  [&quot;PostgreSQL&quot;, &quot;MongoDB&quot;, &quot;Prisma
+                  ORM&quot;, &quot;Redis&quot;]
+                </span>
+                <span className="text-slate-500">,</span>
+              </div>
+              <div>
+                <span className="text-sky-300">&quot;devops&quot;</span>
+                <span className="text-slate-500">: </span>
+                <span className="text-emerald-300">
+                  [&quot;Docker&quot;, &quot;Linux VPS&quot;, &quot;CI/CD&quot;,
+                  &quot;Vercel&quot;]
+                </span>
+              </div>
+            </div>
+            <span className="text-slate-500">{"}"}</span>
+          </div>
+        );
 
-    setIsTyping(true);
-    setCurrentTypedCommand("");
+      case "git log":
+      case "git log --oneline -n 3":
+        return (
+          <div className="space-y-1.5 text-xs font-mono">
+            <div className="flex items-center gap-2">
+              <span className="text-amber-400 font-bold bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20">
+                a4f19b2
+              </span>
+              <span className="text-slate-200">
+                feat(spidernode): sub-second dual-cron check engine
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-amber-400 font-bold bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20">
+                c82e301
+              </span>
+              <span className="text-slate-200">
+                perf(database): in-memory batch write cutting DB load by 40%
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-amber-400 font-bold bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/20">
+                9ac21b5
+              </span>
+              <span className="text-slate-200">
+                feat(pawradise): automated invoice generation with Puppeteer
+              </span>
+            </div>
+          </div>
+        );
 
-    const typeNextChar = () => {
-      if (charIndex < fullCommand.length) {
-        setCurrentTypedCommand(fullCommand.slice(0, charIndex + 1));
-        charIndex++;
-        // Varied typing delay for realistic human-like cadence
-        const randomDelay = Math.floor(Math.random() * 35) + 40;
-        timeoutId = setTimeout(typeNextChar, randomDelay);
-      } else {
-        // Command typing finished: short pause before executing
-        setIsTyping(false);
-        timeoutId = setTimeout(() => {
-          setHistory((prev) => [
-            ...prev,
-            { command: fullCommand, output: currentStep.output },
-          ]);
-          setCurrentTypedCommand("");
-
-          // Pause after execution to let visitor read the output
-          timeoutId = setTimeout(() => {
-            setActiveStepIndex((prev) => (prev + 1) % TERMINAL_SCRIPTS.length);
-          }, currentStep.duration || 3000);
-        }, 400);
+      case "uptime":
+      case "uptime --stats": {
+        const up = getDynamicUptime();
+        return (
+          <div className="font-mono text-xs text-slate-300 space-y-1">
+            <div className="text-emerald-300 bg-emerald-500/[0.08] border border-emerald-500/20 p-2.5 rounded-lg flex items-center justify-between">
+              <span>{up.summary}</span>
+              <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0 ml-2" />
+            </div>
+            <div className="text-[11px] text-slate-400 flex items-center gap-2 pl-1 pt-0.5">
+              <span className="text-sky-400 font-semibold">Track Record:</span>
+              <span>
+                1.5+ years production • 20+ shipped platforms • zero dropped
+                healthchecks
+              </span>
+            </div>
+          </div>
+        );
       }
-    };
 
-    timeoutId = setTimeout(typeNextChar, 500);
+      case "neofetch":
+        return (
+          <div className="font-mono text-xs flex flex-col sm:flex-row gap-4 p-2 rounded-lg bg-white/[0.02] border border-white/[0.06]">
+            {/* Monospace ASCII mark */}
+            <pre className="text-emerald-400 font-bold text-[11px] leading-tight select-none shrink-0">
+              {`   /\\
+  /  \\
+ / /\\ \\
+/ /  \\ \\
+/_/    \\_\\`}
+            </pre>
+            <div className="space-y-1 text-slate-300 text-xs">
+              <div className="text-emerald-400 font-bold">rakib@linux-box</div>
+              <div className="text-slate-600">----------------------</div>
+              <div>
+                <span className="text-sky-400 font-semibold">OS: </span>
+                <span>Ubuntu 24.04 LTS (x86_64)</span>
+              </div>
+              <div>
+                <span className="text-sky-400 font-semibold">Host: </span>
+                <span>SM Technology Workstation</span>
+              </div>
+              <div>
+                <span className="text-sky-400 font-semibold">Kernel: </span>
+                <span>6.8.0-generic</span>
+              </div>
+              <div>
+                <span className="text-sky-400 font-semibold">Shell: </span>
+                <span>bash 5.2.21</span>
+              </div>
+              <div>
+                <span className="text-sky-400 font-semibold">Stack: </span>
+                <span>Next.js 15, TypeScript, PostgreSQL, Docker</span>
+              </div>
+              <div>
+                <span className="text-sky-400 font-semibold">Location: </span>
+                <span>Dhaka, Bangladesh (UTC+6)</span>
+              </div>
+            </div>
+          </div>
+        );
 
-    return () => clearTimeout(timeoutId);
-  }, [activeStepIndex, isPlaying]);
-
-  const handleManualCommand = (cmd: string) => {
-    setIsPlaying(false);
-    setIsTyping(false);
-    setCurrentTypedCommand("");
-
-    if (cmd === "clear") {
-      setHistory([]);
-      return;
+      default:
+        return (
+          <span className="text-slate-300 text-xs font-mono">
+            Executed command: {cmd}
+          </span>
+        );
     }
+  }, []);
 
-    if (cmd === "uname" || cmd === "uname -a") {
-      const output = (
-        <div className="text-slate-300 font-mono text-xs">
-          Linux rakib-workstation 6.8.0-generic #42-Ubuntu SMP PREEMPT_DYNAMIC
-          x86_64 GNU/Linux
-        </div>
-      );
-      setHistory((prev) => [...prev, { command: cmd, output }]);
-      return;
-    }
+  // Execute a command: types it in prompt, then outputs to history
+  const runCommand = useCallback(
+    (chipKey: string, autoAdvance = false) => {
+      cancelTyping();
+      if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
 
-    if (cmd === "neofetch") {
-      const output = (
-        <div className="font-mono text-xs space-y-1 text-slate-300">
-          <div className="text-emerald-400 font-bold">rakib@linux-box</div>
-          <div className="text-slate-500">------------------</div>
-          <div>
-            <span className="text-sky-400 font-semibold">OS: </span>
-            <span>Ubuntu 24.04 LTS (x86_64)</span>
-          </div>
-          <div>
-            <span className="text-sky-400 font-semibold">Kernel: </span>
-            <span>6.8.0-generic</span>
-          </div>
-          <div>
-            <span className="text-sky-400 font-semibold">Shell: </span>
-            <span>bash 5.2.21</span>
-          </div>
-          <div>
-            <span className="text-sky-400 font-semibold">Stack: </span>
-            <span>Next.js 15, TypeScript, Tailwind, PostgreSQL</span>
-          </div>
-        </div>
-      );
-      setHistory((prev) => [...prev, { command: cmd, output }]);
-      return;
-    }
+      setActiveTab("terminal");
+      setActiveRunChip(chipKey);
 
-    const matchedStep = TERMINAL_SCRIPTS.find(
-      (s) => s.command.toLowerCase() === cmd.toLowerCase(),
-    );
-    const output = matchedStep ? (
-      matchedStep.output
-    ) : (
-      <span className="text-red-400 text-xs font-mono">
-        bash: command not found: {cmd}. Type &apos;whoami&apos;, &apos;cat
-        tech-stack.json&apos;, &apos;uptime&apos;, &apos;neofetch&apos;, or
-        click pills.
-      </span>
-    );
+      if (chipKey === "clear") {
+        setHistory([]);
+        setTextImmediate("");
+        return;
+      }
 
-    setHistory((prev) => [...prev, { command: cmd, output }]);
+      const cmdMap: Record<string, string> = {
+        whoami: "whoami",
+        "tech-stack": "cat tech-stack.json",
+        "git log": "git log --oneline -n 3",
+        uptime: "uptime",
+        neofetch: "neofetch",
+      };
+
+      const fullCmd = cmdMap[chipKey] || chipKey;
+
+      typeText(fullCmd, {
+        charSpeed: 28,
+        jitter: 12,
+        onComplete: () => {
+          // Short pause after command finishes typing before output renders
+          const execTimeout = setTimeout(() => {
+            setHistory((prev) => [
+              ...prev,
+              {
+                command: fullCmd,
+                output: buildCommandOutput(chipKey),
+              },
+            ]);
+            setTextImmediate("");
+
+            // Auto-advance loop if in automated presentation mode
+            if (autoAdvance) {
+              const NEXT_CHIPS = [
+                "tech-stack",
+                "whoami",
+                "git log",
+                "uptime",
+                "neofetch",
+              ];
+              const currentIndex = NEXT_CHIPS.indexOf(chipKey);
+              const nextChip =
+                NEXT_CHIPS[(currentIndex + 1) % NEXT_CHIPS.length];
+
+              autoPlayTimerRef.current = setTimeout(() => {
+                runCommand(nextChip, true);
+              }, 4200);
+            }
+          }, 320);
+
+          autoPlayTimerRef.current = execTimeout;
+        },
+      });
+    },
+    [cancelTyping, typeText, setTextImmediate, buildCommandOutput],
+  );
+
+  // Manual RUN Chip Click handler
+  const handleChipClick = (chipKey: string) => {
+    setIsPlaying(false); // Disable auto-play on explicit user click
+    runCommand(chipKey, false);
   };
 
-  const restartLoop = () => {
-    setHistory([]);
-    setActiveStepIndex(0);
-    setIsPlaying(true);
-    setCurrentTypedCommand("");
+  // Connected Initial Boot Sequence
+  useEffect(() => {
+    // 1. Initial micro-delay for terminal to mount
+    const bootTimer = setTimeout(() => {
+      setBootReady(true);
+      if (onTerminalReady) {
+        onTerminalReady();
+      }
+
+      // 2. Start initial default view: "cat tech-stack.json"
+      runCommand("tech-stack", true);
+    }, 320);
+
+    return () => {
+      clearTimeout(bootTimer);
+      if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
+      cancelTyping();
+    };
+  }, [onTerminalReady, runCommand, cancelTyping]);
+
+  // Live Sys-Metrics Timer (Active ONLY when sys-metrics tab is open)
+  useEffect(() => {
+    if (activeTab !== "system") return;
+
+    const interval = setInterval(() => {
+      setSessionSeconds((prev) => prev + 1);
+
+      // Smooth jitter for CPU usage between 14% and 29%
+      setSimulatedCpu(Math.floor(18 + Math.sin(Date.now() / 1500) * 8));
+
+      // Micro variance in memory consumption (2,140 MB - 2,165 MB)
+      setSimulatedRam(2140 + Math.floor(Math.random() * 25));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [activeTab]);
+
+  const toggleAutoPlay = () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      cancelTyping();
+      if (autoPlayTimerRef.current) clearTimeout(autoPlayTimerRef.current);
+    } else {
+      setIsPlaying(true);
+      runCommand(activeRunChip || "tech-stack", true);
+    }
   };
 
   const copyDossier = () => {
@@ -325,6 +406,12 @@ export function TerminalHeroCard() {
     );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const formatSessionTime = (totalSecs: number) => {
+    const mins = Math.floor(totalSecs / 60);
+    const secs = totalSecs % 60;
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
   return (
@@ -336,14 +423,14 @@ export function TerminalHeroCard() {
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        initial={{ opacity: 0, scale: 0.94, y: 24 }}
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         style={{
           transform: `perspective(1100px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
           transition: "transform 0.15s ease-out",
         }}
-        className="relative rounded-2xl border border-white/[0.14] bg-[#0A0D14]/95 backdrop-blur-2xl shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(56,189,248,0.12)] overflow-hidden"
+        className="relative rounded-2xl border border-white/[0.14] bg-[#0A0D14]/95 backdrop-blur-2xl shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9),0_0_35px_rgba(56,189,248,0.12)] overflow-hidden select-none"
       >
         {/* Subtle CRT Scanline overlay */}
         <div
@@ -351,9 +438,8 @@ export function TerminalHeroCard() {
           aria-hidden="true"
         />
 
-        {/* 1. Linux Window Title Bar (GNOME / Ubuntu Window Header) */}
-        <div className="flex items-center justify-between px-4 py-2 border-b border-white/[0.08] bg-[#0E121A] relative z-10 select-none">
-          {/* Linux window title & icon */}
+        {/* 1. Linux GNOME Window Title Bar */}
+        <div className="flex items-center justify-between px-4 py-2 border-b border-white/[0.08] bg-[#0E121A] relative z-10">
           <div className="flex items-center gap-2.5 min-w-0">
             <Terminal className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
             <span className="font-mono text-xs font-semibold text-slate-200 truncate">
@@ -364,25 +450,24 @@ export function TerminalHeroCard() {
             </span>
           </div>
 
-          {/* Linux Window Action Buttons (Minimize, Maximize, Close) */}
           <div className="flex items-center gap-1.5 shrink-0">
             <button
-              onClick={() => setIsPlaying((p) => !p)}
-              title={isPlaying ? "Pause auto-typing" : "Resume auto-typing"}
+              onClick={toggleAutoPlay}
+              title={isPlaying ? "Pause auto-loop" : "Resume auto-loop"}
               className="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
             >
               <Minus className="w-3.5 h-3.5" />
             </button>
             <button
-              onClick={restartLoop}
-              title="Restart automated sequence"
+              onClick={() => runCommand(activeRunChip || "tech-stack", true)}
+              title="Re-run active sequence"
               className="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/[0.08] transition-colors cursor-pointer"
             >
               <Square className="w-2.5 h-2.5" />
             </button>
             <button
-              onClick={() => setHistory([])}
-              title="Clear terminal output"
+              onClick={() => handleChipClick("clear")}
+              title="Clear terminal canvas"
               className="w-6 h-6 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-[#E01B24] transition-colors cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
@@ -391,8 +476,7 @@ export function TerminalHeroCard() {
         </div>
 
         {/* 2. GNOME Terminal Tab Bar & Status Strip */}
-        <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#07090F] relative z-10 select-none">
-          {/* Terminal Tabs */}
+        <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#07090F] relative z-10">
           <div className="flex items-center">
             <button
               onClick={() => setActiveTab("terminal")}
@@ -404,7 +488,7 @@ export function TerminalHeroCard() {
             >
               <Terminal className="w-3 h-3 text-emerald-400" />
               <span>terminal.sh</span>
-              {isPlaying && (
+              {isPlaying && activeTab === "terminal" && (
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-0.5" />
               )}
             </button>
@@ -419,10 +503,10 @@ export function TerminalHeroCard() {
             >
               <Cpu className="w-3 h-3 text-amber-400" />
               <span>sys-metrics</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse ml-0.5" />
             </button>
           </div>
 
-          {/* Right Status & Tools (Branch, Live Loop, Play/Pause, Copy) */}
           <div className="flex items-center gap-2.5 px-3 text-xs font-mono text-slate-400">
             <div className="hidden sm:flex items-center gap-2 text-[11px]">
               <GitBranch className="w-3 h-3 text-purple-400" />
@@ -436,18 +520,20 @@ export function TerminalHeroCard() {
               ) : isPlaying ? (
                 <span className="text-emerald-400 flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>live loop active</span>
+                  <span>live loop</span>
                 </span>
               ) : (
-                <span>idle</span>
+                <span className="text-slate-500">interactive</span>
               )}
             </div>
 
             <div className="flex items-center gap-1 pl-2 sm:border-l border-white/[0.08]">
               <button
-                onClick={() => setIsPlaying((p) => !p)}
+                onClick={toggleAutoPlay}
                 className="p-1 rounded hover:bg-white/[0.08] text-slate-400 hover:text-white transition-colors cursor-pointer"
-                title={isPlaying ? "Pause auto-typing" : "Resume auto-typing"}
+                title={
+                  isPlaying ? "Pause automated loop" : "Resume automated loop"
+                }
               >
                 {isPlaying ? (
                   <Pause className="w-3.5 h-3.5 text-amber-400" />
@@ -471,21 +557,23 @@ export function TerminalHeroCard() {
           </div>
         </div>
 
-        {/* 2. Main Terminal Content Area */}
+        {/* 3. Terminal Canvas Body */}
         {activeTab === "terminal" ? (
           <div
             ref={terminalBodyRef}
             className="p-5 font-mono text-xs space-y-4 h-[310px] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 relative z-10"
           >
-            {/* Initial Boot Message */}
-            <div className="text-[11px] text-slate-400 pb-1 border-b border-white/[0.04] flex items-center justify-between font-mono">
-              <span>Linux 6.8.0-generic (x86_64-linux-gnu) • bash 5.2.21</span>
+            {/* Initial Boot String */}
+            <div className="text-[11px] text-slate-500 pb-1 border-b border-white/[0.04] flex items-center justify-between font-mono">
+              <span>
+                Linux 6.8.0-generic (x86_64) • Session: rakib@linux-box
+              </span>
               <span className="text-[10px] text-emerald-400/80 font-mono">
-                tty1
+                {bootReady ? "[OK] tty1" : "booting..."}
               </span>
             </div>
 
-            {/* Historical Output */}
+            {/* Historical Output Stack */}
             {history.map((item, idx) => (
               <div key={idx} className="space-y-1.5">
                 <div className="flex items-center gap-2 text-slate-400">
@@ -505,7 +593,7 @@ export function TerminalHeroCard() {
               </div>
             ))}
 
-            {/* Live Typing Line */}
+            {/* Live Active Typing Prompt */}
             <div className="flex items-center gap-2 text-slate-400 pt-0.5">
               <span className="shrink-0 font-mono text-xs">
                 <span className="text-emerald-400 font-bold">
@@ -516,121 +604,145 @@ export function TerminalHeroCard() {
                 <span className="text-slate-200 font-bold">$ </span>
               </span>
               <span className="text-amber-300 font-semibold">
-                {currentTypedCommand}
+                {typedCommand}
               </span>
-              <span className="w-2 h-4 bg-emerald-400 animate-pulse shrink-0 inline-block shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              {/* Synchronized Terminal Cursor */}
+              <span
+                className="w-2 h-4 bg-emerald-400 terminal-cursor-sync shrink-0 inline-block shadow-[0_0_8px_rgba(52,211,153,0.8)]"
+                aria-hidden="true"
+              />
             </div>
           </div>
         ) : (
-          /* System Metrics Tab */
+          /* Live Sys-Metrics Tab */
           <div className="p-5 font-mono text-xs space-y-4 h-[310px] overflow-y-auto relative z-10 text-slate-300">
-            <div className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Cpu className="w-4 h-4 text-sky-400" />
-              <span>System &amp; Workstation Environment</span>
+            <div className="flex items-center justify-between border-b border-white/[0.06] pb-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
+                <span>Live Workstation Telemetry</span>
+              </div>
+              <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                <Clock className="w-3 h-3 text-slate-400" />
+                <span>Session: {formatSessionTime(sessionSeconds)}</span>
+              </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 pt-2">
+            {/* Metric Gauges Grid */}
+            <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02] space-y-1.5">
+                <div className="flex justify-between text-[11px] text-slate-400">
+                  <span>Simulated CPU Load</span>
+                  <span className="text-emerald-400 font-bold">
+                    {simulatedCpu}%
+                  </span>
+                </div>
+                <div className="w-full bg-white/[0.06] rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className="bg-emerald-400 h-full transition-all duration-700"
+                    style={{ width: `${simulatedCpu}%` }}
+                  />
+                </div>
+                <div className="text-[10px] text-slate-500">
+                  8 Cores Active • 0 Throttling
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02] space-y-1.5">
+                <div className="flex justify-between text-[11px] text-slate-400">
+                  <span>Memory Buffer</span>
+                  <span className="text-sky-400 font-bold">
+                    {((simulatedRam / 32768) * 100).toFixed(1)}%
+                  </span>
+                </div>
+                <div className="w-full bg-white/[0.06] rounded-full h-1.5 overflow-hidden">
+                  <div
+                    className="bg-sky-400 h-full transition-all duration-700"
+                    style={{ width: `${(simulatedRam / 32768) * 100}%` }}
+                  />
+                </div>
+                <div className="text-[10px] text-slate-500">
+                  {simulatedRam} MB / 32,768 MB
+                </div>
+              </div>
+            </div>
+
+            {/* Target Role & Academic Standing */}
+            <div className="grid grid-cols-2 gap-3">
               <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02]">
                 <div className="text-[11px] text-slate-400">Target Role</div>
                 <div className="text-white font-semibold mt-1">
                   Full-Stack / Frontend
                 </div>
               </div>
+
               <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02]">
                 <div className="text-[11px] text-slate-400">M.Sc. CSE CGPA</div>
                 <div className="text-emerald-400 font-semibold mt-1">
                   3.75 / 4.00
                 </div>
               </div>
-              <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02]">
-                <div className="text-[11px] text-slate-400">
-                  Current Company
-                </div>
-                <div className="text-white font-semibold mt-1">
-                  SM Technology
-                </div>
-              </div>
-              <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02]">
-                <div className="text-[11px] text-slate-400">
-                  Production Systems
-                </div>
-                <div className="text-sky-400 font-semibold mt-1">
-                  20+ Shipped
-                </div>
-              </div>
             </div>
 
-            <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02] space-y-2">
-              <div className="text-[11px] text-slate-400">
-                Core Runtime Health
+            {/* Network & Protocol Status */}
+            <div className="p-3 rounded-xl border border-white/[0.08] bg-white/[0.02] flex items-center justify-between text-[11px]">
+              <div className="flex items-center gap-2">
+                <Server className="w-3.5 h-3.5 text-sky-400" />
+                <span className="text-slate-300">
+                  HTTP/2 Edge Delivery • TLS 1.3
+                </span>
               </div>
-              <div className="space-y-1.5">
-                <div className="flex justify-between text-[11px]">
-                  <span>Next.js 15 &amp; React 19 Engine</span>
-                  <span className="text-emerald-400">100% Operational</span>
-                </div>
-                <div className="w-full bg-white/[0.06] rounded-full h-1.5 overflow-hidden">
-                  <div className="bg-emerald-400 h-full w-[98%]" />
-                </div>
+              <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>12ms Latency</span>
               </div>
             </div>
           </div>
         )}
-        {/* 3. Interactive Quick Command Pills Bar */}
+
+        {/* 4. Interactive Quick RUN Command Chips Bar */}
         <div className="px-3 py-2 border-t border-white/[0.08] bg-[#07090F]/90 backdrop-blur-md flex items-center justify-between gap-1.5 relative z-10 overflow-x-auto scrollbar-none select-none">
           <div className="flex items-center gap-1.5 shrink-0">
             <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1 shrink-0 pr-1">
               <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
-              <span>Run:</span>
+              <span>RUN:</span>
             </span>
 
-            <button
-              onClick={() => handleManualCommand("whoami")}
-              className="px-2 py-0.5 rounded text-[11px] font-mono border border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-emerald-400/50 hover:bg-emerald-400/10 transition-colors cursor-pointer shrink-0 active:scale-95"
-            >
-              whoami
-            </button>
-
-            <button
-              onClick={() => handleManualCommand("cat tech-stack.json")}
-              className="px-2 py-0.5 rounded text-[11px] font-mono border border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-emerald-400/50 hover:bg-emerald-400/10 transition-colors cursor-pointer shrink-0 active:scale-95"
-            >
-              tech-stack
-            </button>
-
-            <button
-              onClick={() => handleManualCommand("git log --oneline -n 2")}
-              className="px-2 py-0.5 rounded text-[11px] font-mono border border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-emerald-400/50 hover:bg-emerald-400/10 transition-colors cursor-pointer shrink-0 active:scale-95 hidden sm:inline-block"
-            >
-              git log
-            </button>
-
-            <button
-              onClick={() => handleManualCommand("uptime --stats")}
-              className="px-2 py-0.5 rounded text-[11px] font-mono border border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-emerald-400/50 hover:bg-emerald-400/10 transition-colors cursor-pointer shrink-0 active:scale-95"
-            >
-              uptime
-            </button>
-
-            <button
-              onClick={() => handleManualCommand("neofetch")}
-              className="px-2 py-0.5 rounded text-[11px] font-mono border border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-emerald-400/50 hover:bg-emerald-400/10 transition-colors cursor-pointer shrink-0 active:scale-95 hidden sm:inline-block"
-            >
-              neofetch
-            </button>
+            {[
+              { id: "whoami", label: "whoami" },
+              { id: "tech-stack", label: "tech-stack" },
+              { id: "git log", label: "git log" },
+              { id: "uptime", label: "uptime" },
+              { id: "neofetch", label: "neofetch" },
+            ].map((chip) => {
+              const isActive =
+                activeRunChip === chip.id && activeTab === "terminal";
+              return (
+                <button
+                  key={chip.id}
+                  onClick={() => handleChipClick(chip.id)}
+                  className={`px-2 py-0.5 rounded text-[11px] font-mono border transition-all cursor-pointer shrink-0 active:scale-95 ${
+                    isActive
+                      ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/40 shadow-sm"
+                      : "border-white/[0.08] bg-white/[0.03] text-slate-300 hover:text-white hover:border-emerald-400/50 hover:bg-emerald-400/10"
+                  }`}
+                >
+                  {chip.label}
+                </button>
+              );
+            })}
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0 pl-2">
             <button
-              onClick={() => handleManualCommand("clear")}
+              onClick={() => handleChipClick("clear")}
               className="px-2 py-0.5 rounded text-[11px] font-mono border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-red-400 hover:border-red-400/40 transition-colors cursor-pointer shrink-0 active:scale-95"
             >
               clear
             </button>
 
             <button
-              onClick={restartLoop}
-              title="Loop automated sequence"
+              onClick={() => runCommand(activeRunChip || "tech-stack", true)}
+              title="Restart automated sequence"
               className="p-1 rounded border border-white/[0.08] bg-white/[0.03] text-slate-400 hover:text-emerald-400 transition-colors cursor-pointer shrink-0 active:scale-95"
             >
               <RotateCcw className="w-3 h-3" />

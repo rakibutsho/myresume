@@ -38,6 +38,7 @@ const METRICS = [
 export default function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isTerminalReady, setIsTerminalReady] = useState(false);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("mail@rakibutsho.dev");
@@ -66,9 +67,9 @@ export default function Home() {
           <div className="lg:col-span-7 space-y-8 text-center sm:text-left">
             {/* Terminal Command Status Badge */}
             <motion.div
-              initial={{ opacity: 0, y: -16 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
               className="flex flex-wrap items-center justify-center sm:justify-start gap-3"
             >
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/[0.06] text-sky-400 font-mono text-xs backdrop-blur-md">
@@ -85,7 +86,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Kinetic Typography Blur-Reveal Headline */}
+            {/* Kinetic Typography Blur-Reveal Headline - Sequenced with Terminal Init */}
             <div className="space-y-2">
               <BlurText
                 text="Engineering scalable web systems with craft and clarity."
@@ -93,16 +94,21 @@ export default function Home() {
                 highlightClass="text-shimmer font-black"
                 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]"
                 as="h1"
+                showCursor
+                delay={isTerminalReady ? 0.05 : 0.25}
               />
             </div>
 
             {/* Narrative Dossier */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: isTerminalReady ? 1 : 0.8,
+                y: isTerminalReady ? 0 : 8,
+              }}
               transition={{
-                duration: 0.6,
-                delay: 0.25,
+                duration: 0.5,
+                delay: 0.15,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl"
@@ -122,11 +128,14 @@ export default function Home() {
 
             {/* Interactive Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: isTerminalReady ? 1 : 0.8,
+                y: isTerminalReady ? 0 : 8,
+              }}
               transition={{
-                duration: 0.6,
-                delay: 0.35,
+                duration: 0.5,
+                delay: 0.25,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2"
@@ -176,7 +185,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
               className="flex items-center justify-center sm:justify-start gap-4 pt-1 text-slate-400 text-xs font-mono"
             >
               <a
@@ -210,9 +219,12 @@ export default function Home() {
 
             {/* Metrics Ribbon */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: isTerminalReady ? 1 : 0.8,
+                y: isTerminalReady ? 0 : 8,
+              }}
+              transition={{ duration: 0.5, delay: 0.45 }}
               className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3.5"
             >
               {METRICS.map((m) => (
@@ -236,7 +248,9 @@ export default function Home() {
 
           {/* Right Column (5 cols): Interactive 3D Perspective Terminal Window */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <TerminalHeroCard />
+            <TerminalHeroCard
+              onTerminalReady={() => setIsTerminalReady(true)}
+            />
           </div>
         </div>
       </div>
