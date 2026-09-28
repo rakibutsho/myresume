@@ -1,7 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PdfModal } from "../common/PdfModal/PdfModal";
 import {
@@ -9,29 +8,37 @@ import {
   Check,
   ArrowDown,
   FileText,
-  ArrowUpRight,
+  Mail,
+  Terminal as TerminalIcon,
 } from "lucide-react";
+import { Github, Linkedin } from "@/components/common/Icons";
 import { motion } from "motion/react";
+import { BlurText } from "@/components/common/BlurText";
 import { TerminalHeroCard } from "./TerminalHeroCard";
-import { AnimatedNumber } from "@/components/vengeance/AnimatedNumber";
-import { SocialFlipButton } from "@/components/vengeance/SocialFlipButton";
-import { LightLines } from "@/components/vengeance/LightLines";
+import { TechMarquee } from "@/components/modules/TechMarquee";
 
-function getProductionYears(): string {
-  const start = new Date(2025, 3, 1);
-  const now = new Date();
-  const months =
-    (now.getFullYear() - start.getFullYear()) * 12 +
-    (now.getMonth() - start.getMonth());
-  const yrs = months / 12;
-  return yrs < 1 ? "<1" : `${yrs.toFixed(1)}+`;
-}
+const METRICS = [
+  {
+    value: "1.5+",
+    label: "Years Experience",
+    desc: "Production software delivery",
+  },
+  {
+    value: "20+",
+    label: "Projects Shipped",
+    desc: "SaaS & full-stack platforms",
+  },
+  {
+    value: "3.75",
+    label: "M.Sc. in CSE CGPA",
+    desc: "Jahangirnagar University",
+  },
+];
 
 export default function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  const prodYears = useMemo(() => getProductionYears(), []);
+  const [isTerminalReady, setIsTerminalReady] = useState(false);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("mail@rakibutsho.dev");
@@ -51,196 +58,206 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="relative w-full pt-28 sm:pt-36 pb-20 overflow-hidden"
+      className="relative w-full pt-28 sm:pt-36 pb-12 overflow-hidden"
     >
-      {/* Subtle architectural light lines background accent */}
-      <div className="absolute inset-0 pointer-events-none opacity-30">
-        <LightLines
-          linesOpacity={0.03}
-          lightsOpacity={0.2}
-          speedMultiplier={0.5}
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10 space-y-12">
-        {/* Main Hero Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Left Column (7 cols): Editorial Typography, CTAs, Socials */}
-          <div className="lg:col-span-7 space-y-8 text-left">
-            {/* Status & Role Eyebrow */}
+      <div className="max-w-7xl mx-auto px-6 space-y-16">
+        {/* Main 2-Column Hero: Kinetic Copy Left, Interactive 3D Terminal Right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column (7 cols) */}
+          <div className="lg:col-span-7 space-y-8 text-center sm:text-left">
+            {/* Terminal Command Status Badge */}
             <motion.div
-              initial={{ opacity: 0, y: -6 }}
+              initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className="flex flex-wrap items-center gap-3"
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-3"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] text-slate-300 font-mono text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
-                <span>Available for opportunities</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/[0.06] text-sky-400 font-mono text-xs backdrop-blur-md">
+                <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
+                <span>$ whoami --role</span>
               </div>
-              <span className="text-white/20 hidden sm:inline">·</span>
-              <span className="text-slate-400 font-mono text-xs hidden sm:inline">
-                Junior Executive, Front End @ SM Technology
-              </span>
+
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] text-emerald-400 text-xs font-medium backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                </span>
+                <span>Available for Full-time Roles</span>
+              </div>
             </motion.div>
 
-            {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]"
-            >
-              Frontend engineer building production dashboards with{" "}
-              <span className="text-sky-400">Next.js</span> and{" "}
-              <span className="text-sky-400">TypeScript</span>.
-            </motion.h1>
+            {/* Kinetic Typography Blur-Reveal Headline - Sequenced with Terminal Init */}
+            <div className="space-y-2">
+              <BlurText
+                text="Engineering scalable web systems with craft and clarity."
+                highlightWords={["craft", "clarity."]}
+                highlightClass="text-shimmer font-black"
+                className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]"
+                as="h1"
+                showCursor
+                delay={isTerminalReady ? 0.05 : 0.25}
+              />
+            </div>
 
-            {/* Value Proposition */}
+            {/* Narrative Dossier */}
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: isTerminalReady ? 1 : 0.8,
+                y: isTerminalReady ? 0 : 8,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.15,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl"
             >
-              At <strong className="text-white font-semibold">SM Technology</strong>,
-              I own client-facing dashboard modules from build to release.
-              Outside work I build{" "}
-              <strong className="text-white font-semibold">SpiderNode</strong>, an
-              open-source uptime monitor.
+              Hi, I&apos;m{" "}
+              <span className="text-white font-semibold">Rakibul Islam</span>.
+              Full-Stack Software Engineer building high-throughput frontend
+              dashboards at{" "}
+              <span className="text-white font-semibold">SM Technology</span>{" "}
+              and pursuing an{" "}
+              <span className="text-white font-semibold">
+                M.Sc. in CSE at Jahangirnagar University
+              </span>
+              . Specialized in Next.js, TypeScript, and distributed Node
+              architectures.
             </motion.p>
 
-            {/* 2 Main CTAs + Action Group */}
+            {/* Interactive Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
-              className="flex flex-wrap items-center gap-3.5 pt-1"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: isTerminalReady ? 1 : 0.8,
+                y: isTerminalReady ? 0 : 8,
+              }}
+              transition={{
+                duration: 0.5,
+                delay: 0.25,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2"
             >
-              {/* CTA 1: Explore projects */}
               <Button
-                asChild
-                className="rounded-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold transition-all h-11 px-6 gap-2 text-sm cursor-pointer shadow-sm hover:shadow-sky-500/20"
+                onClick={scrollToProjects}
+                className="rounded-full bg-white text-black font-semibold hover:bg-slate-200 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 h-11 px-6 gap-2 text-sm shadow-[0_4px_24px_rgba(255,255,255,0.2)] cursor-pointer"
               >
-                <Link href="#projects" onClick={scrollToProjects}>
-                  <span>Explore projects</span>
-                  <ArrowDown className="w-4 h-4" />
-                </Link>
+                <span>Explore Projects</span>
+                <ArrowDown className="w-4 h-4 animate-bounce" />
               </Button>
 
-              {/* CTA 2: Contact me */}
               <Button
                 variant="outline"
-                className="rounded-full border-white/[0.14] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.28] transition-colors h-11 px-5 gap-2 text-sm cursor-pointer"
-                asChild
-              >
-                <Link href="/#contact">
-                  <span>Contact me</span>
-                  <ArrowUpRight className="w-4 h-4 text-sky-400" />
-                </Link>
-              </Button>
-
-              {/* Resume Trigger */}
-              <Button
-                variant="ghost"
                 onClick={() => setIsPdfModalOpen(true)}
-                className="rounded-full text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors h-11 px-4 gap-2 text-xs font-mono cursor-pointer"
+                className="rounded-full border-white/[0.12] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.25] hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 h-11 px-5 gap-2 text-sm cursor-pointer"
               >
-                <FileText className="w-3.5 h-3.5 text-slate-400" />
-                <span>Resume</span>
+                <FileText className="w-4 h-4 text-sky-400" />
+                <span>View Resume</span>
               </Button>
 
               {/* Copy Email Button */}
               <button
-                type="button"
                 onClick={handleCopyEmail}
-                className={`inline-flex items-center gap-2 h-11 px-4 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                className={`inline-flex items-center gap-2 h-11 px-4 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer hover:scale-[1.03] active:scale-[0.98] ${
                   copied
                     ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-300"
-                    : "border-white/[0.1] bg-white/[0.02] text-slate-400 hover:text-white hover:border-white/[0.2]"
+                    : "border-white/[0.08] bg-white/[0.02] text-slate-300 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05]"
                 }`}
                 aria-label="Copy email address"
               >
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Copied!</span>
+                    <span>Copied to clipboard!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500" />
+                    <Copy className="w-3.5 h-3.5 text-slate-400" />
                     <span>mail@rakibutsho.dev</span>
                   </>
                 )}
               </button>
             </motion.div>
 
-            {/* Social Presence: Vengeance UI SocialFlipButton */}
+            {/* Social Links */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="flex items-center gap-4 pt-2"
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="flex items-center justify-center sm:justify-start gap-4 pt-1 text-slate-400 text-xs font-mono"
             >
-              <span className="text-xs font-mono text-slate-500">Connect:</span>
-              <SocialFlipButton />
+              <a
+                href="https://github.com/rakibutsho"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-white transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                <span>github.com/rakibutsho</span>
+              </a>
+              <span className="text-white/20">•</span>
+              <a
+                href="https://www.linkedin.com/in/rakibutsho"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 hover:text-white transition-colors"
+              >
+                <Linkedin className="w-4 h-4" />
+                <span>linkedin</span>
+              </a>
+              <span className="text-white/20">•</span>
+              <a
+                href="mailto:mail@rakibutsho.dev"
+                className="flex items-center gap-1.5 hover:text-white transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                <span>email</span>
+              </a>
+            </motion.div>
+
+            {/* Metrics Ribbon */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{
+                opacity: isTerminalReady ? 1 : 0.8,
+                y: isTerminalReady ? 0 : 8,
+              }}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3.5"
+            >
+              {METRICS.map((m) => (
+                <div
+                  key={m.label}
+                  className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] hover:bg-white/[0.04] transition-all duration-200"
+                >
+                  <div className="text-2xl font-bold tracking-tight text-white font-mono">
+                    {m.value}
+                  </div>
+                  <div className="text-xs font-semibold text-slate-200 mt-0.5">
+                    {m.label}
+                  </div>
+                  <div className="text-[11px] text-slate-400 mt-0.5">
+                    {m.desc}
+                  </div>
+                </div>
+              ))}
             </motion.div>
           </div>
 
-          {/* Right Column (5 cols): ONE Interactive Terminal Window */}
+          {/* Right Column (5 cols): Interactive 3D Perspective Terminal Window */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <TerminalHeroCard />
+            <TerminalHeroCard
+              onTerminalReady={() => setIsTerminalReady(true)}
+            />
           </div>
         </div>
+      </div>
 
-        {/* 3 Honest Proof Stats: Modern Cohesive Metric Strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
-          className="pt-8 border-t border-white/[0.08]"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-            {/* Stat 1 */}
-            <div className="space-y-1.5 border-l-2 border-sky-400/40 pl-4 py-1">
-              <div className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-mono flex items-baseline gap-1">
-                <AnimatedNumber value={5} />
-              </div>
-              <div className="text-sm font-semibold text-slate-200">
-                Products shipped
-              </div>
-              <p className="text-xs text-slate-400 leading-normal">
-                Production dashboards &amp; web applications
-              </p>
-            </div>
-
-            {/* Stat 2 */}
-            <div className="space-y-1.5 border-l-2 border-sky-400/40 pl-4 py-1">
-              <div className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-mono">
-                {prodYears}
-              </div>
-              <div className="text-sm font-semibold text-slate-200">
-                Years in production
-              </div>
-              <p className="text-xs text-slate-400 leading-normal">
-                Frontend engineering computed from Apr 2025
-              </p>
-            </div>
-
-            {/* Stat 3 */}
-            <div className="space-y-1.5 border-l-2 border-sky-400/40 pl-4 py-1">
-              <div className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-mono flex items-baseline gap-1">
-                <AnimatedNumber value={1} />
-              </div>
-              <div className="text-sm font-semibold text-slate-200">
-                Open-source (SpiderNode)
-              </div>
-              <p className="text-xs text-slate-400 leading-normal">
-                Dual-cron uptime monitor with instant alerts
-              </p>
-            </div>
-          </div>
-        </motion.div>
+      {/* Infinite Tech Stack Marquee */}
+      <div className="mt-16">
+        <TechMarquee />
       </div>
 
       {/* CV Preview Modal */}
