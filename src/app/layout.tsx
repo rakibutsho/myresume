@@ -7,15 +7,20 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://rakibutsho.dev/"),
   title: "Md. Rakibul Islam | Frontend Engineer",
   description:
-    "Portfolio of Md. Rakibul Islam — Frontend Engineer at SM Technology, building production dashboards with Next.js and TypeScript.",
+    "Frontend engineer in Dhaka building production dashboards with Next.js and TypeScript. Builds SpiderNode, an open-source uptime monitor.",
   keywords: [
     "Md. Rakibul Islam",
     "rakibutsho",
     "Rakibul Islam",
+    "Frontend Developer",
     "Frontend Engineer",
     "React Developer",
     "Next.js Developer",
     "TypeScript",
+    "Node.js",
+    "MongoDB",
+    "PostgreSQL",
+    "Web Performance",
     "Dashboard Development",
     "Dhaka",
     "Bangladesh",
@@ -27,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Md. Rakibul Islam | Frontend Engineer",
     description:
-      "Building production dashboards with Next.js and TypeScript. Currently at SM Technology in Dhaka.",
+      "Frontend engineer in Dhaka building production dashboards with Next.js and TypeScript. Builds SpiderNode, an open-source uptime monitor.",
     type: "website",
     url: "https://rakibutsho.dev/",
     siteName: "Md. Rakibul Islam",
@@ -37,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Md. Rakibul Islam | Frontend Engineer",
     description:
-      "Building production dashboards with Next.js and TypeScript. Currently at SM Technology in Dhaka.",
+      "Frontend engineer building production dashboards with Next.js and TypeScript.",
     creator: "@rakibutsho",
   },
   alternates: {
@@ -61,28 +66,12 @@ const personJsonLd = {
   "@type": "Person",
   name: "Md. Rakibul Islam",
   url: "https://rakibutsho.dev",
-  jobTitle: "Junior Executive, Front End",
+  jobTitle: "Frontend Engineer",
   worksFor: {
     "@type": "Organization",
     name: "SM Technology",
   },
-  alumniOf: [
-    {
-      "@type": "EducationalOrganization",
-      name: "Jahangirnagar University",
-    },
-    {
-      "@type": "EducationalOrganization",
-      name: "Bangladesh University of Business and Technology (BUBT)",
-    },
-  ],
-  knowsAbout: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Frontend Engineering",
-    "Dashboard Development",
-  ],
+  address: "Dhaka, Bangladesh",
   sameAs: [
     "https://github.com/rakibutsho",
     "https://www.linkedin.com/in/rakibutsho",

@@ -105,7 +105,7 @@ export const Navbar = () => {
         {/* Center: SpotlightNavbar */}
         <nav
           className="hidden md:flex flex-1 justify-center"
-          aria-label="Main navigation"
+          aria-label="Primary"
         >
           <SpotlightNavbar
             items={NAV_ITEMS}
