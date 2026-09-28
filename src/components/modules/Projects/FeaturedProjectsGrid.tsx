@@ -25,12 +25,12 @@ export function FeaturedProjectsGrid({ projects }: FeaturedProjectsGridProps) {
   const heroProject = topProjects[0]; // SpiderNode
   const secondaryProjects = topProjects.slice(1); // Pawradise, Anesthelink
 
-  const getImageUrl = (url?: string | any[]) => {
+  const getImageUrl = (url?: string | Record<string, unknown>[]) => {
     if (!url) return "";
     let raw = "";
     if (Array.isArray(url)) {
       url.forEach((img) => {
-        if ("cover" in img) raw = img.cover;
+        if (typeof img.cover === "string") raw = img.cover;
       });
     } else if (typeof url === "string") {
       raw = url;

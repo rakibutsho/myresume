@@ -82,7 +82,7 @@ export const ProjectsFilesystem: React.FC<ProjectsFilesystemProps> = ({
           <span className="text-slate-200 font-semibold">Directory Tree:</span>
           <span className="text-emerald-400">~/projects</span>
           <span className="text-slate-600">
-            // total {projects.length} entries
+            {"//"} total {projects.length} entries
           </span>
         </div>
 
@@ -221,7 +221,7 @@ export const ProjectsFilesystem: React.FC<ProjectsFilesystemProps> = ({
                             $ cat README.md
                           </span>
                           <span className="text-slate-600">
-                            // {project.subtitle}
+                            {"//"} {project.subtitle}
                           </span>
                         </div>
                         <h3 className="text-lg sm:text-xl font-bold font-sans text-white mt-1">
@@ -285,7 +285,7 @@ export const ProjectsFilesystem: React.FC<ProjectsFilesystemProps> = ({
                             $ git log --oneline --graph --decorate
                           </span>
                           <span className="text-slate-600">
-                            // Architecture Milestones
+                            {"//"} Architecture Milestones
                           </span>
                         </div>
 
