@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PdfModal } from "../common/PdfModal/PdfModal";
 import {
@@ -9,36 +10,29 @@ import {
   ArrowDown,
   FileText,
   Mail,
-  Terminal as TerminalIcon,
+  ArrowUpRight,
 } from "lucide-react";
 import { Github, Linkedin } from "@/components/common/Icons";
 import { motion } from "motion/react";
-import { BlurText } from "@/components/common/BlurText";
 import { TerminalHeroCard } from "./TerminalHeroCard";
 import { TechMarquee } from "@/components/modules/TechMarquee";
+import { AnimatedNumber } from "@/components/vengeance/AnimatedNumber";
 
-const METRICS = [
-  {
-    value: "1.5+",
-    label: "Years Experience",
-    desc: "Production software delivery",
-  },
-  {
-    value: "20+",
-    label: "Projects Shipped",
-    desc: "SaaS & full-stack platforms",
-  },
-  {
-    value: "3.75",
-    label: "M.Sc. in CSE CGPA",
-    desc: "Jahangirnagar University",
-  },
-];
+function getProductionYears(): string {
+  const start = new Date(2025, 3, 1);
+  const now = new Date();
+  const months =
+    (now.getFullYear() - start.getFullYear()) * 12 +
+    (now.getMonth() - start.getMonth());
+  const yrs = months / 12;
+  return yrs < 1 ? "<1" : `${yrs.toFixed(1)}+`;
+}
 
 export default function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [isTerminalReady, setIsTerminalReady] = useState(false);
+
+  const prodYears = useMemo(() => getProductionYears(), []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("mail@rakibutsho.dev");
@@ -61,201 +55,178 @@ export default function Home() {
       className="relative w-full pt-28 sm:pt-36 pb-12 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 space-y-16">
-        {/* Main 2-Column Hero: Kinetic Copy Left, Interactive 3D Terminal Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column (7 cols) */}
-          <div className="lg:col-span-7 space-y-8 text-center sm:text-left">
-            {/* Terminal Command Status Badge */}
+          {/* Left Column: Specific Headline, Honest Value Prop, 2 CTAs, 3 Proof Stats */}
+          <div className="lg:col-span-7 space-y-7 text-center sm:text-left">
+            {/* Status indicator */}
             <motion.div
-              initial={{ opacity: 0, y: -12 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               className="flex flex-wrap items-center justify-center sm:justify-start gap-3"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-500/20 bg-sky-500/[0.06] text-sky-400 font-mono text-xs backdrop-blur-md">
-                <TerminalIcon className="w-3.5 h-3.5 text-sky-400" />
-                <span>$ whoami --role</span>
-              </div>
-
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] text-emerald-400 text-xs font-medium backdrop-blur-md">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-                </span>
-                <span>Available for Full-time Roles</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] text-slate-300 font-mono text-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Available for opportunities</span>
               </div>
             </motion.div>
 
-            {/* Kinetic Typography Blur-Reveal Headline - Sequenced with Terminal Init */}
-            <div className="space-y-2">
-              <BlurText
-                text="Engineering scalable web systems with craft and clarity."
-                highlightWords={["craft", "clarity."]}
-                highlightClass="text-shimmer font-black"
-                className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]"
-                as="h1"
-                showCursor
-                delay={isTerminalReady ? 0.05 : 0.25}
-              />
+            {/* Headline */}
+            <div className="space-y-3">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+                Frontend engineer building production dashboards with{" "}
+                <span className="text-sky-400">Next.js</span> and{" "}
+                <span className="text-sky-400">TypeScript</span>.
+              </h1>
             </div>
 
-            {/* Narrative Dossier */}
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{
-                opacity: isTerminalReady ? 1 : 0.8,
-                y: isTerminalReady ? 0 : 8,
-              }}
-              transition={{
-                duration: 0.5,
-                delay: 0.15,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-2xl"
-            >
-              Hi, I&apos;m{" "}
-              <span className="text-white font-semibold">Rakibul Islam</span>.
-              Full-Stack Software Engineer building high-throughput frontend
-              dashboards at{" "}
-              <span className="text-white font-semibold">SM Technology</span>{" "}
-              and pursuing an{" "}
-              <span className="text-white font-semibold">
-                M.Sc. in CSE at Jahangirnagar University
-              </span>
-              . Specialized in Next.js, TypeScript, and distributed Node
-              architectures.
-            </motion.p>
+            {/* Value Proposition */}
+            <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+              At <strong className="text-white font-semibold">SM Technology</strong>,
+              I own client-facing dashboard modules from build to release.
+              Outside work I build{" "}
+              <strong className="text-white font-semibold">SpiderNode</strong>, an
+              open-source uptime monitor.
+            </p>
 
-            {/* Interactive Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{
-                opacity: isTerminalReady ? 1 : 0.8,
-                y: isTerminalReady ? 0 : 8,
-              }}
-              transition={{
-                duration: 0.5,
-                delay: 0.25,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="flex flex-wrap items-center justify-center sm:justify-start gap-3.5 pt-2"
-            >
+            {/* 2 Main CTAs + Secondary actions */}
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1">
               <Button
-                onClick={scrollToProjects}
-                className="rounded-full bg-white text-black font-semibold hover:bg-slate-200 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 h-11 px-6 gap-2 text-sm shadow-[0_4px_24px_rgba(255,255,255,0.2)] cursor-pointer"
+                asChild
+                className="rounded-full bg-sky-500 hover:bg-sky-400 text-white font-semibold transition-colors h-10 px-5 gap-2 text-sm cursor-pointer"
               >
-                <span>Explore Projects</span>
-                <ArrowDown className="w-4 h-4 animate-bounce" />
+                <Link href="#projects" onClick={scrollToProjects}>
+                  <span>Explore projects</span>
+                  <ArrowDown className="w-4 h-4" />
+                </Link>
               </Button>
 
               <Button
                 variant="outline"
-                onClick={() => setIsPdfModalOpen(true)}
-                className="rounded-full border-white/[0.12] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.25] hover:scale-[1.03] active:scale-[0.98] transition-all duration-200 h-11 px-5 gap-2 text-sm cursor-pointer"
+                className="rounded-full border-white/[0.12] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.25] transition-colors h-10 px-5 gap-2 text-sm cursor-pointer"
+                asChild
               >
-                <FileText className="w-4 h-4 text-sky-400" />
-                <span>View Resume</span>
+                <Link href="/#contact">
+                  <span>Contact me</span>
+                  <ArrowUpRight className="w-4 h-4 text-sky-400" />
+                </Link>
               </Button>
 
-              {/* Copy Email Button */}
+              <Button
+                variant="ghost"
+                onClick={() => setIsPdfModalOpen(true)}
+                className="rounded-full text-slate-400 hover:text-white transition-colors h-10 px-4 gap-2 text-xs font-mono cursor-pointer"
+              >
+                <FileText className="w-3.5 h-3.5 text-slate-400" />
+                <span>Resume</span>
+              </Button>
+
               <button
+                type="button"
                 onClick={handleCopyEmail}
-                className={`inline-flex items-center gap-2 h-11 px-4 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer hover:scale-[1.03] active:scale-[0.98] ${
+                className={`inline-flex items-center gap-2 h-10 px-3.5 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
                   copied
                     ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-300"
-                    : "border-white/[0.08] bg-white/[0.02] text-slate-300 hover:text-white hover:border-white/[0.2] hover:bg-white/[0.05]"
+                    : "border-white/[0.08] bg-white/[0.02] text-slate-400 hover:text-white hover:border-white/[0.16]"
                 }`}
                 aria-label="Copy email address"
               >
                 {copied ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Copied to clipboard!</span>
+                    <span>Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-400" />
+                    <Copy className="w-3.5 h-3.5 text-slate-500" />
                     <span>mail@rakibutsho.dev</span>
                   </>
                 )}
               </button>
-            </motion.div>
+            </div>
 
-            {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.35 }}
-              className="flex items-center justify-center sm:justify-start gap-4 pt-1 text-slate-400 text-xs font-mono"
-            >
+            {/* Social links */}
+            <div className="flex items-center justify-center sm:justify-start gap-4 pt-1 text-slate-400 text-xs font-mono">
               <a
                 href="https://github.com/rakibutsho"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded"
               >
-                <Github className="w-4 h-4" />
-                <span>github.com/rakibutsho</span>
+                <Github className="w-3.5 h-3.5" />
+                <span>github</span>
               </a>
-              <span className="text-white/20">•</span>
+              <span className="text-white/20">·</span>
               <a
                 href="https://www.linkedin.com/in/rakibutsho"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded"
               >
-                <Linkedin className="w-4 h-4" />
+                <Linkedin className="w-3.5 h-3.5" />
                 <span>linkedin</span>
               </a>
-              <span className="text-white/20">•</span>
+              <span className="text-white/20">·</span>
               <a
                 href="mailto:mail@rakibutsho.dev"
-                className="flex items-center gap-1.5 hover:text-white transition-colors"
+                className="flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-3.5 h-3.5" />
                 <span>email</span>
               </a>
-            </motion.div>
+            </div>
 
-            {/* Metrics Ribbon */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{
-                opacity: isTerminalReady ? 1 : 0.8,
-                y: isTerminalReady ? 0 : 8,
-              }}
-              transition={{ duration: 0.5, delay: 0.45 }}
-              className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3.5"
-            >
-              {METRICS.map((m) => (
-                <div
-                  key={m.label}
-                  className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] hover:bg-white/[0.04] transition-all duration-200"
-                >
-                  <div className="text-2xl font-bold tracking-tight text-white font-mono">
-                    {m.value}
-                  </div>
-                  <div className="text-xs font-semibold text-slate-200 mt-0.5">
-                    {m.label}
-                  </div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">
-                    {m.desc}
-                  </div>
+            {/* 3 Honest Proof Stats */}
+            <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Stat 1: 5 products shipped */}
+              <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] transition-colors">
+                <div className="text-2xl font-bold tracking-tight text-white font-mono flex items-baseline gap-1">
+                  <AnimatedNumber value={5} />
                 </div>
-              ))}
-            </motion.div>
+                <div className="text-xs font-semibold text-slate-200 mt-1">
+                  Products shipped
+                </div>
+                <div className="text-[11px] text-slate-400 mt-0.5">
+                  Production dashboards &amp; web apps
+                </div>
+              </div>
+
+              {/* Stat 2: Years in production computed from Apr 2025 */}
+              <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] transition-colors">
+                <div className="text-2xl font-bold tracking-tight text-white font-mono">
+                  {prodYears}
+                </div>
+                <div className="text-xs font-semibold text-slate-200 mt-1">
+                  Years in production
+                </div>
+                <div className="text-[11px] text-slate-400 mt-0.5">
+                  Computed from Apr 2025
+                </div>
+              </div>
+
+              {/* Stat 3: 1 open-source project */}
+              <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] transition-colors">
+                <div className="text-2xl font-bold tracking-tight text-white font-mono flex items-baseline gap-1">
+                  <AnimatedNumber value={1} />
+                </div>
+                <div className="text-xs font-semibold text-slate-200 mt-1">
+                  Open-source (SpiderNode)
+                </div>
+                <div className="text-[11px] text-slate-400 mt-0.5">
+                  Uptime monitoring tool
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Right Column (5 cols): Interactive 3D Perspective Terminal Window */}
+          {/* Right Column: ONE Interactive Terminal Window */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <TerminalHeroCard
-              onTerminalReady={() => setIsTerminalReady(true)}
-            />
+            <TerminalHeroCard />
           </div>
         </div>
       </div>
 
-      {/* Infinite Tech Stack Marquee */}
+      {/* Tech Stack Marquee */}
       <div className="mt-16">
         <TechMarquee />
       </div>
