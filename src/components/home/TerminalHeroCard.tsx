@@ -26,21 +26,7 @@ interface TerminalHeroCardProps {
   onTerminalReady?: () => void;
 }
 
-function getSessionUptime() {
-  const launchDate = new Date("2025-04-01T00:00:00Z");
-  const now = new Date();
-  const diffMs = Math.max(0, now.getTime() - launchDate.getTime());
-  const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  const seconds = String(now.getSeconds()).padStart(2, "0");
-  const timeStr = `${hours}:${minutes}:${seconds}`;
-  return {
-    timeStr,
-    days,
-    summary: `${timeStr} up ${days} days in production, 1 active user`,
-  };
-}
+
 
 export function TerminalHeroCard({ onTerminalReady }: TerminalHeroCardProps) {
   const [history, setHistory] = useState<LogEntry[]>([]);
@@ -191,20 +177,43 @@ export function TerminalHeroCard({ onTerminalReady }: TerminalHeroCardProps) {
           </div>
         );
 
-      case "uptime":
-      case "uptime --stats": {
-        const up = getSessionUptime();
+      case "projects":
+      case "ls projects/":
         return (
-          <div className="font-mono text-xs text-slate-300 space-y-1">
-            <div className="text-slate-200 bg-white/[0.04] border border-white/[0.08] p-2.5 rounded-lg">
-              <span>{up.summary}</span>
+          <div className="font-mono text-xs space-y-1.5 text-slate-300">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="p-2 rounded bg-white/[0.03] border border-white/[0.06]">
+                <div className="text-sky-300 font-semibold">spidernode/</div>
+                <div className="text-[11px] text-slate-400">
+                  Open-source uptime monitoring engine
+                </div>
+              </div>
+              <div className="p-2 rounded bg-white/[0.03] border border-white/[0.06]">
+                <div className="text-sky-300 font-semibold">pawradise/</div>
+                <div className="text-[11px] text-slate-400">
+                  Pet care &amp; shelter management system
+                </div>
+              </div>
+              <div className="p-2 rounded bg-white/[0.03] border border-white/[0.06]">
+                <div className="text-sky-300 font-semibold">anesthelink/</div>
+                <div className="text-[11px] text-slate-400">
+                  Clinical anesthesia coordination platform
+                </div>
+              </div>
+              <div className="p-2 rounded bg-white/[0.03] border border-white/[0.06]">
+                <div className="text-sky-300 font-semibold">
+                  bacuff-tournament/
+                </div>
+                <div className="text-[11px] text-slate-400">
+                  Real-time tournament score management
+                </div>
+              </div>
             </div>
-            <div className="text-[11px] text-slate-400 pl-1 pt-0.5">
-              <span>5 products shipped · 1 open-source tool (SpiderNode)</span>
+            <div className="text-[11px] text-slate-500 pt-0.5">
+              5 case studies documented in archive
             </div>
           </div>
         );
-      }
 
       case "neofetch":
         return (
@@ -265,7 +274,7 @@ export function TerminalHeroCard({ onTerminalReady }: TerminalHeroCardProps) {
         whoami: "whoami",
         "tech-stack": "cat tech-stack.json",
         "git log": "git log --oneline -n 3",
-        uptime: "uptime",
+        projects: "ls projects/",
         neofetch: "neofetch",
       };
 
@@ -290,7 +299,7 @@ export function TerminalHeroCard({ onTerminalReady }: TerminalHeroCardProps) {
                 "tech-stack",
                 "whoami",
                 "git log",
-                "uptime",
+                "projects",
                 "neofetch",
               ];
               const currentIndex = NEXT_CHIPS.indexOf(chipKey);
@@ -518,7 +527,7 @@ export function TerminalHeroCard({ onTerminalReady }: TerminalHeroCardProps) {
               { id: "whoami", label: "whoami" },
               { id: "tech-stack", label: "tech-stack" },
               { id: "git log", label: "git log" },
-              { id: "uptime", label: "uptime" },
+              { id: "projects", label: "projects" },
               { id: "neofetch", label: "neofetch" },
             ].map((chip) => {
               const isActive = activeRunChip === chip.id;
