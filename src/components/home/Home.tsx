@@ -9,14 +9,13 @@ import {
   Check,
   ArrowDown,
   FileText,
-  Mail,
   ArrowUpRight,
 } from "lucide-react";
-import { Github, Linkedin } from "@/components/common/Icons";
 import { motion } from "motion/react";
 import { TerminalHeroCard } from "./TerminalHeroCard";
-import { TechMarquee } from "@/components/modules/TechMarquee";
 import { AnimatedNumber } from "@/components/vengeance/AnimatedNumber";
+import { SocialFlipButton } from "@/components/vengeance/SocialFlipButton";
+import { LightLines } from "@/components/vengeance/LightLines";
 
 function getProductionYears(): string {
   const start = new Date(2025, 3, 1);
@@ -52,48 +51,76 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="relative w-full pt-28 sm:pt-36 pb-12 overflow-hidden"
+      className="relative w-full pt-28 sm:pt-36 pb-20 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 space-y-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Specific Headline, Honest Value Prop, 2 CTAs, 3 Proof Stats */}
-          <div className="lg:col-span-7 space-y-7 text-center sm:text-left">
-            {/* Status indicator */}
+      {/* Subtle architectural light lines background accent */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <LightLines
+          linesOpacity={0.03}
+          lightsOpacity={0.2}
+          speedMultiplier={0.5}
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10 space-y-12">
+        {/* Main Hero Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+          {/* Left Column (7 cols): Editorial Typography, CTAs, Socials */}
+          <div className="lg:col-span-7 space-y-8 text-left">
+            {/* Status & Role Eyebrow */}
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="flex flex-wrap items-center justify-center sm:justify-start gap-3"
+              className="flex flex-wrap items-center gap-3"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] text-slate-300 font-mono text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
                 <span>Available for opportunities</span>
               </div>
+              <span className="text-white/20 hidden sm:inline">·</span>
+              <span className="text-slate-400 font-mono text-xs hidden sm:inline">
+                Junior Executive, Front End @ SM Technology
+              </span>
             </motion.div>
 
             {/* Headline */}
-            <div className="space-y-3">
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-                Frontend engineer building production dashboards with{" "}
-                <span className="text-sky-400">Next.js</span> and{" "}
-                <span className="text-sky-400">TypeScript</span>.
-              </h1>
-            </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
+              className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]"
+            >
+              Frontend engineer building production dashboards with{" "}
+              <span className="text-sky-400">Next.js</span> and{" "}
+              <span className="text-sky-400">TypeScript</span>.
+            </motion.h1>
 
             {/* Value Proposition */}
-            <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+              className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl"
+            >
               At <strong className="text-white font-semibold">SM Technology</strong>,
               I own client-facing dashboard modules from build to release.
               Outside work I build{" "}
               <strong className="text-white font-semibold">SpiderNode</strong>, an
               open-source uptime monitor.
-            </p>
+            </motion.p>
 
-            {/* 2 Main CTAs + Secondary actions */}
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 pt-1">
+            {/* 2 Main CTAs + Action Group */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+              className="flex flex-wrap items-center gap-3.5 pt-1"
+            >
+              {/* CTA 1: Explore projects */}
               <Button
                 asChild
-                className="rounded-full bg-sky-500 hover:bg-sky-400 text-white font-semibold transition-colors h-10 px-5 gap-2 text-sm cursor-pointer"
+                className="rounded-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold transition-all h-11 px-6 gap-2 text-sm cursor-pointer shadow-sm hover:shadow-sky-500/20"
               >
                 <Link href="#projects" onClick={scrollToProjects}>
                   <span>Explore projects</span>
@@ -101,9 +128,10 @@ export default function Home() {
                 </Link>
               </Button>
 
+              {/* CTA 2: Contact me */}
               <Button
                 variant="outline"
-                className="rounded-full border-white/[0.12] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.25] transition-colors h-10 px-5 gap-2 text-sm cursor-pointer"
+                className="rounded-full border-white/[0.14] bg-white/[0.03] text-white hover:bg-white/[0.08] hover:border-white/[0.28] transition-colors h-11 px-5 gap-2 text-sm cursor-pointer"
                 asChild
               >
                 <Link href="/#contact">
@@ -112,22 +140,24 @@ export default function Home() {
                 </Link>
               </Button>
 
+              {/* Resume Trigger */}
               <Button
                 variant="ghost"
                 onClick={() => setIsPdfModalOpen(true)}
-                className="rounded-full text-slate-400 hover:text-white transition-colors h-10 px-4 gap-2 text-xs font-mono cursor-pointer"
+                className="rounded-full text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors h-11 px-4 gap-2 text-xs font-mono cursor-pointer"
               >
                 <FileText className="w-3.5 h-3.5 text-slate-400" />
                 <span>Resume</span>
               </Button>
 
+              {/* Copy Email Button */}
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className={`inline-flex items-center gap-2 h-10 px-3.5 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
+                className={`inline-flex items-center gap-2 h-11 px-4 rounded-full border text-xs font-mono transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 ${
                   copied
                     ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-300"
-                    : "border-white/[0.08] bg-white/[0.02] text-slate-400 hover:text-white hover:border-white/[0.16]"
+                    : "border-white/[0.1] bg-white/[0.02] text-slate-400 hover:text-white hover:border-white/[0.2]"
                 }`}
                 aria-label="Copy email address"
               >
@@ -143,92 +173,74 @@ export default function Home() {
                   </>
                 )}
               </button>
-            </div>
+            </motion.div>
 
-            {/* Social links */}
-            <div className="flex items-center justify-center sm:justify-start gap-4 pt-1 text-slate-400 text-xs font-mono">
-              <a
-                href="https://github.com/rakibutsho"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded"
-              >
-                <Github className="w-3.5 h-3.5" />
-                <span>github</span>
-              </a>
-              <span className="text-white/20">·</span>
-              <a
-                href="https://www.linkedin.com/in/rakibutsho"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-                <span>linkedin</span>
-              </a>
-              <span className="text-white/20">·</span>
-              <a
-                href="mailto:mail@rakibutsho.dev"
-                className="flex items-center gap-1.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-sky-400 rounded"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>email</span>
-              </a>
-            </div>
-
-            {/* 3 Honest Proof Stats */}
-            <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {/* Stat 1: 5 products shipped */}
-              <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] transition-colors">
-                <div className="text-2xl font-bold tracking-tight text-white font-mono flex items-baseline gap-1">
-                  <AnimatedNumber value={5} />
-                </div>
-                <div className="text-xs font-semibold text-slate-200 mt-1">
-                  Products shipped
-                </div>
-                <div className="text-[11px] text-slate-400 mt-0.5">
-                  Production dashboards &amp; web apps
-                </div>
-              </div>
-
-              {/* Stat 2: Years in production computed from Apr 2025 */}
-              <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] transition-colors">
-                <div className="text-2xl font-bold tracking-tight text-white font-mono">
-                  {prodYears}
-                </div>
-                <div className="text-xs font-semibold text-slate-200 mt-1">
-                  Years in production
-                </div>
-                <div className="text-[11px] text-slate-400 mt-0.5">
-                  Computed from Apr 2025
-                </div>
-              </div>
-
-              {/* Stat 3: 1 open-source project */}
-              <div className="p-3.5 rounded-xl border border-white/[0.08] bg-white/[0.02] text-left hover:border-white/[0.16] transition-colors">
-                <div className="text-2xl font-bold tracking-tight text-white font-mono flex items-baseline gap-1">
-                  <AnimatedNumber value={1} />
-                </div>
-                <div className="text-xs font-semibold text-slate-200 mt-1">
-                  Open-source (SpiderNode)
-                </div>
-                <div className="text-[11px] text-slate-400 mt-0.5">
-                  Uptime monitoring tool
-                </div>
-              </div>
-            </div>
+            {/* Social Presence: Vengeance UI SocialFlipButton */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="flex items-center gap-4 pt-2"
+            >
+              <span className="text-xs font-mono text-slate-500">Connect:</span>
+              <SocialFlipButton />
+            </motion.div>
           </div>
 
-          {/* Right Column: ONE Interactive Terminal Window */}
+          {/* Right Column (5 cols): ONE Interactive Terminal Window */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <TerminalHeroCard />
           </div>
         </div>
-      </div>
 
-      {/* Tech Stack Marquee */}
-      <div className="mt-16">
-        <TechMarquee />
+        {/* 3 Honest Proof Stats: Modern Cohesive Metric Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.25, ease: "easeOut" }}
+          className="pt-8 border-t border-white/[0.08]"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
+            {/* Stat 1 */}
+            <div className="space-y-1.5 border-l-2 border-sky-400/40 pl-4 py-1">
+              <div className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-mono flex items-baseline gap-1">
+                <AnimatedNumber value={5} />
+              </div>
+              <div className="text-sm font-semibold text-slate-200">
+                Products shipped
+              </div>
+              <p className="text-xs text-slate-400 leading-normal">
+                Production dashboards &amp; web applications
+              </p>
+            </div>
+
+            {/* Stat 2 */}
+            <div className="space-y-1.5 border-l-2 border-sky-400/40 pl-4 py-1">
+              <div className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-mono">
+                {prodYears}
+              </div>
+              <div className="text-sm font-semibold text-slate-200">
+                Years in production
+              </div>
+              <p className="text-xs text-slate-400 leading-normal">
+                Frontend engineering computed from Apr 2025
+              </p>
+            </div>
+
+            {/* Stat 3 */}
+            <div className="space-y-1.5 border-l-2 border-sky-400/40 pl-4 py-1">
+              <div className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white font-mono flex items-baseline gap-1">
+                <AnimatedNumber value={1} />
+              </div>
+              <div className="text-sm font-semibold text-slate-200">
+                Open-source (SpiderNode)
+              </div>
+              <p className="text-xs text-slate-400 leading-normal">
+                Dual-cron uptime monitor with instant alerts
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
 
       {/* CV Preview Modal */}
