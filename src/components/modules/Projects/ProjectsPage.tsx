@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useSyncExternalStore } from "react";
 import { projects } from "@/data/project";
 import { FeaturedProjectsGrid } from "./FeaturedProjectsGrid";
 import { ProjectsFilesystem } from "./ProjectsFilesystem";
@@ -9,14 +9,16 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setProjectViewMode } from "@/redux/features/ui/uiSlice";
 import { motion, AnimatePresence } from "motion/react";
 
+const emptySubscribe = () => () => {};
+
 export default function ProjectsSection() {
   const dispatch = useAppDispatch();
   const projectViewMode = useAppSelector((state) => state.ui.projectViewMode);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
   const isFilesystem = mounted && projectViewMode === "filesystem";
 

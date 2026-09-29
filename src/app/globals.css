@@ -1,7 +1,9 @@
 /* ============================================================
-   MINIMALIST DEVELOPER DESIGN SYSTEM
+   DESIGN SYSTEM — rakibutsho.dev
    Canvas: Obsidian (#08090D) · Card: Slate Basalt (#0F1117)
-   Accents: Sky (#38BDF8) & Emerald (#34D399) · Text: Crisp White / Slate
+   Accent: Sky (#38BDF8, single accent) · Status: Emerald (#34D399)
+   Fonts: Plus Jakarta Sans (sans) · Fira Code (mono)
+   Visual Rules: No gradient text · No glow shadows · No glassmorphism
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&display=swap");
@@ -29,10 +31,10 @@
   --color-primary: #f8fafc;
   --color-primary-fg: #08090d;
 
-  /* ── Developer Accents ────────────────────────────────── */
-  --color-accent: #38bdf8; /* Sky cyan — links, focus, tags */
+  /* ── Accent (ONE only) ────────────────────────────────── */
+  --color-accent: #38bdf8; /* Sky cyan — links, focus, interactive elements */
   --color-accent-fg: #08090d;
-  --color-success: #34d399; /* Emerald — available status */
+  --color-success: #34d399; /* Emerald — availability status dot ONLY */
   --color-warning: #fbbf24;
   --color-destructive: #f87171;
 
@@ -103,93 +105,44 @@ html {
   }
 }
 
-/* ── Interactive Utilities ──────────────────────────────── */
+/* ── Surface Utilities ──────────────────────────────────── */
 .bg-textured {
   background-color: var(--color-bg);
   min-height: 100vh;
 }
 
+/* Neutral text utilities replacing gradient text */
 .text-gradient {
-  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #f8fafc;
 }
 
 .text-gradient-accent {
-  background: linear-gradient(135deg, #38bdf8 0%, #34d399 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.glow-card {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.02) 0%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    #0f1117;
-}
-.glow-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 12px 32px -8px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-
-/* ── Motion & Ambient Lighting Utilities ────────────────── */
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(24px, -18px) scale(1.06);
-  }
-}
-
-@keyframes float-slow-reverse {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-20px, 16px) scale(0.94);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.animate-float-slow {
-  animation: float-slow 16s ease-in-out infinite;
-}
-
-.animate-float-reverse {
-  animation: float-slow-reverse 20s ease-in-out infinite;
+  color: var(--color-accent);
 }
 
 .text-shimmer {
-  background: linear-gradient(
-    90deg,
-    #f8fafc 0%,
-    #38bdf8 50%,
-    #34d399 75%,
-    #f8fafc 100%
-  );
-  background-size: 200% auto;
-  color: transparent;
-  -webkit-background-clip: text;
-  animation: shimmer 8s linear infinite;
+  color: #f8fafc;
 }
 
+/* Card hover: subtle surface & border transition, NO glow shadows */
+.glow-card {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  background-color: #0f1117;
+}
+
+.glow-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.card-hover {
+  transition: border-color 0.2s ease;
+}
+
+.card-hover:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Marquee ────────────────────────────────────────────── */
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -203,36 +156,7 @@ html {
   animation: marquee 32s linear infinite;
 }
 
-/* Spotlight container */
-.spotlight-card {
-  position: relative;
-  overflow: hidden;
-}
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  top: var(--mouse-y, -1000px);
-  left: var(--mouse-x, -1000px);
-  width: 360px;
-  height: 360px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(56, 189, 248, 0.12) 0%,
-    rgba(52, 211, 153, 0.04) 40%,
-    transparent 70%
-  );
-  border-radius: 9999px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-.spotlight-card:hover::before {
-  opacity: 1;
-}
-
-/* Document-Timeline Synchronized Terminal Block Cursor */
+/* ── Terminal Block Cursor ───────────────────────────────── */
 @keyframes terminalCursorBlink {
   0%,
   49% {
@@ -246,4 +170,15 @@ html {
 
 .terminal-cursor-sync {
   animation: terminalCursorBlink 1s step-start infinite;
+}
+
+/* ── Reduced Motion Override ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

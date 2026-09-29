@@ -59,8 +59,12 @@ export default function Contact() {
           resData.error || "Failed to transmit message. Please retry.",
         );
       }
-    } catch (error: any) {
-      toast.error(error.message || "Failed to transmit message. Please retry.");
+    } catch (error: unknown) {
+      const msg =
+        error instanceof Error
+          ? error.message
+          : "Failed to transmit message. Please retry.";
+      toast.error(msg);
     }
   };
 

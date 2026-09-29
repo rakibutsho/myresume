@@ -29,10 +29,12 @@ export default function ProjectCard({ project, index }: Props) {
   const isArray = Array.isArray(project.image);
   let coverImage = "";
   if (isArray) {
-    (project.image as any[]).forEach((img) => {
-      if ("cover" in img && img.cover) coverImage = img.cover;
-      else if (!coverImage && "responsive" in img && img.responsive)
-        coverImage = img.responsive;
+    (project.image as Record<string, string>[]).forEach((img) => {
+      if (typeof img === "object" && img !== null) {
+        if (img.cover) coverImage = img.cover;
+        else if (!coverImage && img.responsive)
+          coverImage = img.responsive;
+      }
     });
   } else if (typeof project.image === "string") {
     coverImage = project.image;

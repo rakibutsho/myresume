@@ -8,7 +8,7 @@ export const jobs = [
     companyName: "SM Technology",
     shortName: "SMT",
     logo: sm,
-    position: "Frontend Engineer",
+    position: "Junior Executive, Front End",
     timeline: "Apr 2025 - Present",
     type: "Full-Time Onsite",
     stack: [
