@@ -1,23 +1,20 @@
 import Home from "@/components/home/Home";
-import AboutMe from "@/components/modules/AboutMe/AboutMe";
-import Skills from "@/components/modules/Skills/Skills";
-import Education from "@/components/modules/Education/Education";
-import JobHistory from "@/components/modules/JobHistroy/Job";
+import BentoProfile from "@/components/home/BentoProfile";
+import ExperienceTimeline from "@/components/home/ExperienceTimeline";
 import ProjectsPage from "@/components/modules/Projects/ProjectsPage";
-import Testimonials from "@/components/modules/Testimonials/Testimonials";
+import TestimonialsMarquee from "@/components/home/TestimonialsMarquee";
 import Contact from "@/components/modules/Contact/Contact";
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Home />
-      <AboutMe />
-      <Skills />
-      <Education />
-      <JobHistory />
+      <BentoProfile />
+      <ExperienceTimeline />
       <ProjectsPage />
-      <Testimonials />
+      <TestimonialsMarquee />
       <Contact />
     </div>
   );
 }
+

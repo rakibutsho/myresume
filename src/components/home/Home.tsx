@@ -1,13 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { PdfModal } from "../common/PdfModal/PdfModal";
 import { Copy, Check, ArrowDown, FileText } from "lucide-react";
 import { TerminalHeroCard } from "./TerminalHeroCard";
-import { LightLines } from "@/components/vengeance/LightLines";
 import { AnimatedNumber } from "@/components/vengeance/AnimatedNumber";
 import { SocialFlipButton } from "@/components/vengeance/SocialFlipButton";
+
+const ParticleBackground = dynamic(
+  () =>
+    import("./ParticleBackground").then((m) => ({ default: m.ParticleBackground })),
+  { ssr: false }
+);
+
 
 const PROOF_STATS = [
   {
@@ -51,19 +58,12 @@ export default function Home() {
 
   return (
     <section
-      id="home"
+      id="hero"
       className="relative w-full pt-28 sm:pt-36 pb-16 overflow-hidden bg-[#08090D]"
     >
-      {/* Vengeance UI LightLines Background */}
-      <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
-        <LightLines
-          linesOpacity={0.03}
-          lightsOpacity={0.3}
-          speedMultiplier={0.7}
-          gradientFrom="#38bdf8"
-          gradientTo="#0284c7"
-          lineColor="#ffffff"
-        />
+      {/* Three.js particle background — GPU efficient, ssr:false */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <ParticleBackground />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
