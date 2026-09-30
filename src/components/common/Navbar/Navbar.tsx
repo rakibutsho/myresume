@@ -2,37 +2,26 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FileText, Menu, X, ArrowUpRight } from "lucide-react";
+import { Search, Sun, Moon, Menu, X } from "lucide-react";
 import {
   SpotlightNavbar,
   type NavItem,
 } from "@/components/vengeance/SpotlightNavbar";
-import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Work", href: "/#projects" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Skills", href: "/#skills" },
   { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Education", href: "/#education" },
 ];
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sectionIds = [
-        "projects",
-        "experience",
-        "skills",
-        "about",
-        "contact",
-      ];
+      const sectionIds = ["about", "projects", "experience", "education"];
       const threshold = Math.min(window.innerHeight * 0.4, 300);
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
@@ -80,130 +69,89 @@ export const Navbar = () => {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#08090D]/90 backdrop-blur-md border-b border-white/[0.08]"
-          : "bg-transparent border-b border-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-        {/* Logo / Prompt */}
-        <Link
-          href="/#home"
-          className="flex items-center gap-2 text-white group shrink-0"
-          aria-label="Md. Rakibul Islam — Home"
-        >
-          <div className="w-7 h-7 rounded-md bg-white/[0.04] border border-white/[0.1] flex items-center justify-center font-mono text-[11px] text-sky-400 group-hover:border-sky-400/40 group-hover:bg-sky-400/10 transition-all duration-200">
-            &gt;_
-          </div>
-          <span className="hidden sm:block font-mono text-sm font-semibold text-slate-100 tracking-tight group-hover:text-white transition-colors">
-            rakib
-          </span>
-        </Link>
-
-        {/* Center: SpotlightNavbar */}
-        <nav
-          className="hidden md:flex flex-1 justify-center"
-          aria-label="Primary"
-        >
-          <SpotlightNavbar
-            items={NAV_ITEMS}
-            activeIndex={activeIndex}
-            onItemClick={handleSpotlightClick}
-          />
-        </nav>
-
-        {/* Right CTA */}
-        <div className="flex items-center gap-2 shrink-0">
-          <div className="hidden lg:flex items-center gap-1.5 text-xs text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span>Available</span>
-          </div>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="hidden sm:flex rounded-full text-xs text-slate-400 hover:text-white h-8 px-3 gap-1.5 cursor-pointer"
-            asChild
-          >
-            <a
-              href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FileText className="w-3.5 h-3.5" />
-              Resume
-            </a>
-          </Button>
-
-          <Button
-            size="sm"
-            className="rounded-full text-xs font-medium bg-sky-500 hover:bg-sky-400 text-white h-8 px-4 gap-1.5 cursor-pointer transition-colors"
-            asChild
-          >
-            <Link href="/#contact">
-              Hire me
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
-          </Button>
-
-          {/* Mobile hamburger */}
-          <button
-            type="button"
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? (
-              <X className="w-5 h-5 text-white" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile drawer */}
+    <div className="fixed top-8 sm:top-10 left-1/2 -translate-x-1/2 z-50">
+      
+      {/* Mobile drawer (pops up below the dock) */}
       {menuOpen && (
-        <div
-          className="md:hidden border-b border-white/[0.08] bg-[#08090D]/98 backdrop-blur-xl px-4 py-5 space-y-2"
-          role="navigation"
-          aria-label="Mobile navigation"
-        >
+        <div className="md:hidden absolute top-[calc(100%+16px)] left-1/2 -translate-x-1/2 w-[90vw] max-w-sm rounded-2xl border border-white/[0.08] bg-[#0E1116]/95 backdrop-blur-xl px-4 py-4 shadow-2xl flex flex-col gap-1">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-white/[0.05] transition-colors"
+              className="flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/[0.05] transition-colors"
             >
               <span>{item.label}</span>
-              <span className="text-slate-600 text-xs">↗</span>
             </Link>
           ))}
-          <div className="pt-3 border-t border-white/[0.08] flex flex-col gap-2">
-            <a
-              href="https://drive.google.com/file/d/1OSnuS-Yo-3X8LQ5Iqs99af9vMAfj6uRX/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400 hover:text-white transition-colors"
-            >
-              <FileText className="w-4 h-4" />
-              Resume ↗
-            </a>
-            <Button
-              className="w-full rounded-full bg-sky-500 hover:bg-sky-400 text-white text-sm font-medium transition-colors"
-              asChild
-            >
-              <Link href="/#contact" onClick={() => setMenuOpen(false)}>
-                Hire me
-              </Link>
-            </Button>
-          </div>
         </div>
       )}
-    </header>
+
+      {/* The Dock */}
+      <nav
+        className="flex items-center gap-1 sm:gap-2 px-3 py-2 rounded-[2rem] border border-white/[0.06] bg-[#11131A]/90 backdrop-blur-md shadow-2xl"
+        aria-label="Primary Dock"
+      >
+        {/* Logo */}
+        <Link
+          href="/#hero"
+          onClick={(e) => handleNavClick(e, "/#hero")}
+          className="flex items-center px-3 gap-1 font-mono text-base font-semibold hover:opacity-80 transition-opacity shrink-0"
+          aria-label="Home"
+        >
+          <span className="text-emerald-400">&lt;</span>
+          <span className="text-white">Rakib</span>
+          <span className="text-emerald-400">/&gt;</span>
+        </Link>
+
+        {/* Separator */}
+        <div className="h-6 w-px bg-white/[0.08] mx-2 hidden sm:block"></div>
+
+        {/* Desktop Links (Spotlight) */}
+        <div className="hidden md:block">
+          <SpotlightNavbar
+            items={NAV_ITEMS}
+            activeIndex={activeIndex}
+            onItemClick={handleSpotlightClick}
+            className="border-none bg-transparent px-0 py-0"
+          />
+        </div>
+
+        {/* Separator */}
+        <div className="h-6 w-px bg-white/[0.08] mx-2 hidden md:block"></div>
+
+        {/* Search Bar Button */}
+        <button
+          className="hidden md:flex items-center gap-3 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.04] hover:bg-white/[0.08] transition-colors text-slate-400 hover:text-slate-200"
+          title="Search"
+        >
+          <div className="flex items-center gap-2">
+            <Search className="w-4 h-4" />
+            <span className="text-sm">Search</span>
+          </div>
+          <div className="flex items-center justify-center px-1.5 py-0.5 rounded-md bg-white/[0.08] text-[10px] font-mono tracking-widest text-slate-400">
+            ⌘K
+          </div>
+        </button>
+
+        {/* Theme Toggle */}
+        <button
+          className="hidden md:flex items-center justify-center w-9 h-9 rounded-full text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
+          title="Toggle Theme"
+        >
+          <Sun className="w-4 h-4" />
+        </button>
+
+        {/* Mobile Toggle Button */}
+        <button
+          type="button"
+          className="md:hidden flex items-center justify-center w-10 h-10 rounded-full text-slate-300 hover:text-white hover:bg-white/[0.1] transition-colors shrink-0 ml-2"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </nav>
+    </div>
   );
 };
