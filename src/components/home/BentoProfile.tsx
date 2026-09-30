@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, type Variants } from "motion/react";
 import profileImg from "@/assets/Profile.png";
 import { skillCategories } from "@/data/skills";
 import { education } from "@/data/education";
@@ -28,11 +28,11 @@ export default function BentoProfile() {
   const activeSkills =
     skillCategories.find((c) => c.id === activeCategory)?.skills ?? [];
 
-  const container = {
+  const container: Variants = {
     hidden: {},
     show: { transition: { staggerChildren: 0.07 } },
   };
-  const item = {
+  const item: Variants = {
     hidden: { opacity: 0, y: 18 },
     show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };

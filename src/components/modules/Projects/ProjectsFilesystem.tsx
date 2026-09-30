@@ -14,6 +14,7 @@ import {
   Layers,
   Rocket,
   Wrench,
+  LucideIcon,
 } from "lucide-react";
 import { Github } from "@/components/common/Icons";
 import { motion, AnimatePresence } from "motion/react";
@@ -24,7 +25,7 @@ interface ProjectsFilesystemProps {
 
 const MILESTONE_ICONS: Record<
   ProjectMilestone["type"],
-  { icon: React.ElementType; color: string; bg: string; border: string }
+  { icon: LucideIcon; color: string; bg: string; border: string }
 > = {
   architecture: {
     icon: Layers,
