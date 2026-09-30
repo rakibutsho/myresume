@@ -11,6 +11,7 @@ export const jobs = [
     position: "Junior Executive, Front End",
     timeline: "Apr 2025 - Present",
     type: "Full-Time Onsite",
+    location: "Dhaka, Bangladesh",
     stack: [
       "Next.js",
       "React",
@@ -39,6 +40,7 @@ export const jobs = [
     position: "Junior Developer",
     timeline: "Feb 2024 - May 2024",
     type: "Remote",
+    location: "Remote",
     stack: [
       "React",
       "JavaScript",
@@ -63,6 +65,7 @@ export const jobs = [
     position: "Software Quality Testing",
     timeline: "Mar 2024 - Apr 2024",
     type: "Internship",
+    location: "Dhaka, Bangladesh",
     stack: [
       "Manual QA Execution",
       "Test Case Authoring",

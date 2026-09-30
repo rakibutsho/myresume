@@ -7,6 +7,7 @@ import { ArrowUpRight, Download, Mail, MapPin, Clock } from "lucide-react";
 import { HeroImage } from "./HeroImage";
 import Link from "next/link";
 import { motion } from "motion/react";
+import { BlurText } from "@/components/common/BlurText";
 
 export default function Home() {
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
@@ -16,7 +17,11 @@ export default function Home() {
       id="hero"
       className="relative w-full min-h-screen flex items-center pt-24 sm:pt-32 pb-16 overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full">
+      {/* Premium Background Glows */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 w-full relative z-10">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
@@ -29,50 +34,51 @@ export default function Home() {
           >
             
             {/* Status Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] w-fit mx-auto sm:mx-0 shadow-lg shadow-sky-900/10">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.02] border border-white/[0.05] w-fit mx-auto sm:mx-0 shadow-[0_0_20px_rgba(255,255,255,0.02)] backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
               </span>
-              <span className="font-mono text-xs text-slate-300">
+              <span className="font-mono text-xs text-slate-300 font-medium tracking-wide">
                 Building scalable dashboard architectures
               </span>
             </div>
 
             {/* Name & Headline */}
-            <div className="space-y-4">
-              <p className="text-slate-400 font-mono text-sm flex items-center justify-center sm:justify-start gap-2">
+            <div className="space-y-5">
+              <p className="text-slate-400 font-mono text-sm flex items-center justify-center sm:justify-start gap-2 tracking-tight">
                 <span className="text-xl">👋</span> Hello, I'm
               </p>
-              <h1 className="text-5xl sm:text-7xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-sky-100 to-sky-400 pb-2">
+              <h1 className="text-5xl sm:text-7xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/40 pb-2">
                 Rakibul Islam
               </h1>
               <p className="text-xl sm:text-2xl text-slate-200 font-medium flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                Frontend Engineer <span className="text-sky-400 font-mono text-sm">@</span> <span className="text-sky-400">SM Technology</span>
+                Frontend Engineer <span className="text-sky-400/50 font-mono text-sm mx-1">@</span> <span className="text-sky-400 font-bold bg-sky-500/10 px-3 py-1 rounded-lg border border-sky-500/20 shadow-sm">SM Technology</span>
               </p>
             </div>
 
             {/* Concise Subtitle (since detailed bio is in About) */}
-            <p className="text-base sm:text-lg text-slate-400 max-w-xl leading-relaxed mx-auto sm:mx-0">
+            <p className="text-base sm:text-lg text-slate-400 max-w-xl leading-relaxed mx-auto sm:mx-0 font-medium">
               I specialize in crafting high-performance, interactive UI components and robust state management for enterprise-level web applications.
             </p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-4">
               <Button
                 asChild
-                className="rounded-full bg-white text-[#0A0D14] hover:bg-sky-50 font-bold h-12 px-6 gap-2 text-sm transition-all hover:scale-105"
+                className="rounded-2xl bg-white text-black hover:bg-sky-50 hover:text-sky-600 font-bold h-14 px-8 gap-3 text-sm transition-all duration-300 shadow-[0_8px_30px_rgba(255,255,255,0.15)] group relative overflow-hidden"
               >
                 <Link href="#projects">
-                  View Work
-                  <ArrowUpRight className="w-4 h-4" />
+                  <span className="relative z-10">View Work</span>
+                  <ArrowUpRight className="w-5 h-5 relative z-10 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:animate-[shimmer_1s_infinite] pointer-events-none" />
                 </Link>
               </Button>
 
               <Button
                 variant="outline"
                 onClick={() => setIsPdfModalOpen(true)}
-                className="rounded-full border-white/[0.12] bg-white/[0.02] text-white hover:bg-white/[0.08] hover:border-white/[0.2] h-12 px-6 gap-2 text-sm transition-all"
+                className="rounded-2xl border-white/[0.1] bg-white/[0.02] text-white hover:bg-white/[0.05] hover:border-white/[0.2] h-14 px-8 gap-3 text-sm transition-all duration-300 backdrop-blur-md"
               >
                 <Download className="w-4 h-4 text-slate-400" />
                 Resume
@@ -81,7 +87,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 asChild
-                className="rounded-full border-transparent bg-white/[0.03] text-slate-300 hover:text-white hover:bg-white/[0.08] h-12 px-5 gap-2 text-sm transition-all"
+                className="rounded-2xl border-transparent bg-transparent text-slate-400 hover:text-white hover:bg-white/[0.05] h-14 px-6 gap-3 text-sm transition-all duration-300"
               >
                 <Link href="#contact">
                   <Mail className="w-4 h-4" />
@@ -91,13 +97,13 @@ export default function Home() {
             </div>
 
             {/* Meta Info */}
-            <div className="flex items-center justify-center sm:justify-start gap-6 pt-6 font-mono text-xs text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5" />
+            <div className="flex items-center justify-center sm:justify-start gap-6 pt-8 font-mono text-[11px] text-slate-500 font-semibold tracking-widest uppercase">
+              <span className="flex items-center gap-1.5 bg-white/[0.02] px-3 py-1.5 rounded-md border border-white/[0.05]">
+                <MapPin className="w-3.5 h-3.5 text-sky-400" />
                 Dhaka, Bangladesh
               </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" />
+              <span className="flex items-center gap-1.5 bg-white/[0.02] px-3 py-1.5 rounded-md border border-white/[0.05]">
+                <Clock className="w-3.5 h-3.5 text-emerald-400" />
                 GMT+6
               </span>
             </div>
